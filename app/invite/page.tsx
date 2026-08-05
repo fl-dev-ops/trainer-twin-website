@@ -175,7 +175,7 @@ export default function ComingSoon() {
               />
               <input
                 type="text"
-                name="linkedin"
+                name="link"
                 required
                 placeholder="LinkedIn or Website"
                 className="col-span-1 w-full border-0 bg-muted/20 rounded-xl py-3 px-4 text-[15px] outline-none focus:ring-2 focus:ring-brand/30 transition-all"
