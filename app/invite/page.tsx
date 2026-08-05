@@ -160,9 +160,18 @@ export default function ComingSoon() {
 
           {!submitted ? (
             <form
-              action="https://api.web3forms.com/submit"
-              method="POST"
-              onSubmit={() => setSubmitted(true)}
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const formData = new FormData(form);
+                formData.append("access_key", "cb8bf68e-3efb-45eb-bd22-97a17b6f7b6c");
+                const res = await fetch("https://api.web3forms.com/submit", {
+                  method: "POST",
+                  body: formData,
+                });
+                const data = await res.json();
+                if (data.success) setSubmitted(true);
+              }}
               className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 not-prose"
             >
               <input type="hidden" name="access_key" value="cb8bf68e-3efb-45eb-bd22-97a17b6f7b6c" />
