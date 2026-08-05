@@ -174,7 +174,6 @@ export default function ComingSoon() {
               }}
               className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 not-prose"
             >
-              <input type="hidden" name="access_key" value="cb8bf68e-3efb-45eb-bd22-97a17b6f7b6c" />
               <input
                 type="text"
                 name="contact"
