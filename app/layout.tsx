@@ -123,7 +123,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${figtree.variable} ${notoSerif.variable} h-full antialiased`}
+      className={`${figtree.variable} ${notoSerif.variable} h-full antialiased scroll-smooth`}
     >
       <head>
         <script
@@ -139,7 +139,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col overflow-x-hidden">{children}</body>
     </html>
   );
 }
