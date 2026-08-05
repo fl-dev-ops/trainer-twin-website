@@ -60,7 +60,12 @@ export default function ComingSoon() {
     <div className="min-h-screen">
       <article className="px-6 md:px-10 pt-32 pb-10 md:pt-32">
         <div className="prose mx-auto">
-          <p className="font-figtree font-bold text-[14px] not-prose! text-brand! mb-5!">TrainerTwin</p>
+          <div className="flex items-center gap-2.5 not-prose! mb-5!">
+            <svg width="24" height="18" viewBox="0 0 61 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z" fill="#EC3013"/>
+            </svg>
+            <span className="font-figtree font-bold text-[14px] text-brand!">TrainerTwin</span>
+          </div>
           <h1>Inviting Technical Trainers</h1>
 
           <p className="lead">
@@ -190,9 +195,14 @@ export default function ComingSoon() {
       {/* Footer */}
       <footer className="px-6 md:px-10 py-10">
         <div className="max-w-170 mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-          <span className="font-figtree font-bold text-[16px]">
-            TrainerTwin
-          </span>
+          <div className="flex items-center gap-2.5">
+            <svg width="20" height="15" viewBox="0 0 61 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z" fill="#EC3013"/>
+            </svg>
+            <span className="font-figtree font-bold text-[16px]">
+              TrainerTwin
+            </span>
+          </div>
 
           <div className="flex items-center gap-6 text-[13px] text-muted">
             <a
