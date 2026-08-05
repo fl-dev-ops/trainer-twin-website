@@ -103,7 +103,7 @@ export default function ComingSoon() {
             systems, and spent years understanding how people learn.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 not-prose my-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 not-prose my-10 gap-y-8 md:gap-5">
             {team.map((member, i) => (
               <a
                 key={i}
@@ -112,14 +112,14 @@ export default function ComingSoon() {
                 rel="noopener noreferrer"
                 className="group block no-underline text-dark"
               >
-                <div className="aspect-square rounded-2xl bg-muted/20 overflow-hidden mb-3">
+                <div className="aspect-square rounded-2xl bg-muted/20 overflow-hidden mb-1">
                   <img
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
-                <p className="text-[13px] font-semibold no-underline">
+                <p className="text-[13px] font-semibold no-underline mb-1!">
                   {member.name}
                 </p>
                 <p className="text-[11px] text-muted no-underline">
@@ -160,17 +160,22 @@ export default function ComingSoon() {
 
           {!submitted ? (
             <form
-              onSubmit={handleSubmit}
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              onSubmit={() => setSubmitted(true)}
               className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 not-prose"
             >
+              <input type="hidden" name="access_key" value="cb8bf68e-3efb-45eb-bd22-97a17b6f7b6c" />
               <input
                 type="text"
+                name="contact"
                 required
                 placeholder="Phone or Email"
                 className="col-span-1 w-full border-0 bg-muted/20 rounded-xl py-3 px-4 text-[15px] outline-none focus:ring-2 focus:ring-brand/30 transition-all"
               />
               <input
                 type="text"
+                name="linkedin"
                 required
                 placeholder="LinkedIn or Website"
                 className="col-span-1 w-full border-0 bg-muted/20 rounded-xl py-3 px-4 text-[15px] outline-none focus:ring-2 focus:ring-brand/30 transition-all"
@@ -183,7 +188,7 @@ export default function ComingSoon() {
               </button>
             </form>
           ) : (
-            <div className="not-prose mt-8 p-5 bg-brand/10 rounded-2xl max-w-120">
+            <div className="not-prose mt-8 p-5 bg-brand/10 rounded-2xl w-full">
               <p className="text-[15px] text-dark">
                 Got it. We&apos;ll be in touch.
               </p>
@@ -205,22 +210,6 @@ export default function ComingSoon() {
           </div>
 
           <div className="flex items-center gap-6 text-[13px] text-muted">
-            <a
-              href="https://www.foreverlearning.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-brand transition-colors"
-            >
-              Forever Learning
-            </a>
-            <a
-              href="https://www.linkedin.com/company/forever-learning-in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-brand transition-colors"
-            >
-              LinkedIn
-            </a>
             <a
               href="https://wa.me/919840717917"
               target="_blank"
