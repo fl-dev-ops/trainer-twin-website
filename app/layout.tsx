@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   authors: [{ name: "TrainerTwin" }],
   creator: "TrainerTwin",
   publisher: "TrainerTwin",
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -45,7 +48,7 @@ export const metadata: Metadata = {
       "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner — in your style, at your standard, without you in the room.",
     images: [
       {
-        url: "/og-image.png",
+        url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "TrainerTwin — AI Interview Coaching at Scale",
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
     title: "TrainerTwin — AI Interview Coaching at Scale",
     description:
       "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner.",
-    images: ["/og-image.png"],
+    images: [`${siteUrl}/og-image.png`],
   },
   robots: {
     index: true,
@@ -73,6 +76,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  other: {
+    "theme-color": "#ec3013",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -83,11 +91,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     url: siteUrl,
     description:
       "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner.",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 
   const orgJsonLd = {
@@ -98,7 +101,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     logo: `${siteUrl}/logo.png`,
     description:
       "AI roleplay for tech trainers. Built with the trainers who run the interviews.",
-    sameAs: [],
+    sameAs: [
+      "https://x.com/trainertwin",
+      "https://linkedin.com/company/trainertwin",
+      "https://youtube.com/@trainertwin",
+    ],
   };
 
   const productJsonLd = {
@@ -120,6 +127,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     },
   };
 
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "TrainerTwin — AI Interview Coaching at Scale",
+    url: siteUrl,
+    description:
+      "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner — in your style, at your standard, without you in the room.",
+    publisher: {
+      "@type": "Organization",
+      name: "TrainerTwin",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/logo.png`,
+      },
+    },
+  };
+
   return (
     <html
       lang="en"
@@ -137,6 +161,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
         />
       </head>
       <body className="min-h-full flex flex-col overflow-x-hidden">{children}</body>

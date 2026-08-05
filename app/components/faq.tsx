@@ -40,8 +40,25 @@ const faqs = [
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const faqPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <section id="faq" className="border-b-2 border-dark">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageJsonLd) }}
+      />
       <div className="max-w-[1240px] mx-auto px-5 md:px-10 py-16 md:py-[88px] pb-16 md:pb-24 grid grid-cols-1 lg:grid-cols-[0.72fr_1.28fr] gap-10 lg:gap-[72px] items-start">
         <div>
           <p className="font-mono text-[11.5px] tracking-[0.14em] uppercase text-muted mb-5 md:mb-[22px]">
