@@ -8,13 +8,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 bg-white border-b-2 border-dark">
       <div className="max-w-[1240px] mx-auto px-5 md:px-10 h-[72px] flex items-center justify-between gap-8">
-        <a href="/" className="flex items-center gap-[11px]">
-          <div className="w-[26px] h-[26px] bg-brand flex items-center justify-center text-white font-figtree font-extrabold text-[13px] leading-none">
-            T
-          </div>
-          <span className="font-figtree font-bold text-[17px] leading-none tracking-tight">
-            TrainerTwin
-          </span>
+        <a href="/" className="font-figtree font-bold text-[17px] tracking-tight">
+          TrainerTwin
         </a>
 
         {/* Desktop nav */}

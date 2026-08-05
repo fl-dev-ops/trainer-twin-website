@@ -65,3 +65,105 @@ input, select, button {
 ::selection {
   background: rgba(236, 48, 19, 0.18);
 }
+
+/* Prose styles */
+.prose {
+  max-width: 680px;
+}
+
+.prose h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.prose h2 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.prose p {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+  color: var(--color-muted);
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose strong {
+  color: var(--color-dark);
+  font-weight: 600;
+}
+
+.prose a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.prose a.no-underline {
+  text-decoration: none;
+}
+
+.prose ul, .prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  list-style-type: disc;
+}
+
+.prose li {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  margin-bottom: 0.5rem;
+  color: var(--color-muted);
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-brand);
+  padding-left: 1.25rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.prose blockquote p {
+  font-size: 1.25rem;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--color-border-lighter);
+  margin: 3rem 0;
+}
+
+.prose .lead {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--color-dark);
+}
+
+.prose .caption {
+  font-size: 0.875rem;
+  color: var(--color-light);
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 768px) {
+  .prose h1 {
+    font-size: 3.5rem;
+  }
+
+  .prose h2 {
+    font-size: 2rem;
+  }
+}

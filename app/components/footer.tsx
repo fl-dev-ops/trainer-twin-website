@@ -3,14 +3,9 @@ export default function Footer() {
     <footer className="bg-dark text-white">
       <div className="max-w-[1240px] mx-auto px-5 md:px-10 py-10 md:py-14 pb-8 md:pb-10 grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1.2fr] gap-8 md:gap-10">
         <div className="col-span-2 md:col-span-1">
-          <div className="flex items-center gap-[11px] mb-[14px]">
-            <div className="w-6 h-6 bg-brand flex items-center justify-center text-white font-figtree font-extrabold text-[12px] leading-none">
-              T
-            </div>
-            <span className="font-figtree font-bold text-[16px] leading-none">
-              TrainerTwin
-            </span>
-          </div>
+          <p className="font-figtree font-bold text-[16px] mb-[14px]">
+            TrainerTwin
+          </p>
           <p className="text-[14px] leading-[1.6] text-white/65 max-w-[280px]">
             AI roleplay for tech trainers. Built with the trainers who run the
             interviews.

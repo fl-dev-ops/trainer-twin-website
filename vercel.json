@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/invite",
+      "permanent": false
+    }
+  ]
+}
