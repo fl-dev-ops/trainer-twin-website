@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, Noto_Serif } from "next/font/google";
 import Script from "next/script";
+import Analytics from "./components/analytics";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -180,7 +181,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col overflow-x-hidden">{children}</body>
+      <body className="min-h-full flex flex-col overflow-x-hidden">
+        <Analytics />
+        {children}
+      </body>
     </html>
   );
 }
