@@ -14,16 +14,16 @@ const notoSerif = Noto_Serif({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://trainertwin.ai";
+const siteUrl = "https://www.trainertwin.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "TrainerTwin — AI Interview Coaching at Scale",
+    default: "TrainerTwin — AI Interview Coaching",
     template: "%s | TrainerTwin",
   },
   description:
-    "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner — in your style, at your standard, without you in the room.",
+    "Turn your training materials into an AI twin that coaches every learner — in your style, at your standard.",
   keywords: [
     "AI interview coaching",
     "mock interviews",
@@ -45,23 +45,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "TrainerTwin",
-    title: "TrainerTwin — AI Interview Coaching at Scale",
+    title: "TrainerTwin — AI Interview Coaching",
     description:
-      "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner — in your style, at your standard, without you in the room.",
+      "Turn your training materials into an AI twin that coaches every learner — in your style, at your standard.",
     images: [
       {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "TrainerTwin — AI Interview Coaching at Scale",
+        alt: "TrainerTwin — AI Interview Coaching",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TrainerTwin — AI Interview Coaching at Scale",
+    title: "TrainerTwin — AI Interview Coaching",
     description:
-      "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner.",
+      "Turn your training materials into an AI twin that coaches every learner — in your style, at your standard.",
     images: [`${siteUrl}/og-image.png`],
   },
   robots: {
@@ -92,7 +92,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     name: "TrainerTwin",
     url: siteUrl,
     description:
-      "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner.",
+      "Turn your training materials into an AI twin that coaches every learner.",
   };
 
   const orgJsonLd = {
@@ -115,7 +115,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     "@type": "Product",
     name: "TrainerTwin",
     description:
-      "AI twin that runs mock interviews, code reviews and viva with every learner — in your style, at your standard.",
+      "AI twin that runs mock interviews, code reviews and viva — in your style.",
     brand: {
       "@type": "Brand",
       name: "TrainerTwin",
@@ -132,10 +132,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   const webPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "TrainerTwin — AI Interview Coaching at Scale",
+    name: "TrainerTwin — AI Interview Coaching",
     url: siteUrl,
     description:
-      "Turn your videos, notes and question banks into an AI twin that runs mock interviews, code reviews and viva with every learner — in your style, at your standard, without you in the room.",
+      "Turn your training materials into an AI twin that coaches every learner.",
     publisher: {
       "@type": "Organization",
       name: "TrainerTwin",
