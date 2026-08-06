@@ -76,7 +76,13 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: ["/favicon.ico?v=2", "/favicon.svg?v=2"],
+    icon: [
+      {
+        url: "/favicon.ico",
+        sizes: "any",
+        type: "image/x-icon",
+      },
+    ],
   },
   other: {
     "theme-color": "#ec3013",
