@@ -1,8 +1,9 @@
 import sharp from "sharp";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
-const svgBuffer = readFileSync(join(import.meta.dir, "../public/favicon.svg"));
+const publicDir = join(process.cwd(), "public");
+const svgBuffer = readFileSync(join(publicDir, "favicon.svg"));
 
 // Generate favicon.ico with multiple sizes
 const sizes = [16, 32, 48];
@@ -37,8 +38,7 @@ for (let i = 0; i < numImages; i++) {
 }
 
 const ico = Buffer.concat([header, ...entries.map((e) => e.entry), ...entries.map((e) => e.data)]);
-const { writeFileSync } = await import("fs");
-writeFileSync(join(import.meta.dir, "../public/favicon.ico"), ico);
+writeFileSync(join(publicDir, "favicon.ico"), ico);
 console.log("Created favicon.ico");
 
 // Generate OG image (1200x630)
@@ -59,5 +59,5 @@ const ogSvg = `<svg width="${ogWidth}" height="${ogHeight}" viewBox="0 0 ${ogWid
   <text x="${ogWidth / 2}" y="${(ogHeight - 90) / 2 + 90 + 100}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" fill="#666">AI Interview Coaching at Scale</text>
 </svg>`;
 
-await sharp(Buffer.from(ogSvg)).png().toFile(join(import.meta.dir, "../public/og-image.png"));
+await sharp(Buffer.from(ogSvg)).png().toFile(join(publicDir, "og-image.png"));
 console.log("Created og-image.png");
