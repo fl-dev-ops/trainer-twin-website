@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: ["/favicon.ico", "/favicon.svg"],
   },
   other: {
     "theme-color": "#ec3013",
