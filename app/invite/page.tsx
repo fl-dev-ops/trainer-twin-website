@@ -61,34 +61,65 @@ export default function ComingSoon() {
       <article className="px-6 md:px-10 pt-32 pb-10 md:pt-32">
         <div className="prose mx-auto">
           <div className="flex items-center gap-2.5 not-prose! mb-5!">
-            <svg width="24" height="18" viewBox="0 0 61 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z" fill="#EC3013"/>
+            <svg
+              width="24"
+              height="18"
+              viewBox="0 0 61 46"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z"
+                fill="#EC3013"
+              />
             </svg>
-            <span className="font-figtree font-bold text-[14px] text-brand!">TrainerTwin</span>
+            <span className="font-figtree font-bold text-[14px] text-brand!">
+              TrainerTwin
+            </span>
           </div>
-          <h1>Inviting Technical Trainers</h1>
+          <h1>Extend your reach. Preserve how you teach</h1>
 
           <p className="lead">
-            Who are unable to offer sufficient mocks and 1:1s owing to time constraints
-            or maxed out batch sizes
+            Your expertise is more than content. It lives in how you speak,
+            break down ideas, ask questions, challenge assumptions, and apply
+            everything you've learned from people, books, and experience.
           </p>
 
           <p className="lead">
-            We&apos;re building a patent pending TrainerTwin for you.
-            {/*Your
-            questions, your probing style, your way of coaching - available to
-            every learner, at any hour, without you having to be there.*/}
-            {" "} We want to collaborate with you to scale what is irreplaceable - the probe style,
-            the pushback, the decision and more.
+            TrainerTwin's patent-pending approach models your teaching
+            method and domain expertise, then adapts the experience to each
+            learner—while you control how your knowledge is represented and
+            used.
           </p>
 
-          <p>
-            <strong>
-              <em> We&apos;re inviting founding trainers</em>
-            </strong>{" "}
-            to build this with us and get this free for life. Be the frontrunner
-            in this exciting space. Lead the shift.
+          <p className="lead">
+            With your Twin, more learners can practise, receive feedback, and
+            be assessed using your guidance, rubrics, and principles—even when
+            you cannot be there.
           </p>
+
+          {/* Video placeholder — uncomment when ready to use
+          <div
+            className="not-prose mt-8 flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl bg-muted/20"
+            aria-label="TrainerTwin video placeholder"
+          >
+            <div className="flex flex-col items-center gap-3 text-muted">
+              <div className="flex size-14 items-center justify-center rounded-full bg-white shadow-sm">
+                <svg
+                  width="18"
+                  height="20"
+                  viewBox="0 0 18 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d="M18 10L0 20V0L18 10Z" fill="currentColor" />
+                </svg>
+              </div>
+              <span className="text-sm font-medium">TrainerTwin video</span>
+            </div>
+          </div>
+          */}
         </div>
       </article>
 
@@ -137,25 +168,29 @@ export default function ComingSoon() {
           <h2>The Invitation</h2>
 
           <p>
-            We&apos;re in discovery and build phase - stealth mode right now.
-            We&apos;re looking for <strong>credible tech trainers</strong> who
-            understand this pain firsthand to join us as Founding Trainers.
+            Inspired by the 2-sigma challenge - the idea that personalised
+            tutoring can significantly improve learning outcomes - we believe
+            AI can make high-quality guidance accessible to more learners.
           </p>
 
-          <p>What that means:</p>
+          <p>
+            We&apos;re starting with <strong>technical trainers</strong> and
+            inviting early-adopter partners who want to shape this with us.
+          </p>
 
           <ul>
-            <li>Work closely with our team as design partners</li>
-            <li>Co-build and test the solution with your own learners</li>
-            <li>Shape the product before anyone else sees it</li>
+            <li>Work closely with our team as a design partner</li>
+            <li>Co-build and test TrainerTwin with your learners</li>
+            <li>Shape the product before its wider release</li>
             <li>
-              Get <strong>free access for life</strong>
+              Receive <strong>equity participation</strong>, subject to
+              mutually agreed terms
             </li>
           </ul>
 
           <p>
-            If this sounds like something you&apos;ve been waiting for,
-            we&apos;d love to talk.
+            If this resonates with you - and you want to help define what
+            trainer-led AI learning should be - we&apos;d love to talk.
           </p>
 
           {!submitted ? (
@@ -164,7 +199,10 @@ export default function ComingSoon() {
                 e.preventDefault();
                 const form = e.currentTarget;
                 const formData = new FormData(form);
-                formData.append("access_key", "cb8bf68e-3efb-45eb-bd22-97a17b6f7b6c");
+                formData.append(
+                  "access_key",
+                  "cb8bf68e-3efb-45eb-bd22-97a17b6f7b6c",
+                );
                 const res = await fetch("https://api.web3forms.com/submit", {
                   method: "POST",
                   body: formData,
@@ -209,8 +247,17 @@ export default function ComingSoon() {
       <footer className="px-6 md:px-10 py-10">
         <div className="max-w-170 mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
           <div className="flex items-center gap-2.5">
-            <svg width="20" height="15" viewBox="0 0 61 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z" fill="#EC3013"/>
+            <svg
+              width="20"
+              height="15"
+              viewBox="0 0 61 46"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z"
+                fill="#EC3013"
+              />
             </svg>
             <span className="font-figtree font-bold text-[16px]">
               TrainerTwin
