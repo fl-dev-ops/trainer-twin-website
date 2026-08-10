@@ -83,7 +83,7 @@ export default function ComingSoon() {
             TrainerTwin is built on a patent-pending approach to modelling a
             trainer’s instructional method, domain expertise and learner
             context. Together, we can create an AI TrainerTwin that reflects how
-            you teach - while keeping you in control.
+            you train while keeping your IP intact.
           </p>
 
           <p className="lead">
@@ -216,17 +216,26 @@ export default function ComingSoon() {
       {/* The Invitation */}
       <article className="px-6 md:px-10 py-2 md:py-2">
         <div className="prose mx-auto">
-          <h2>The Invitation</h2>
+          <h2>Become a Founding Trainer</h2>
 
           <p>
-            Inspired by the 2-sigma challenge - the idea that personalised
-            tutoring can significantly improve learning outcomes - we believe AI
-            can make high-quality guidance accessible to more learners.
+            Inspired by the 2-sigma challenge – the idea that personalised
+            tutoring can significantly improve learning outcomes – we believe AI
+            can help make personalised guidance accessible to more learners
           </p>
 
           <p>
-            We&apos;re starting with <strong>technical trainers</strong> and
-            inviting early-adopter partners who want to shape this with us.
+            We want to explore this possibility with early-adopter trainers who
+            believe in the vision and want to help shape it. Eligible founding
+            trainers receive equity participation, subject to mutually agreed
+            terms.
+          </p>
+
+          <p>
+            Today we are starting with Tech Trainers. If this resonates with you
+            as a fitness coach, sales coach or trainer in any other domain,
+            reach out to us. The domain may change but the opportunity to extend
+            your teaching remains the same
           </p>
 
           <ul>
