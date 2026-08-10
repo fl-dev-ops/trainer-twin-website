@@ -62,8 +62,8 @@ export default function ComingSoon() {
         <div className="prose mx-auto">
           <div className="flex items-center gap-2.5 not-prose! mb-5!">
             <svg
-              width="24"
-              height="18"
+              width="28"
+              height="20"
               viewBox="0 0 61 46"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -73,53 +73,104 @@ export default function ComingSoon() {
                 fill="#EC3013"
               />
             </svg>
-            <span className="font-figtree font-bold text-[14px] text-brand!">
+            <span className="font-figtree font-bold text-[20px] text-brand!">
               TrainerTwin
             </span>
           </div>
-          <h1>Extend your reach. Preserve how you teach</h1>
+          <h1>Increase Your Reach. Preserve Your Training Style</h1>
 
           <p className="lead">
-            Your expertise is more than content. It lives in how you speak,
-            break down ideas, ask questions, challenge assumptions, and apply
-            everything you've learned from people, books, and experience.
+            TrainerTwin is built on a patent-pending approach to modelling a
+            trainer’s instructional method, domain expertise and learner
+            context. Together, we can create an AI TrainerTwin that reflects how
+            you teach - while keeping you in control.
           </p>
 
           <p className="lead">
-            TrainerTwin's patent-pending approach models your teaching
-            method and domain expertise, then adapts the experience to each
-            learner—while you control how your knowledge is represented and
-            used.
+            Your TrainerTwin can support learners across three connected
+            experiences:
           </p>
 
-          <p className="lead">
-            With your Twin, more learners can practise, receive feedback, and
-            be assessed using your guidance, rubrics, and principles—even when
-            you cannot be there.
+          <ul>
+            <li>
+              <strong>Learn with your TrainerTwin</strong> shaped by your
+              teaching approach,
+            </li>
+            <li>
+              <strong> Practice with your TrainerTwin</strong> through guided
+              exercises, adaptive challenges
+            </li>
+            <li>
+              <strong>Get assessed with your TrainerTwin</strong> using your
+              rubrics and feedback principles.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      {/* The Layers */}
+      <article className="px-6 md:px-10 py-2 md:py-2">
+        <div className="prose mx-auto">
+          <h2>Built on Four Intelligence Layers</h2>
+
+          <p>
+            Your training is defined by your judgement, expertise and the way
+            you help each learner move forward. TrainerTwin brings these
+            elements together to create a learning experience that reflects how
+            you teach - not just what you teach
           </p>
 
-          {/* Video placeholder — uncomment when ready to use
-          <div
-            className="not-prose mt-8 flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl bg-muted/20"
-            aria-label="TrainerTwin video placeholder"
-          >
-            <div className="flex flex-col items-center gap-3 text-muted">
-              <div className="flex size-14 items-center justify-center rounded-full bg-white shadow-sm">
-                <svg
-                  width="18"
-                  height="20"
-                  viewBox="0 0 18 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M18 10L0 20V0L18 10Z" fill="currentColor" />
-                </svg>
-              </div>
-              <span className="text-sm font-medium">TrainerTwin video</span>
-            </div>
-          </div>
-          */}
+          <ul>
+            <li>
+              <strong>Instructional Policy Model</strong> - trainer-specific
+              teaching and decision patterns
+            </li>
+            <li>
+              <strong>Domain Knowledge and Competency Model</strong> subject
+              knowledge, examples and evaluation standards
+            </li>
+            <li>
+              <strong>Learner State and Personalisation Model</strong> goals,
+              history, proficiency and evolving needs
+            </li>
+            <li>
+              <strong>Multimodal Interaction Layer</strong> voice, video,
+              avatar, facial expressions and trainer-specific communication
+              behavior
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      {/* The Layers */}
+      <article className="px-6 md:px-10 py-2 md:py-2">
+        <div className="prose mx-auto">
+          <h2>Data Protection by Design</h2>
+
+          <p>
+            Trainer and learner data is handled with privacy, security and
+            purpose limitation at its core. We collect and use data only to
+            create, personalize and improve the TrainerTwin experience with
+            appropriate access controls and retention practices. Trainers and
+            learners remain informed about how their data is used.
+          </p>
+        </div>
+      </article>
+
+      {/* The Layers */}
+      <article className="px-6 md:px-10 py-2 md:py-2">
+        <div className="prose mx-auto">
+          <h2>You evolve. So does your Twin.</h2>
+
+          <p>
+            You don’t stop learning and growing as a trainer. Your teaching
+            methods, insights and standards evolve too. Your TrainerTwin can
+            evolve with you, so your learners continue to benefit with your
+            latest and sharpest thinking. Update and refine as your expertise
+            grows. Think Delphi, for Trainers. Think HeyGen, for Trainers. But
+            built pedagogy-first: not just a digital representation of you, but
+            an AI learning experience shaped by the way you teach.
+          </p>
         </div>
       </article>
 
@@ -169,8 +220,8 @@ export default function ComingSoon() {
 
           <p>
             Inspired by the 2-sigma challenge - the idea that personalised
-            tutoring can significantly improve learning outcomes - we believe
-            AI can make high-quality guidance accessible to more learners.
+            tutoring can significantly improve learning outcomes - we believe AI
+            can make high-quality guidance accessible to more learners.
           </p>
 
           <p>
@@ -183,8 +234,8 @@ export default function ComingSoon() {
             <li>Co-build and test TrainerTwin with your learners</li>
             <li>Shape the product before its wider release</li>
             <li>
-              Receive <strong>equity participation</strong>, subject to
-              mutually agreed terms
+              Receive <strong>equity participation</strong>, subject to mutually
+              agreed terms
             </li>
           </ul>
 
