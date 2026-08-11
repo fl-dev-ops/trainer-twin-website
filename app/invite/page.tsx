@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import { YoutubeIcon } from "@/components/icons/youtube-icon";
+import { PartyPopperIcon } from "@/components/icons/popper-icon";
+import { PlayIcon } from "@/components/icons/play-icon";
+
+const YOUTUBE_ID = "ArAxbHGoyyw";
 
 const team = [
   {
@@ -51,15 +55,20 @@ const team = [
 
 export default function ComingSoon() {
   const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [youtubeHovered, setYoutubeHovered] = useState(false);
+  const [videoHovered, setVideoHovered] = useState(false);
 
   return (
     <div className="min-h-screen">
-      <article className="px-6 md:px-10 pt-12 pb-4 lg:pt-32">
+      <article
+        style={{
+          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingTop: "clamp(3rem, 2rem + 4vw, 8rem)",
+          paddingBottom: "clamp(1rem, 0.5rem + 1.5vw, 2.5rem)",
+        }}
+      >
         <div className="prose mx-auto">
           <div className="flex items-center gap-2.5 not-prose! mb-5!">
             <svg
@@ -80,14 +89,14 @@ export default function ComingSoon() {
           </div>
           <h1>Increase Your Reach. Preserve Your Training Style</h1>
 
-          <p className="lead">
+          <p className="">
             TrainerTwin is built on a patent-pending approach to modelling a
             trainer’s instructional method, domain expertise and learner
             context. Together, we can create an AI TrainerTwin that reflects how
             you train while keeping your IP intact.
           </p>
 
-          <p className="lead">
+          <p className="">
             Your TrainerTwin can support learners across three connected
             experiences:
           </p>
@@ -107,26 +116,49 @@ export default function ComingSoon() {
             </li>
           </ul>
 
-          <div className="mx-auto" style={{ maxWidth: 680 }}>
+          <div className="mx-auto not-prose" style={{ maxWidth: 680 }}>
             <div
-              className="relative w-full overflow-hidden rounded-2xl"
+              className="relative w-full overflow-hidden rounded-2xl bg-muted/20 group cursor-pointer"
               style={{ aspectRatio: "16 / 9" }}
+              onClick={() => setVideoPlaying(true)}
+              onMouseEnter={() => setVideoHovered(true)}
+              onMouseLeave={() => setVideoHovered(false)}
             >
-              <iframe
-                src="https://www.youtube.com/embed/ArAxbHGoyyw"
-                title="TrainerTwin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full border-0"
-              />
+              {!videoPlaying ? (
+                <>
+                  <img
+                    src={`https://img.youtube.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`}
+                    alt="TrainerTwin video thumbnail"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-start justify-end bg-black/2 transition-colors group-hover:bg-black/10">
+                    <div className="w-12 h-12 rounded-full bg-brand/80  flex items-center justify-center shadow-lg transition-transform group-hover:scale-105 group-hover:bg-brand/90 mr-4 mt-4">
+                      <PlayIcon size={16} className="text-white" isHovered={videoHovered} />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <iframe
+                  src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1`}
+                  title="TrainerTwin"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full border-0"
+                />
+              )}
             </div>
           </div>
         </div>
       </article>
 
-
       {/* The 4 Intelligence Layers */}
-      <article className="px-6 md:px-10 py-2 md:py-2">
+      <article
+        className="py-2 md:py-2"
+        style={{
+          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+        }}
+      >
         <div className="prose mx-auto">
           <h2>Built on Four Intelligence Layers</h2>
 
@@ -160,7 +192,13 @@ export default function ComingSoon() {
       </article>
 
       {/* The Data Protection by Design */}
-      <article className="px-6 md:px-10 py-2 md:py-2">
+      <article
+        className="py-2 md:py-2"
+        style={{
+          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+        }}
+      >
         <div className="prose mx-auto">
           <h2>Data Protection by Design</h2>
 
@@ -175,7 +213,13 @@ export default function ComingSoon() {
       </article>
 
       {/* The You evolve. So does your Twin */}
-      <article className="px-6 md:px-10 py-2 md:py-2">
+      <article
+        className="py-2 md:py-2"
+        style={{
+          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+        }}
+      >
         <div className="prose mx-auto">
           <h2>You evolve. So does your Twin.</h2>
 
@@ -192,7 +236,13 @@ export default function ComingSoon() {
       </article>
 
       {/* The Team */}
-      <article className="px-6 md:px-10 py-2 md:py-2">
+      <article
+        className="py-2 md:py-2"
+        style={{
+          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+        }}
+      >
         <div className="prose mx-auto">
           <h2>The team.</h2>
 
@@ -231,7 +281,13 @@ export default function ComingSoon() {
       </article>
 
       {/* The Invitation */}
-      <article className="px-6 md:px-10 py-2 md:py-2">
+      <article
+        className="py-2 md:py-2"
+        style={{
+          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+        }}
+      >
         <div className="prose mx-auto">
           <h2>Become a Founding Trainer</h2>
 
@@ -312,7 +368,8 @@ export default function ComingSoon() {
               </button>
             </form>
           ) : (
-            <div className="not-prose mt-8 p-5 bg-brand/10 rounded-2xl w-full">
+            <div className="not-prose mt-8 p-5 bg-brand/10 rounded-2xl w-full flex items-center gap-3">
+              <PartyPopperIcon size={24} autoPlay className="text-brand" />
               <p className="text-[15px] text-dark">
                 Got it. We&apos;ll be in touch.
               </p>
@@ -322,7 +379,13 @@ export default function ComingSoon() {
       </article>
 
       {/* Footer */}
-      <footer className="px-6 md:px-10 py-10">
+      <footer
+        className="py-10"
+        style={{
+          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
+        }}
+      >
         <div className="max-w-170 mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
           <div className="flex items-center gap-2.5">
             <svg
@@ -347,9 +410,11 @@ export default function ComingSoon() {
               href="https://www.youtube.com/@TrainerTwin"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-brand transition-colors"
+              className="group flex items-center gap-1.5 hover:text-brand transition-colors"
+              onMouseEnter={() => setYoutubeHovered(true)}
+              onMouseLeave={() => setYoutubeHovered(false)}
             >
-              <YoutubeIcon size={16} />
+              <YoutubeIcon size={16} isHovered={youtubeHovered} />
               YouTube
             </a>
             <a

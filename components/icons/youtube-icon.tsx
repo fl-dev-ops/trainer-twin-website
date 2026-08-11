@@ -3,7 +3,7 @@
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,7 @@ export interface YoutubeIconHandle {
 
 interface YoutubeIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
+  isHovered?: boolean;
 }
 
 const PATH_VARIANTS: Variants = {
@@ -61,57 +62,29 @@ const TRIANGLE_VARIANTS: Variants = {
 };
 
 const YoutubeIcon = forwardRef<YoutubeIconHandle, YoutubeIconProps>(
-  ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+  ({ className, size = 28, isHovered, ...props }, ref) => {
     const pathControls = useAnimation();
     const triangleControls = useAnimation();
-    const isControlledRef = useRef(false);
 
-    useImperativeHandle(ref, () => {
-      isControlledRef.current = true;
-
-      return {
-        startAnimation: () => {
-          pathControls.start("animate");
-          triangleControls.start("animate");
-        },
-        stopAnimation: () => {
-          pathControls.start("normal");
-          triangleControls.start("normal");
-        },
-      };
-    });
-
-    const handleMouseEnter = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isControlledRef.current) {
-          onMouseEnter?.(e);
-        } else {
-          pathControls.start("animate");
-          triangleControls.start("animate");
-        }
+    useImperativeHandle(ref, () => ({
+      startAnimation: () => {
+        pathControls.start("animate");
+        triangleControls.start("animate");
       },
-      [onMouseEnter, pathControls, triangleControls]
-    );
-
-    const handleMouseLeave = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
-        if (isControlledRef.current) {
-          onMouseLeave?.(e);
-        } else {
-          pathControls.start("normal");
-          triangleControls.start("normal");
-        }
+      stopAnimation: () => {
+        pathControls.start("normal");
+        triangleControls.start("normal");
       },
-      [pathControls, triangleControls, onMouseLeave]
-    );
+    }));
+
+    useEffect(() => {
+      if (isHovered === undefined) return;
+      pathControls.start(isHovered ? "animate" : "normal");
+      triangleControls.start(isHovered ? "animate" : "normal");
+    }, [isHovered, pathControls, triangleControls]);
 
     return (
-      <div
-        className={cn(className)}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        {...props}
-      >
+      <div className={cn(className)} {...props}>
         <svg
           fill="none"
           height={size}
