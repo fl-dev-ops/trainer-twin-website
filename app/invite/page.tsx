@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { YoutubeIcon } from "@/components/icons/youtube-icon";
 
 const team = [
   {
@@ -58,7 +59,7 @@ export default function ComingSoon() {
 
   return (
     <div className="min-h-screen">
-      <article className="px-6 md:px-10 pt-32 pb-10 md:pt-32">
+      <article className="px-6 md:px-10 pt-12 pb-4 lg:pt-32">
         <div className="prose mx-auto">
           <div className="flex items-center gap-2.5 not-prose! mb-5!">
             <svg
@@ -105,10 +106,26 @@ export default function ComingSoon() {
               rubrics and feedback principles.
             </li>
           </ul>
+
+          <div className="mx-auto" style={{ maxWidth: 680 }}>
+            <div
+              className="relative w-full overflow-hidden rounded-2xl"
+              style={{ aspectRatio: "16 / 9" }}
+            >
+              <iframe
+                src="https://www.youtube.com/embed/ArAxbHGoyyw"
+                title="TrainerTwin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full border-0"
+              />
+            </div>
+          </div>
         </div>
       </article>
 
-      {/* The Layers */}
+
+      {/* The 4 Intelligence Layers */}
       <article className="px-6 md:px-10 py-2 md:py-2">
         <div className="prose mx-auto">
           <h2>Built on Four Intelligence Layers</h2>
@@ -142,7 +159,7 @@ export default function ComingSoon() {
         </div>
       </article>
 
-      {/* The Layers */}
+      {/* The Data Protection by Design */}
       <article className="px-6 md:px-10 py-2 md:py-2">
         <div className="prose mx-auto">
           <h2>Data Protection by Design</h2>
@@ -157,7 +174,7 @@ export default function ComingSoon() {
         </div>
       </article>
 
-      {/* The Layers */}
+      {/* The You evolve. So does your Twin */}
       <article className="px-6 md:px-10 py-2 md:py-2">
         <div className="prose mx-auto">
           <h2>You evolve. So does your Twin.</h2>
@@ -250,7 +267,8 @@ export default function ComingSoon() {
 
           <p>
             If this resonates with you - and you want to help define what
-            trainer-led AI learning should be - we&apos;d love to talk.
+            trainer-led AI learning should be -{" "}
+            <strong>we&apos;d love to talk.</strong>
           </p>
 
           {!submitted ? (
@@ -325,6 +343,15 @@ export default function ComingSoon() {
           </div>
 
           <div className="flex items-center gap-6 text-[13px] text-muted">
+            <a
+              href="https://www.youtube.com/@TrainerTwin"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-brand transition-colors"
+            >
+              <YoutubeIcon size={16} />
+              YouTube
+            </a>
             <a
               href="https://wa.me/919840717917"
               target="_blank"
