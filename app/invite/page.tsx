@@ -127,7 +127,7 @@ export default function ComingSoon() {
               {!videoPlaying ? (
                 <>
                   <img
-                    src={`https://img.youtube.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`}
+                    src="/youtube_thumbnail.webp"
                     alt="TrainerTwin video thumbnail"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
