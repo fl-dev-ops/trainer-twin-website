@@ -55,6 +55,8 @@ const team = [
 
 export default function ComingSoon() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [youtubeHovered, setYoutubeHovered] = useState(false);
   const [videoHovered, setVideoHovered] = useState(false);
@@ -331,18 +333,22 @@ export default function ComingSoon() {
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
-                const form = e.currentTarget;
-                const formData = new FormData(form);
-                formData.append(
-                  "access_key",
-                  "cb8bf68e-3efb-45eb-bd22-97a17b6f7b6c",
-                );
-                const res = await fetch("https://api.web3forms.com/submit", {
-                  method: "POST",
-                  body: formData,
-                });
-                const data = await res.json();
-                if (data.success) setSubmitted(true);
+                setSubmitting(true);
+                setSubmitError("");
+
+                try {
+                  const res = await fetch("/api/invite", {
+                    method: "POST",
+                    body: new FormData(e.currentTarget),
+                  });
+
+                  if (!res.ok) throw new Error();
+                  setSubmitted(true);
+                } catch {
+                  setSubmitError("We couldn't submit your details. Please try again.");
+                } finally {
+                  setSubmitting(false);
+                }
               }}
               className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 not-prose"
             >
@@ -350,6 +356,7 @@ export default function ComingSoon() {
                 type="text"
                 name="contact"
                 required
+                maxLength={200}
                 placeholder="Phone or Email"
                 className="col-span-1 w-full border-0 bg-muted/20 rounded-xl py-3 px-4 text-[15px] outline-none focus:ring-2 focus:ring-brand/30 transition-all"
               />
@@ -357,15 +364,25 @@ export default function ComingSoon() {
                 type="text"
                 name="link"
                 required
+                maxLength={500}
                 placeholder="LinkedIn or Website"
                 className="col-span-1 w-full border-0 bg-muted/20 rounded-xl py-3 px-4 text-[15px] outline-none focus:ring-2 focus:ring-brand/30 transition-all"
               />
               <button
                 type="submit"
-                className="w-full col-span-1 md:col-span-2 bg-brand text-white! font-semibold text-[15px] py-3.5 rounded-xl hover:bg-brand-dark transition-colors"
+                disabled={submitting}
+                className="w-full col-span-1 md:col-span-2 bg-brand text-white! font-semibold text-[15px] py-3.5 rounded-xl hover:bg-brand-dark transition-colors disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Submit
+                {submitting ? "Submitting…" : "Submit"}
               </button>
+              {submitError && (
+                <p
+                  role="alert"
+                  className="col-span-1 md:col-span-2 text-sm text-red-700"
+                >
+                  {submitError}
+                </p>
+              )}
             </form>
           ) : (
             <div className="not-prose mt-8 p-5 bg-brand/10 rounded-2xl w-full flex items-center gap-3">
