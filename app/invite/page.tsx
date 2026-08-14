@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { BlocksIcon } from "@/components/icons/blocks-icon";
+import { XIcon, type XIconHandle } from "@/components/icons/x-icon";
 import { YoutubeIcon } from "@/components/icons/youtube-icon";
 import { PartyPopperIcon } from "@/components/icons/popper-icon";
 import { PlayIcon } from "@/components/icons/play-icon";
@@ -60,6 +62,8 @@ export default function ComingSoon() {
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [youtubeHovered, setYoutubeHovered] = useState(false);
   const [videoHovered, setVideoHovered] = useState(false);
+  const [joinHovered, setJoinHovered] = useState(false);
+  const xIconRef = useRef<XIconHandle>(null);
 
   return (
     <div className="min-h-screen">
@@ -72,22 +76,35 @@ export default function ComingSoon() {
         }}
       >
         <div className="prose mx-auto">
-          <div className="flex items-center gap-2.5 not-prose! mb-5!">
-            <svg
-              width="28"
-              height="20"
-              viewBox="0 0 61 46"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          <div className="flex items-center justify-between gap-4 not-prose! mb-5!">
+            <div className="flex items-center gap-2.5">
+              <svg
+                width="28"
+                height="20"
+                viewBox="0 0 61 46"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z"
+                  fill="#EC3013"
+                />
+              </svg>
+              <span className="font-figtree font-bold text-[20px] text-brand!">
+                TrainerTwin
+              </span>
+            </div>
+            <a
+              href="#join-us"
+              className="flex items-center gap-2 rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand no-underline! transition-colors hover:border-brand/50 hover:bg-brand/10"
+              onMouseEnter={() => setJoinHovered(true)}
+              onMouseLeave={() => setJoinHovered(false)}
+              onFocus={() => setJoinHovered(true)}
+              onBlur={() => setJoinHovered(false)}
             >
-              <path
-                d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z"
-                fill="#EC3013"
-              />
-            </svg>
-            <span className="font-figtree font-bold text-[20px] text-brand!">
-              TrainerTwin
-            </span>
+              Join us
+              <BlocksIcon size={18} isHovered={joinHovered} aria-hidden />
+            </a>
           </div>
           <h1>Increase Your Reach. Preserve Your Training Style</h1>
 
@@ -284,6 +301,7 @@ export default function ComingSoon() {
 
       {/* The Invitation */}
       <article
+        id="join-us"
         className="py-2 md:py-2"
         style={{
           paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
@@ -433,6 +451,19 @@ export default function ComingSoon() {
             >
               <YoutubeIcon size={16} isHovered={youtubeHovered} />
               YouTube
+            </a>
+            <a
+              href="https://x.com/trainertwin_ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1.5 hover:text-brand transition-colors"
+              onMouseEnter={() => xIconRef.current?.startAnimation()}
+              onMouseLeave={() => xIconRef.current?.stopAnimation()}
+              onFocus={() => xIconRef.current?.startAnimation()}
+              onBlur={() => xIconRef.current?.stopAnimation()}
+            >
+              <XIcon ref={xIconRef} size={16} aria-hidden />
+              Twitter
             </a>
             <a
               href="https://wa.me/919840717917"
