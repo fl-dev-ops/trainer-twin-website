@@ -110,7 +110,7 @@ export default function Careers() {
                   rel="noopener noreferrer"
                   className="not-prose! shrink-0 self-center bg-brand text-white! font-semibold text-[15px] py-3 px-6 rounded-xl hover:bg-brand-dark transition-colors no-underline!"
                 >
-                  Apply
+                  Apply Now
                 </Link>
               </div>
             </div>
