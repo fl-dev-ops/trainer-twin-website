@@ -2,6 +2,10 @@
 
 import { useRef, useState } from "react";
 import { BlocksIcon } from "@/components/icons/blocks-icon";
+import {
+  BriefcaseBusinessIcon,
+  type BriefcaseBusinessIconHandle,
+} from "@/components/icons/briefcase-icon";
 import { XIcon, type XIconHandle } from "@/components/icons/x-icon";
 import { YoutubeIcon } from "@/components/icons/youtube-icon";
 import { PartyPopperIcon } from "@/components/icons/popper-icon";
@@ -64,6 +68,7 @@ export default function ComingSoon() {
   const [videoHovered, setVideoHovered] = useState(false);
   const [joinHovered, setJoinHovered] = useState(false);
   const xIconRef = useRef<XIconHandle>(null);
+  const briefcaseRef = useRef<BriefcaseBusinessIconHandle>(null);
 
   return (
     <div className="min-h-screen">
@@ -94,17 +99,30 @@ export default function ComingSoon() {
                 TrainerTwin
               </span>
             </div>
-            <a
-              href="#join-us"
-              className="flex items-center gap-2 rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand no-underline! transition-colors hover:border-brand/50 hover:bg-brand/10"
-              onMouseEnter={() => setJoinHovered(true)}
-              onMouseLeave={() => setJoinHovered(false)}
-              onFocus={() => setJoinHovered(true)}
-              onBlur={() => setJoinHovered(false)}
-            >
-              Join us
-              <BlocksIcon size={18} isHovered={joinHovered} aria-hidden />
-            </a>
+            <div className="flex items-center gap-4">
+              <a
+                href="/careers"
+                className="flex items-center gap-2 text-sm font-semibold no-underline! transition-colors hover:text-brand"
+                onMouseEnter={() => briefcaseRef.current?.startAnimation()}
+                onMouseLeave={() => briefcaseRef.current?.stopAnimation()}
+                onFocus={() => briefcaseRef.current?.startAnimation()}
+                onBlur={() => briefcaseRef.current?.stopAnimation()}
+              >
+                Careers
+                <BriefcaseBusinessIcon ref={briefcaseRef} size={16} aria-hidden />
+              </a>
+              <a
+                href="#join-us"
+                className="flex items-center gap-2 rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand no-underline! transition-colors hover:border-brand/50 hover:bg-brand/10"
+                onMouseEnter={() => setJoinHovered(true)}
+                onMouseLeave={() => setJoinHovered(false)}
+                onFocus={() => setJoinHovered(true)}
+                onBlur={() => setJoinHovered(false)}
+              >
+                Join us
+                <BlocksIcon size={18} isHovered={joinHovered} aria-hidden />
+              </a>
+            </div>
           </div>
           <h1>Increase Your Reach. Preserve Your Training Style</h1>
 
@@ -438,6 +456,17 @@ export default function ComingSoon() {
             <span className="font-figtree font-bold text-[16px]">
               TrainerTwin
             </span>
+            <a
+              href="/careers"
+              className="ml-4 flex items-center gap-1.5 text-[13px] text-muted hover:text-brand transition-colors no-underline!"
+              onMouseEnter={() => briefcaseRef.current?.startAnimation()}
+              onMouseLeave={() => briefcaseRef.current?.stopAnimation()}
+              onFocus={() => briefcaseRef.current?.startAnimation()}
+              onBlur={() => briefcaseRef.current?.stopAnimation()}
+            >
+              <BriefcaseBusinessIcon ref={briefcaseRef} size={16} aria-hidden />
+              Careers
+            </a>
           </div>
 
           <div className="flex items-center gap-6 text-[13px] text-muted">
