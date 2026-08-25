@@ -115,7 +115,7 @@ export default function Careers() {
           }}
         >
           <div className="prose mx-auto">
-            <details>
+            <details className="group">
               <summary className="cursor-pointer mb-3 list-none [&::-webkit-details-marker]:hidden">
 
                 <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5 my-4">
@@ -141,7 +141,9 @@ export default function Careers() {
                 </div>
 
                 <p>{role.summary}</p>
-
+                <span className="mt-3 block text-[14px] font-semibold text-brand group-open:hidden">
+                  Learn more
+                </span>
               </summary>
 
               <p>
