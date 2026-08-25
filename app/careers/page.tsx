@@ -9,7 +9,7 @@ const APPLY_URL = "https://forms.gle/5r6Bhf7S3KfBmvNF9";
 const roles = [
   {
     title: "Video Designer",
-    meta: "0–1 year experience · Chennai · Full-time",
+    meta: "0-2 year experience · Chennai · Full-time",
     summary:
       "Make people understand what a TrainerTwin is in thirty seconds, Product films, launch assets, Founding Trainer stories - you will help us do it all.",
     willDo: [
@@ -68,16 +68,15 @@ export default function Careers() {
               className="flex items-center gap-2 rounded-full border border-brand/30 px-4 py-2 text-sm font-semibold text-brand no-underline! transition-colors hover:border-brand/50 hover:bg-brand/10"
             >
               Early Access
-              <BlocksIcon size={18} aria-hidden />
+              {/*<BlocksIcon size={18} aria-hidden />*/}
             </a>
           </div>
 
-          <h1>Work with us</h1>
+          <h1 className="mb-2!">Join The Club</h1>
 
           <p>
-            We&apos;re seven people building AI twins for trainers. Small on
-            purpose, and hiring for two roles that don&apos;t have a playbook
-            yet.
+            We&apos;re eight people building AI twins for trainers.{" "}
+            <Link href="/invite#team">Meet the team.</Link>
           </p>
         </div>
       </article>
@@ -85,18 +84,36 @@ export default function Careers() {
       {roles.map((role) => (
         <article
           key={role.title}
-          className="py-2 md:py-2"
+          className="py-2 md:py-2 mb-8"
           style={{
             paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
             paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
           }}
         >
           <div className="prose mx-auto">
-            <h2>{role.title}</h2>
+            <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5 my-8">
+              <div className="">
+                <h2 className="mt-0!">{role.title}</h2>
 
-            <p className="caption not-prose!" style={{ marginTop: "-0.75rem" }}>
-              {role.meta}
-            </p>
+                <p
+                  className="caption not-prose!"
+                  style={{ marginTop: "-0.75rem" }}
+                >
+                  {role.meta}
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Link
+                  href={APPLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="not-prose! shrink-0 self-center bg-brand text-white! font-semibold text-[15px] py-3 px-6 rounded-xl hover:bg-brand-dark transition-colors no-underline!"
+                >
+                  Apply
+                </Link>
+              </div>
+            </div>
 
             <p>{role.summary}</p>
 
@@ -117,24 +134,13 @@ export default function Careers() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-
-            <div className="not-prose mt-8">
-              <Link
-                href={APPLY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-brand text-white! font-semibold text-[15px] py-3.5 px-8 rounded-xl hover:bg-brand-dark transition-colors no-underline!"
-              >
-                Apply for {role.title}
-              </Link>
-            </div>
           </div>
         </article>
       ))}
 
       {/* Footer */}
       <footer
-        className="py-10"
+        className="py-10 mt-16 md:mt-24"
         style={{
           paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
           paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",

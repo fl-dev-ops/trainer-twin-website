@@ -109,7 +109,7 @@ export default function ComingSoon() {
                 onBlur={() => briefcaseRef.current?.stopAnimation()}
               >
                 Careers
-                <BriefcaseBusinessIcon ref={briefcaseRef} size={16} aria-hidden />
+                {/*<BriefcaseBusinessIcon ref={briefcaseRef} size={16} aria-hidden />*/}
               </a>
               <a
                 href="#join-us"
@@ -274,6 +274,7 @@ export default function ComingSoon() {
 
       {/* The Team */}
       <article
+        id="team"
         className="py-2 md:py-2"
         style={{
           paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
