@@ -18,12 +18,36 @@ const roles = [
       "Use AI video tools to mock up ideas fast, early in a discussion",
       "Build the formats we reuse, so we ship weekly rather than occasionally",
     ],
+    willDoLabel: "What you'll do",
     lookingFor: [
       "Working knowledge of After Effects, Premiere Pro and Photoshop",
       "A sharp eye for animation, pacing, typography, composition and transitions",
       "You finish things, and you care how they look when they're finished",
       "A reel or portfolio. It matters more than the CV",
     ],
+    lookingForLabel: "What we're looking for",
+  },
+  {
+    title: "GTM Intern",
+    meta: "0-2 year experience · Chennai · Full-time",
+    summary:
+      "We're looking for a GTM Intern to work closely with the Founder and get hands-on exposure to outbound growth at an early-stage AI-native service company for trainers.",
+    willDo: [
+      "Outbound campaign setup and execution",
+      "Tools like Clay, Instantly, Heyreach, Salesforce and Claude",
+      "Basics of n8n process automation",
+      "Pipeline tracking and reporting",
+      "Day-to-day GTM decisions alongside the founder",
+    ],
+    willDoLabel: "What you'll be exposed to",
+    lookingFor: [
+      "Are curious about startups and growth or marketing",
+      "Enjoy learning new tools and figuring things out",
+      "Are comfortable working in a small, flat team",
+      "Want real exposure to how a 0-to-1 company builds its GTM engine",
+    ],
+    lookingForLabel: "Good fit if you",
+    note: "No prior GTM experience required — just interest and willingness to learn.",
   },
 ];
 
@@ -91,49 +115,55 @@ export default function Careers() {
           }}
         >
           <div className="prose mx-auto">
-            <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5 my-8">
-              <div className="">
-                <h2 className="mt-0!">{role.title}</h2>
+            <details>
+              <summary className="cursor-pointer mb-3 list-none [&::-webkit-details-marker]:hidden">
 
-                <p
-                  className="caption not-prose!"
-                  style={{ marginTop: "-0.75rem" }}
-                >
-                  {role.meta}
-                </p>
-              </div>
+                <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5 my-4">
+                  <div>
+                    <h2 className="mt-0!">{role.title}</h2>
 
-              <div className="flex items-center gap-2">
-                <Link
-                  href={APPLY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="not-prose! shrink-0 self-center bg-brand text-white! font-semibold text-[15px] py-3 px-6 rounded-xl hover:bg-brand-dark transition-colors no-underline!"
-                >
-                  Apply Now
-                </Link>
-              </div>
-            </div>
+                    <p
+                      className="caption not-prose!"
+                      style={{ marginTop: "-0.75rem" }}
+                    >
+                      {role.meta}
+                    </p>
+                  </div>
 
-            <p>{role.summary}</p>
+                  <Link
+                    href={APPLY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="not-prose! shrink-0 self-center bg-brand text-white! font-semibold text-[15px] py-3 px-6 rounded-xl hover:bg-brand-dark transition-colors no-underline!"
+                  >
+                    Apply Now
+                  </Link>
+                </div>
 
-            <p>
-              <strong>What you&apos;ll do</strong>
-            </p>
-            <ul>
-              {role.willDo.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+                <p>{role.summary}</p>
 
-            <p>
-              <strong>What we&apos;re looking for</strong>
-            </p>
-            <ul>
-              {role.lookingFor.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+              </summary>
+
+              <p>
+                <strong>{role.willDoLabel}</strong>
+              </p>
+              <ul>
+                {role.willDo.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+
+              <p>
+                <strong>{role.lookingForLabel}</strong>
+              </p>
+              <ul>
+                {role.lookingFor.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+
+              {role.note && <p>{role.note}</p>}
+            </details>
           </div>
         </article>
       ))}
