@@ -1,7 +1,5 @@
 import { BlocksIcon } from "@/components/icons/blocks-icon";
-import { BriefcaseBusinessIcon } from "@/components/icons/briefcase-icon";
-import { XIcon } from "@/components/icons/x-icon";
-import { YoutubeIcon } from "@/components/icons/youtube-icon";
+import SiteFooter from "@/app/components/site-footer";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -163,61 +161,7 @@ export default function Careers() {
       ))}
 
       {/* Footer */}
-      <footer
-        className="py-10 mt-16 md:mt-24"
-        style={{
-          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
-          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
-          marginTop: "auto",
-        }}
-      >
-        <div className="max-w-170 mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-          <div className="flex items-center gap-2.5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo-withname.svg"
-              alt="TrainerTwin"
-              className="h-5 w-auto"
-            />
-            <a
-              href="/careers"
-              className="ml-4 flex items-center gap-1.5 text-[13px] text-muted hover:text-brand transition-colors no-underline!"
-            >
-              <BriefcaseBusinessIcon size={16} aria-hidden />
-              Careers
-            </a>
-          </div>
-
-          <div className="flex items-center gap-6 text-[13px] text-muted">
-            <a
-              href="https://www.youtube.com/@TrainerTwin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 hover:text-brand transition-colors no-underline!"
-            >
-              <YoutubeIcon size={16} />
-              YouTube
-            </a>
-            <a
-              href="https://x.com/trainertwin_ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 hover:text-brand transition-colors no-underline!"
-            >
-              <XIcon size={16} aria-hidden />
-              Twitter
-            </a>
-            <a
-              href="https://wa.me/919840717917"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-brand transition-colors no-underline!"
-            >
-              Contact
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter className="mt-16 md:mt-24" />
     </div>
   );
 }

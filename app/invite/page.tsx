@@ -1,13 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { BlocksIcon } from "@/components/icons/blocks-icon";
-import {
-  BriefcaseBusinessIcon,
-  type BriefcaseBusinessIconHandle,
-} from "@/components/icons/briefcase-icon";
-import { XIcon, type XIconHandle } from "@/components/icons/x-icon";
-import { YoutubeIcon } from "@/components/icons/youtube-icon";
+import SiteFooter from "@/app/components/site-footer";
 import { PartyPopperIcon } from "@/components/icons/popper-icon";
 import { PlayIcon } from "@/components/icons/play-icon";
 
@@ -64,11 +59,8 @@ export default function ComingSoon() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [videoPlaying, setVideoPlaying] = useState(false);
-  const [youtubeHovered, setYoutubeHovered] = useState(false);
   const [videoHovered, setVideoHovered] = useState(false);
   const [joinHovered, setJoinHovered] = useState(false);
-  const xIconRef = useRef<XIconHandle>(null);
-  const briefcaseRef = useRef<BriefcaseBusinessIconHandle>(null);
 
   return (
     <div className="min-h-screen">
@@ -94,13 +86,9 @@ export default function ComingSoon() {
               <a
                 href="/careers"
                 className="flex items-center gap-2 text-sm font-semibold no-underline! transition-colors hover:text-brand"
-                onMouseEnter={() => briefcaseRef.current?.startAnimation()}
-                onMouseLeave={() => briefcaseRef.current?.stopAnimation()}
-                onFocus={() => briefcaseRef.current?.startAnimation()}
-                onBlur={() => briefcaseRef.current?.stopAnimation()}
               >
                 Careers
-                {/*<BriefcaseBusinessIcon ref={briefcaseRef} size={16} aria-hidden />*/}
+                {/*<BriefcaseBusinessIcon size={16} aria-hidden />*/}
               </a>
               <a
                 href="#join-us"
@@ -424,70 +412,7 @@ export default function ComingSoon() {
       </article>
 
       {/* Footer */}
-      <footer
-        className="py-10"
-        style={{
-          paddingLeft: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
-          paddingRight: "clamp(1.5rem, 1rem + 2vw, 2.5rem)",
-        }}
-      >
-        <div className="max-w-170 mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-          <div className="flex items-center gap-2.5">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo-withname.svg"
-              alt="TrainerTwin"
-              className="h-5 w-auto"
-            />
-            <a
-              href="/careers"
-              className="ml-4 flex items-center gap-1.5 text-[13px] text-muted hover:text-brand transition-colors no-underline!"
-              onMouseEnter={() => briefcaseRef.current?.startAnimation()}
-              onMouseLeave={() => briefcaseRef.current?.stopAnimation()}
-              onFocus={() => briefcaseRef.current?.startAnimation()}
-              onBlur={() => briefcaseRef.current?.stopAnimation()}
-            >
-              <BriefcaseBusinessIcon ref={briefcaseRef} size={16} aria-hidden />
-              Careers
-            </a>
-          </div>
-
-          <div className="flex items-center gap-6 text-[13px] text-muted">
-            <a
-              href="https://www.youtube.com/@TrainerTwin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 hover:text-brand transition-colors"
-              onMouseEnter={() => setYoutubeHovered(true)}
-              onMouseLeave={() => setYoutubeHovered(false)}
-            >
-              <YoutubeIcon size={16} isHovered={youtubeHovered} />
-              YouTube
-            </a>
-            <a
-              href="https://x.com/trainertwin_ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 hover:text-brand transition-colors"
-              onMouseEnter={() => xIconRef.current?.startAnimation()}
-              onMouseLeave={() => xIconRef.current?.stopAnimation()}
-              onFocus={() => xIconRef.current?.startAnimation()}
-              onBlur={() => xIconRef.current?.stopAnimation()}
-            >
-              <XIcon ref={xIconRef} size={16} aria-hidden />
-              Twitter
-            </a>
-            <a
-              href="https://wa.me/919840717917"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-brand transition-colors"
-            >
-              Contact
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
