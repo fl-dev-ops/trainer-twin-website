@@ -437,7 +437,7 @@ export default function ComingSoon() {
             <img
               src="/logo-withname.svg"
               alt="TrainerTwin"
-              className="h-7 w-auto"
+              className="h-5 w-auto"
             />
             <a
               href="/careers"
@@ -452,7 +452,7 @@ export default function ComingSoon() {
             </a>
           </div>
 
-          <div className="flex items-center gap-6 text-[5px] text-muted">
+          <div className="flex items-center gap-6 text-[13px] text-muted">
             <a
               href="https://www.youtube.com/@TrainerTwin"
               target="_blank"
