@@ -3,6 +3,13 @@ import { BriefcaseBusinessIcon } from "@/components/icons/briefcase-icon";
 import { XIcon } from "@/components/icons/x-icon";
 import { YoutubeIcon } from "@/components/icons/youtube-icon";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Careers — Join The Club",
+  description:
+    "We're hiring. Come build AI twins for trainers with a small, flat, 0-to-1 team in Chennai.",
+};
 
 const APPLY_URL = "https://forms.gle/5r6Bhf7S3KfBmvNF9";
 
@@ -51,23 +58,6 @@ const roles = [
   },
 ];
 
-function LogoMark({ size = 28 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size * (46 / 61)}
-      viewBox="0 0 61 46"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z"
-        fill="#EC3013"
-      />
-    </svg>
-  );
-}
-
 export default function Careers() {
   return (
     <div className="min-h-screen">
@@ -82,10 +72,12 @@ export default function Careers() {
         <div className="prose prose-sm mx-auto">
           <div className="flex items-center justify-between gap-4 not-prose! mb-5!">
             <Link href="/" className="flex items-center gap-2.5 no-underline!">
-              <LogoMark />
-              <span className="font-figtree font-bold text-[20px] text-brand!">
-                TrainerTwin
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-withname.svg"
+                alt="TrainerTwin"
+                className="h-7 w-auto"
+              />
             </Link>
             <a
               href="/invite"
@@ -181,10 +173,12 @@ export default function Careers() {
       >
         <div className="max-w-170 mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
           <div className="flex items-center gap-2.5">
-            <LogoMark size={20} />
-            <span className="font-figtree font-bold text-[16px]">
-              TrainerTwin
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-withname.svg"
+              alt="TrainerTwin"
+              className="h-7 w-auto"
+            />
             <a
               href="/careers"
               className="ml-4 flex items-center gap-1.5 text-[13px] text-muted hover:text-brand transition-colors no-underline!"

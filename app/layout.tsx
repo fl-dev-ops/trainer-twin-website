@@ -75,15 +75,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: [
-      {
-        url: "/icon.ico",
-        sizes: "any",
-        type: "image/x-icon",
-      },
-    ],
-  },
   other: {
     "theme-color": "#ec3013",
     "apple-mobile-web-app-capable": "yes",

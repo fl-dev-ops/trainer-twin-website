@@ -83,21 +83,12 @@ export default function ComingSoon() {
         <div className="prose mx-auto">
           <div className="flex items-center justify-between gap-4 not-prose! mb-5!">
             <div className="flex items-center gap-2.5">
-              <svg
-                width="28"
-                height="20"
-                viewBox="0 0 61 46"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z"
-                  fill="#EC3013"
-                />
-              </svg>
-              <span className="font-figtree font-bold text-[20px] text-brand!">
-                TrainerTwin
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo-withname.svg"
+                alt="TrainerTwin"
+                className="h-7 w-auto"
+              />
             </div>
             <div className="flex items-center gap-4">
               <a
