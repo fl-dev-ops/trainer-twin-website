@@ -188,7 +188,7 @@ export default function Careers() {
             </a>
           </div>
 
-          <div className="flex items-center gap-6 text-[13px] text-muted">
+          <div className="flex items-center gap-6 text-[5px] text-muted">
             <a
               href="https://www.youtube.com/@TrainerTwin"
               target="_blank"

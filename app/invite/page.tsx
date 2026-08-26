@@ -433,21 +433,12 @@ export default function ComingSoon() {
       >
         <div className="max-w-170 mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
           <div className="flex items-center gap-2.5">
-            <svg
-              width="20"
-              height="15"
-              viewBox="0 0 61 46"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M31 15H46V31H31V46H0V0H31V15ZM61 46H46V31H61V46ZM61 15H46V0H61V15Z"
-                fill="#EC3013"
-              />
-            </svg>
-            <span className="font-figtree font-bold text-[16px]">
-              TrainerTwin
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-withname.svg"
+              alt="TrainerTwin"
+              className="h-7 w-auto"
+            />
             <a
               href="/careers"
               className="ml-4 flex items-center gap-1.5 text-[13px] text-muted hover:text-brand transition-colors no-underline!"
@@ -461,7 +452,7 @@ export default function ComingSoon() {
             </a>
           </div>
 
-          <div className="flex items-center gap-6 text-[13px] text-muted">
+          <div className="flex items-center gap-6 text-[5px] text-muted">
             <a
               href="https://www.youtube.com/@TrainerTwin"
               target="_blank"
