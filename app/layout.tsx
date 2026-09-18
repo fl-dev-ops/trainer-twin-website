@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Figtree, Noto_Serif, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
 import Analytics from "./components/analytics";
+import PostHogPageView from "./components/posthog-pageview";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -203,6 +205,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <Analytics />
+        <Suspense fallback={null}>
+          <PostHogPageView />
+        </Suspense>
         {children}
       </body>
     </html>

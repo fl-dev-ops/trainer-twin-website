@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import posthog from "posthog-js";
 
 export default function Analytics() {
   useEffect(() => {
@@ -14,6 +15,11 @@ export default function Analytics() {
       const href = (target as HTMLAnchorElement).href || "";
 
       window.gtag?.("event", "click", {
+        event_category: tagName === "a" ? "link" : "button",
+        event_label: text,
+        destination_url: href,
+      });
+      posthog.capture("click", {
         event_category: tagName === "a" ? "link" : "button",
         event_label: text,
         destination_url: href,
@@ -38,6 +44,7 @@ export default function Analytics() {
             event_label: `${t}%`,
             value: t,
           });
+          posthog.capture("scroll_depth", { percent: t });
         }
       }
     };
