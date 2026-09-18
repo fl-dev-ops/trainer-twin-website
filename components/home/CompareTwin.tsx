@@ -73,7 +73,7 @@ export function CompareTwin() {
       aria-labelledby="compare-h"
     >
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <span className="eyebrow">More than content or an avatar</span>
           <h2 id="compare-h">Same content. Different experience.</h2>
           <p>
@@ -83,7 +83,7 @@ export function CompareTwin() {
           </p>
         </div>
 
-        <div className="cmp-grid">
+        <div className="cmp-grid" data-reveal data-reveal-delay="100">
           {COLUMNS.map((col, index) => (
             <Fragment key={col.key}>
               {/* Sits between AI Avatar and Trainer Twin — the actual

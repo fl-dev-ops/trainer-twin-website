@@ -111,11 +111,11 @@ export function FoundingTrainers() {
         lightMode
       />
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <h2 id="found-h">Meet people who have shown interest in TrainerTwin</h2>
         </div>
       </div>
-      <div className="found-rail" ref={railRef}>
+      <div className="found-rail" ref={railRef} data-reveal data-reveal-delay="100">
         <div className="found-track">
           <CardSet duplicate={false} />
           <CardSet duplicate />

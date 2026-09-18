@@ -29,7 +29,7 @@ export function BuildYourTwinV3() {
       aria-labelledby="build-h"
     >
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <span className="eyebrow">See your training DNA in action</span>
           <h2 id="build-h">Build your Twin in 3 simple steps</h2>
           <p>
@@ -38,7 +38,7 @@ export function BuildYourTwinV3() {
           </p>
         </div>
 
-        <div className="steps-row">
+        <div className="steps-row" data-reveal data-reveal-delay="100">
           <StepCard
             title="Upload 3 teaching videos"
             copy="Share a few of your real sessions."

@@ -1,5 +1,6 @@
 import { PageFooter } from "@/components/home/PageFooter";
 import { SiteHeader } from "@/components/home/SiteHeader";
+import { ScrollEffects } from "@/components/landing2/ScrollEffects";
 import { CareersTeamPhoto } from "./CareersTeamPhoto";
 import { RoleCard } from "./RoleCard";
 import { CAREERS_INTRO, CAREERS_TEAM_HREF, ROLES } from "@/data/careers";
@@ -53,8 +54,8 @@ export function CareersPage() {
             </div>
           ) : (
             <ul className="flex flex-col gap-4">
-              {ROLES.map((role) => (
-                <li key={role.id}>
+              {ROLES.map((role, i) => (
+                <li key={role.id} data-reveal data-reveal-delay={`${i * 120}`}>
                   <RoleCard role={role} />
                 </li>
               ))}
@@ -63,6 +64,7 @@ export function CareersPage() {
         </div>
       </main>
       <PageFooter hideCta layout="v3" />
+      <ScrollEffects />
     </>
   );
 }

@@ -182,12 +182,12 @@ function Layers() {
   return (
     <section className="sec sec--line" aria-labelledby="layers-h">
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <span className="eyebrow">{INVITE_LAYERS.eyebrow}</span>
           <h2 id="layers-h">{INVITE_LAYERS.title}</h2>
           <p>{INVITE_LAYERS.lead}</p>
         </div>
-        <div className="invite-layers">
+        <div className="invite-layers" data-reveal data-reveal-delay="100">
           {INVITE_LAYERS.items.map((item, i) => {
             const { icon, tone } = LAYER_ICONS[i];
             return (
@@ -219,12 +219,12 @@ function Team() {
       aria-labelledby="team-h"
     >
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <span className="eyebrow">{INVITE_TEAM.eyebrow}</span>
           <h2 id="team-h">{INVITE_TEAM.title}</h2>
           <p>{INVITE_TEAM.lead}</p>
         </div>
-        <ul className="invite-team">
+        <ul className="invite-team" data-reveal data-reveal-delay="100">
           {INVITE_TEAM.members.map((member) => (
             <li key={member.name}>
               <img
@@ -265,15 +265,15 @@ function EquityProgram() {
       aria-labelledby="equity-h"
     >
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <span className="eyebrow">{INVITE_FOUNDING.eyebrow}</span>
           <h2 id="equity-h">{INVITE_FOUNDING.title}</h2>
           <p>{INVITE_FOUNDING.lead}</p>
         </div>
 
-        <p className="invite-equity-intro">{INVITE_FOUNDING.cardsIntro}</p>
+        <p className="invite-equity-intro" data-reveal data-reveal-delay="50">{INVITE_FOUNDING.cardsIntro}</p>
 
-        <div className="invite-equity-grid">
+        <div className="invite-equity-grid" data-reveal data-reveal-delay="100">
           {INVITE_FOUNDING.cards.map((card, i) => {
             const { icon, tone } = EQUITY_ICONS[i];
             return (

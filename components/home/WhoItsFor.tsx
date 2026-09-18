@@ -213,7 +213,7 @@ function WhoScroll({ profiles }: { profiles: WhoProfileCard[] }) {
       aria-labelledby="who-h"
     >
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <span className="eyebrow">Who uses it</span>
           <h2 id="who-h">Who it’s for</h2>
           <p>Pick your field to see how trainers like you use it.</p>
@@ -221,6 +221,8 @@ function WhoScroll({ profiles }: { profiles: WhoProfileCard[] }) {
 
         <div
           className="who-acc"
+          data-reveal
+          data-reveal-delay="100"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}
@@ -318,7 +320,7 @@ function WhoScroll({ profiles }: { profiles: WhoProfileCard[] }) {
         </div>
 
         {other ? (
-          <article className="ws-card ws-card--catchall">
+          <article className="ws-card ws-card--catchall" data-reveal data-reveal-delay="150">
             <div className="ws-card-copy">
               <h3>{other.kicker || "Other Trainers"}</h3>
               <p>{other.body}</p>

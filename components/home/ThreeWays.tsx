@@ -118,7 +118,7 @@ export function ThreeWays({
         lightMode
       />
       <div className="wrap">
-        <div className="head">
+        <div className="head" data-reveal>
           <span className="eyebrow">What your twin can do</span>
           <h2 id="can-do-h">One twin, two ways to use it</h2>
           <p>
@@ -176,7 +176,7 @@ function Way({
   v3?: boolean;
 }) {
   return (
-    <div id={id} className={`way${reversed ? " way--reversed" : ""}`}>
+    <div id={id} className={`way${reversed ? " way--reversed" : ""}`} data-reveal>
       {/* Copy in normal flow, never scaled: text that shrinks with a transform
           stops being readable long before the layout runs out of room. */}
       <div className="way-copy">

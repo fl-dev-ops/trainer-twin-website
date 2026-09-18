@@ -203,3 +203,34 @@ strong {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ------------------------------------------------------------- SCROLL REVEAL
+   Clean, smooth fade-in + gentle rise on scroll for sections and cards.
+   Observed by ScrollEffects.tsx via [data-reveal]. */
+.l-reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--l-reveal-y, 24px), 0);
+  transition:
+    opacity 680ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 680ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--l-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.l-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.l-reveal.is-done {
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .l-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
