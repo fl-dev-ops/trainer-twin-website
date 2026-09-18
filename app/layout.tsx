@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Figtree, Noto_Serif } from "next/font/google";
+import { Figtree, Noto_Serif, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import Analytics from "./components/analytics";
 import "./globals.css";
@@ -12,6 +12,28 @@ const figtree = Figtree({
 const notoSerif = Noto_Serif({
   variable: "--font-noto-serif",
   subsets: ["latin"],
+  weight: ["300", "400", "600"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--tt-font-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Also expose Figtree and Noto Serif under the tt-* token names
+// so the new design-system components resolve their font variables
+const figtreeForTokens = Figtree({
+  variable: "--tt-font-ui",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const notoSerifForTokens = Noto_Serif({
+  variable: "--tt-font-display",
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  display: "swap",
 });
 
 const siteUrl = "https://www.trainertwin.com";
@@ -146,7 +168,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${figtree.variable} ${notoSerif.variable} h-full antialiased scroll-smooth`}
+      data-theme="light"
+      className={`${figtree.variable} ${notoSerif.variable} ${jetbrainsMono.variable} ${figtreeForTokens.variable} ${notoSerifForTokens.variable} h-full antialiased scroll-smooth`}
     >
       <head>
         <Script

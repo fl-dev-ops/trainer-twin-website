@@ -1,0 +1,281 @@
+/**
+ * `<SiteFooter layout="v3">`'s own chrome, decoupled from `.tt-home--v3`.
+ *
+ * The v3 footer was built for /TrainerTwin_home_v3 and its rules originally
+ * lived in that route's stylesheet under `.tt-home--v3 .l-footer-v3-*`,
+ * which meant any OTHER route using `layout="v3"` (careers, first) rendered
+ * the right markup with none of the styling — the ancestor class those
+ * selectors require was never there, and that stylesheet was never loaded.
+ *
+ * This file is the same rules, unscoped, imported directly by SiteFooter.tsx
+ * so the v3 footer looks the same wherever it's used. TrainerTwin_home_v3's
+ * own stylesheet keeps its copy for the one rule this file does NOT carry —
+ * the "lit edge" glow, which there is shared with every `.sec--line.tt-night`
+ * section, not just the footer, so it stays scoped to that route. A change to
+ * shared values (`--tt-v3-edge*`, the gradient stops) has to be made in both
+ * places.
+ */
+
+.l-footer-v3 {
+  background: var(--tt-canvas);
+}
+.l-footer-v3-cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 44px 0 var(--tt-space-16);
+  border-top: var(--tt-border-thin) solid var(--tt-border);
+}
+/* The band's blueprint lattice. Same 48px cell as the fold's corners so the
+   page keeps one grid, and drawn at the border token rather than a grey of its
+   own. It fades out toward the bottom, where the form card's own edge is doing
+   the work and a second set of lines behind it would only crowd it. */
+.l-footer-v3-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--tt-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--tt-border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+/* z-index alone, no `position`. The band is a flex container, so its children
+   honour z-index whether or not they are positioned — and two of them are the
+   absolutely placed glows, which a blanket `position: relative` here pulled
+   back into flow as flex items, squeezing the measure into half the band. */
+.l-footer-v3-cta > * {
+  z-index: 1;
+}
+/* The band carries the same Tailwind text colours as the night footers this
+   component still serves, so the two that name a night value outright are
+   re-pointed here rather than in the shared markup. */
+.l-footer-v3-cta h2 {
+  color: var(--tt-text-primary);
+}
+.l-footer-v3-cta .l-footer-type {
+  color: var(--tt-text-secondary);
+}
+.l-footer-v3-cta .l-footer-cta-row {
+  align-items: center;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.ea-badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 0 var(--tt-space-6);
+}
+.ea-badge-glow {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -10px;
+  height: 22px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    color-mix(in srgb, var(--tt-blue-300) 70%, transparent),
+    transparent 72%
+  );
+  filter: blur(7px);
+}
+.ea-badge-mark {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(
+    0 10px 14px color-mix(in srgb, var(--tt-blue-500) 35%, transparent)
+  );
+}
+.ea-badge-fill {
+  fill: var(--tt-night-panel);
+}
+.ea-badge-ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--tt-on-night-3) 55%, var(--tt-blue-300));
+  stroke-width: 1;
+}
+.ea-badge-stroke {
+  fill: none;
+  stroke: var(--tt-on-night-2);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+/* The dark chrome's own lit top edge — the same treatment
+   `.sec--line.tt-night` uses, reproduced here since this file can't reach
+   that route-scoped rule. Three tints of the brand orange, warming toward
+   white as they get hotter: the glow, the rule's own centre, and the pass
+   over it. */
+.l-footer-v3-chrome {
+  position: relative;
+  border-top: 0;
+  --tt-v3-edge: color-mix(in srgb, var(--tt-primary) 70%, var(--tt-on-night));
+  --tt-v3-edge-hot: color-mix(in srgb, var(--tt-primary) 38%, var(--tt-on-night));
+  --tt-v3-edge-pass: color-mix(in srgb, var(--tt-primary) 26%, var(--tt-on-night));
+}
+.l-footer-v3-chrome::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 96px;
+  pointer-events: none;
+  background:
+    linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--tt-v3-edge) 35%, transparent) 18%,
+        color-mix(in srgb, var(--tt-v3-edge-hot) 85%, transparent) 50%,
+        color-mix(in srgb, var(--tt-v3-edge) 35%, transparent) 82%,
+        transparent 100%
+      )
+      top / 100% 1px no-repeat,
+    radial-gradient(
+      58% 100% at 50% 0%,
+      color-mix(in srgb, var(--tt-v3-edge) 22%, transparent) 0%,
+      color-mix(in srgb, var(--tt-v3-edge) 8%, transparent) 38%,
+      transparent 72%
+    );
+}
+.l-footer-v3-chrome::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--tt-v3-edge-pass) 95%, transparent) 50%,
+      transparent 100%
+    )
+    no-repeat;
+  background-size: 26% 100%;
+  animation: tt-v3-edge-pass 8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .l-footer-v3-chrome::after {
+    content: none;
+  }
+}
+
+/* Same layer the hero draws its lattice on: absolute, full-bleed, behind
+   everything in the footer's dark chrome. `.l-footer-v3-content` is what the
+   visible footer actually sits in, lifted to `z-index: 1` so the grid stays
+   underneath it. */
+.l-footer-v3-cursor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.l-footer-v3-content {
+  z-index: 1;
+}
+.l-footer-v3-chrome .l-footer-logo {
+  color: var(--tt-on-night) !important;
+}
+.l-footer-v3-chrome .l-footer-type {
+  color: var(--tt-text-secondary);
+}
+.l-footer-v3-chrome .l-footer-status {
+  /* `--tt-surface` is the night ground itself under this scope, which would
+     leave the pill invisible; raised is the one step up from it. */
+  background: var(--tt-surface-raised);
+  border-color: var(--tt-border);
+}
+.l-footer-v3-chrome .l-footer-status span:last-child {
+  color: var(--tt-text-tertiary);
+}
+.l-footer-v3-chrome h3 {
+  color: var(--tt-text-primary);
+  font-weight: var(--tt-weight-title);
+}
+.l-footer-v3-chrome nav a {
+  color: var(--tt-text-secondary);
+}
+.l-footer-v3-chrome nav a:hover {
+  color: var(--tt-text-primary);
+}
+.l-footer-v3-chrome .l-footer-hey {
+  display: none;
+}
+.l-footer-v3-chrome .l-footer-end {
+  display: flex;
+  flex-direction: column;
+}
+.l-footer-v3-chrome .l-footer-end .l-footer-wordmark {
+  height: auto;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: var(--tt-space-4);
+}
+.l-footer-v3-chrome .l-footer-end .l-wordmark {
+  position: relative;
+  inset: auto;
+  pointer-events: auto;
+  cursor: default;
+  line-height: 0.82;
+  opacity: 1;
+  transform: none !important;
+  color: transparent;
+  background-image:
+    linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 42%,
+      rgb(255 255 255 / 0.92) 50%,
+      transparent 58%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--tt-on-night) 20%, transparent),
+      color-mix(in srgb, var(--tt-on-night) 5%, transparent)
+    );
+  background-size: 220% 100%, 100% 100%;
+  background-position: 140% 0, 0 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.l-footer-v3-chrome .l-footer-end .l-wordmark:hover {
+  animation: tt-v3-wordmark-shine 0.85s ease-out;
+}
+@keyframes tt-v3-wordmark-shine {
+  from {
+    background-position: 140% 0, 0 0;
+  }
+  to {
+    background-position: -40% 0, 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .l-footer-v3-chrome .l-footer-end .l-wordmark:hover {
+    animation: none;
+  }
+}
+.l-footer-v3-chrome .l-footer-bar {
+  border-top: var(--tt-border-thin) solid var(--tt-border);
+  padding-top: var(--tt-space-8);
+}
+.l-footer-v3-chrome .l-footer-bar a {
+  color: var(--tt-text-secondary);
+}
+.l-footer-v3-chrome .l-footer-bar a:hover {
+  color: var(--tt-text-primary);
+}

@@ -1,0 +1,58 @@
+/* Authored here rather than copied: the component this belongs to imports it,
+   but the file was not part of the source that was handed over. */
+
+.confetti-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.confetti-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The origin every particle is placed against. Zero-sized and centred, so a
+   burst reads as coming out of one point rather than out of a box, and
+   `overflow` is never involved — particles are meant to leave. */
+.confetti-burst {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.confetti-trigger {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #2f2f33;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.confetti-trigger:focus-visible {
+  outline: 2px solid #26ccff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti-burst {
+    display: none;
+  }
+}

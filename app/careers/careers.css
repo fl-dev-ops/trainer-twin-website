@@ -1,0 +1,92 @@
+/* Careers sits in `.tt-home` so it can reuse the sticky bar, wrap, and footer
+   faces. Home forces h1/h2 to 700; the system only ships 400 and 600. */
+.tt-home .careers :is(h1, h2) {
+  font-weight: var(--tt-weight-semibold);
+  letter-spacing: -0.02em;
+}
+
+.tt-home .careers-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-night-deep);
+}
+
+.tt-home .careers-team {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1504 / 479;
+}
+
+.tt-home .careers-team-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Readability wash so the overlay sits a bit above the edge, not in the grain. */
+.tt-home .careers-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 55%;
+  pointer-events: none;
+  z-index: var(--tt-z-raised);
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--tt-night-deep) 82%, transparent) 0%,
+    color-mix(in srgb, var(--tt-night-deep) 40%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+.tt-home .careers-hero-copy {
+  position: absolute;
+  left: var(--tt-space-6);
+  right: var(--tt-space-6);
+  bottom: var(--tt-space-8);
+  z-index: var(--tt-z-sticky);
+  display: flex;
+  max-width: 65ch;
+  flex-direction: column;
+  gap: var(--tt-space-3);
+  pointer-events: none;
+}
+
+.tt-home .careers-hero-copy a {
+  pointer-events: auto;
+}
+
+.tt-home .careers-hero-copy h1 {
+  color: var(--tt-on-night);
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--tt-night-deep) 70%, transparent);
+}
+
+.tt-home .careers-hero-copy p {
+  color: var(--tt-on-night-2);
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--tt-night-deep) 70%, transparent);
+}
+
+@media (max-width: 767px) {
+  .tt-home .careers-hero {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    border-radius: 0;
+  }
+
+  .tt-home .careers-hero-copy {
+    left: var(--tt-space-5);
+    right: var(--tt-space-5);
+    bottom: var(--tt-space-5);
+    gap: var(--tt-space-2);
+  }
+
+  .tt-home .careers-hero-copy p {
+    font-size: 13px;
+    line-height: 20px;
+  }
+}

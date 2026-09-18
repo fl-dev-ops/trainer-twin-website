@@ -1,0 +1,3040 @@
+/* ============================================================ TrainerTwin home
+   The homepage, scoped to `.tt-home`.
+
+   Every value here is a `--tt-*` token from src/styles/tokens.css — there is no
+   second vocabulary the way the two /TrainerTwin_home* landings have one, because
+   this page was designed against the system directly rather than reconciled into
+   it afterwards. If a value below is not a token, it is page-level decoration and
+   says so.
+
+   Scoped under one class rather than written flat: the class names are ordinary
+   English (`.hero`, `.chat`, `.frame`) and a route stylesheet in the App Router
+   is still a global stylesheet once loaded. `.tt-home` is what keeps them from
+   reaching the other two marketing routes.
+
+   Buttons and badges are the system React components (src/components/Button.tsx,
+   Badge.tsx), so the hand-rolled `.btn` / `.badge` rules the design was drafted
+   with are gone.
+   ------------------------------------------------------------------------- */
+
+.tt-home {
+  /* The sticky bar's height, shared by the bar itself and the lattice that
+     reaches up behind it. 84px of content on a 1px rule. */
+  --hdr-h: 85px;
+  /* marketing/body — the default on marketing pages (§3, D18). The product's
+     15px is set on body; this page is read at arm's length, not at a glance. */
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* Headings: two families, one weight step, and balanced line breaks. Tailwind's
+   preflight already strips margins and list markers, so only the parts the
+   system specifies are stated. */
+.tt-home :is(h1, h2, h3, h4) {
+  font-weight: var(--tt-weight-title);
+  text-wrap: balance;
+}
+/* The display cut TrainerTwin_home sets: 700 with the tracking pulled in hard,
+   which is what Noto Serif needs at hero and section sizes. h3 and h4 keep the
+   system's heading weight — they are product titles, not display. */
+.tt-home :is(h1, h2) {
+  font-family: var(--tt-font-display);
+  font-weight: 700;
+  letter-spacing: -0.0477em;
+}
+
+/* Anchor navigation clears the sticky header. On the scroller — which is the
+   document, not the `.tt-home` div — and only while this page is on screen. */
+:root:has(.tt-home) {
+  scroll-behavior: smooth;
+}
+.tt-home :where(section[id], main[id], .way[id]) {
+  scroll-margin-top: 80px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:has(.tt-home) {
+    scroll-behavior: auto;
+  }
+}
+
+.tt-home .wrap {
+  max-width: var(--tt-container-lg);
+  margin: 0 auto;
+  padding: 0 var(--tt-space-6);
+}
+
+.tt-home .link {
+  color: var(--tt-primary-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.tt-home .link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* AI disclosure (§8). Neutral, never orange, never dismissible — it is a fact
+   about the thing on screen, not a warning and not a promotion.
+
+   NOTE for the system: the icon is gone from it on this page, so what is left
+   is §8's label in §8's pill without §8's mark. The words still disclose; the
+   glanceable part of the marker does not. */
+.tt-home .disclosure {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+  padding: var(--tt-pad-pill-md);
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-surface);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--tt-text-secondary);
+  white-space: nowrap;
+}
+.tt-home .disclosure b {
+  color: var(--tt-text-primary);
+}
+
+/* ===================================================================== HEADER */
+
+.tt-home .hdr {
+  position: sticky;
+  top: 0;
+  z-index: var(--tt-z-sticky);
+  /* 72%, not 90%: the lattice runs up behind this bar, and at 90% the wash
+     left nothing of it to see. Enough frost remains — with the blur — that
+     content scrolling under stays readable. */
+  background: color-mix(in srgb, var(--tt-canvas) 72%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: var(--tt-border-thin) solid var(--tt-border);
+}
+/* The bar is /TrainerTwin_home's, to the pixel: 84px tall, the three groups
+   spread by `space-between` rather than the nav being pushed up against the
+   button, and 24px between everything. What is in the nav is this page's own. */
+.tt-home .hdr-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tt-space-6);
+  height: 84px;
+}
+.tt-home .nav {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-6);
+}
+/* Direct children and the one trigger, not every link inside the nav: one of
+   the items opens a panel, and the links in that panel are nav descendants
+   that must not be drawn as nav items. */
+.tt-home .nav > a,
+.tt-home .nav-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+  /* No side padding — the 24px between items is the nav's gap, as it is on
+     the page this bar comes from. The 40px floor is hit area only; it does not
+     show, because the items are centred in the bar either way. */
+  min-height: 40px;
+  font-size: 14px; /* marketing/nav */
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--tt-text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--tt-radius-sm);
+  transition: color var(--tt-duration-quick) var(--tt-ease-standard);
+}
+.tt-home .nav > a:hover,
+.tt-home .nav > a[aria-current="true"],
+.tt-home .nav-trigger:hover,
+.tt-home .nav-trigger[aria-current="true"] {
+  color: var(--tt-text-primary);
+}
+/* The section marker sits on the header's own bottom edge, so it reads as part
+   of the rule rather than as an underline on the word. */
+.tt-home .nav > a[aria-current="true"]::after,
+.tt-home .nav-trigger[aria-current="true"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* Half the difference between the 84px bar and the 40px item, so the marker
+     lands on the bar's own bottom edge rather than under the word. */
+  bottom: -22px;
+  height: 2px;
+  background: var(--tt-primary);
+}
+
+/* The bar's button, at the size /TrainerTwin_home settles on — 34px and 16px
+   semibold, which is none of CtaLink's three. That page hand-rolls this button
+   for the same reason; here the size comes from the page and the colour, focus
+   and hover keep coming from the component. */
+.tt-home .hdr-cta {
+  height: 34px;
+  padding: 0 14px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Header Early access — Figma metal, no shine sweep. Size stays 34px. */
+.tt-home a.hdr-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  color: var(--tt-on-cta-strong);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  border: var(--tt-border-thin) solid transparent;
+  border-radius: 999px;
+  background-color: var(--tt-cta-strong);
+  background-image: linear-gradient(
+    90.16deg,
+    rgba(58, 58, 58, 0) -9.16%,
+    rgba(17, 17, 17, 0.44) 9.75%,
+    rgba(7, 7, 7, 0.85) 35.85%,
+    rgba(1, 1, 1, 0.944543) 83.85%,
+    #5f5f5f 97.34%
+  );
+  box-shadow:
+    0 8px 18px -4px rgb(0 0 0 / 0.25),
+    inset 0 1px 2px rgb(255 255 255 / 0.12);
+  transition:
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    background 200ms ease-out;
+}
+.tt-home a.hdr-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.055;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+.tt-home a.hdr-cta:hover {
+  background-color: var(--tt-cta-strong);
+  background-image: linear-gradient(
+    90.16deg,
+    rgba(58, 58, 58, 0) -9.16%,
+    rgba(17, 17, 17, 0.44) 9.75%,
+    rgba(7, 7, 7, 0.85) 35.85%,
+    rgba(1, 1, 1, 0.92) 78%,
+    #8a8a8a 97.34%
+  );
+  box-shadow:
+    0 10px 22px -4px rgb(0 0 0 / 0.3),
+    inset 0 1px 2px rgb(255 255 255 / 0.2);
+  transform: translateY(-1px);
+}
+.tt-home a.hdr-cta:active {
+  background-color: var(--tt-cta-strong);
+  background-image: linear-gradient(
+    90.16deg,
+    rgba(58, 58, 58, 0) -9.16%,
+    rgba(17, 17, 17, 0.5) 9.75%,
+    rgba(7, 7, 7, 0.9) 35.85%,
+    rgba(1, 1, 1, 0.96) 83.85%,
+    #4a4a4a 97.34%
+  );
+  box-shadow:
+    0 4px 10px -4px rgb(0 0 0 / 0.28),
+    inset 0 2px 4px rgb(0 0 0 / 0.45),
+    inset 0 1px 2px rgb(255 255 255 / 0.08);
+  transform: translateY(1px);
+}
+.tt-home a.hdr-cta:focus-visible {
+  outline: 2px solid var(--tt-focus);
+  outline-offset: 2px;
+}
+
+/* Hero Request early access — Figma shine pill. Left white glare, dark mid,
+   right-edge catch, 1px rim that goes white on the right. Size stays 54px. */
+.tt-home .hero-cta > a:not(.link) {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  color: var(--tt-on-cta-strong);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  border: var(--tt-border-thin) solid transparent;
+  border-radius: 999px;
+  background-color: #070707;
+  background-image:
+    linear-gradient(
+      100deg,
+      rgb(255 255 255 / 0.78) 0%,
+      rgb(255 255 255 / 0.28) 11%,
+      rgb(255 255 255 / 0.06) 22%,
+      rgb(255 255 255 / 0) 34%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(58 58 58 / 0) -3.4%,
+      rgb(17 17 17 / 0.44) 17.76%,
+      rgb(7 7 7 / 0.85) 42.26%,
+      rgb(1 1 1 / 0.9445) 87.33%,
+      #5f5f5f 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(85 85 85 / 0.8) 0%,
+      rgb(54 54 54 / 0.8) 51.85%,
+      rgb(255 255 255 / 0.8) 100%
+    );
+  background-origin: border-box;
+  background-clip: padding-box, padding-box, border-box;
+  box-shadow:
+    0 8px 18px -4px rgb(0 0 0 / 0.25),
+    inset 0 1px 2px rgb(255 255 255 / 0.12),
+    inset 0 4px 22px rgb(255 255 255 / 0.25);
+  transition:
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    background 200ms ease-out;
+}
+.tt-home .hero-cta > a:not(.link)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.055;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+/* Specular sweep + additive top glow, clipped to the pill, under the label. */
+.tt-home .hero-cta > a:not(.link)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: inherit;
+  mix-blend-mode: plus-lighter;
+  background:
+    linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.28) 0%,
+      rgb(255 255 255 / 0) 48%
+    ),
+    linear-gradient(
+      105deg,
+      rgb(255 255 255 / 0) 32%,
+      rgb(255 255 255 / 0.55) 50%,
+      rgb(255 255 255 / 0) 68%
+    );
+  background-repeat: no-repeat;
+  background-size: 100% 100%, 42% 140%;
+  background-position: 0 0, -60% 50%;
+  animation: tt-hero-cta-glare 3.2s ease-in-out infinite;
+}
+@keyframes tt-hero-cta-glare {
+  0%,
+  8% {
+    background-position: 0 0, -70% 50%;
+  }
+  52% {
+    background-position: 0 0, 130% 50%;
+  }
+  60%,
+  100% {
+    background-position: 0 0, 130% 50%;
+  }
+}
+.tt-home .hero-cta > a:not(.link):hover {
+  background-color: #070707;
+  background-image:
+    linear-gradient(
+      100deg,
+      rgb(255 255 255 / 0.88) 0%,
+      rgb(255 255 255 / 0.34) 12%,
+      rgb(255 255 255 / 0.08) 24%,
+      rgb(255 255 255 / 0) 36%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(58 58 58 / 0) -3.4%,
+      rgb(17 17 17 / 0.44) 17.76%,
+      rgb(7 7 7 / 0.85) 42.26%,
+      rgb(1 1 1 / 0.92) 82%,
+      #8a8a8a 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(85 85 85 / 0.8) 0%,
+      rgb(54 54 54 / 0.8) 51.85%,
+      rgb(255 255 255 / 0.92) 100%
+    );
+  box-shadow:
+    0 10px 22px -4px rgb(0 0 0 / 0.3),
+    inset 0 1px 2px rgb(255 255 255 / 0.18),
+    inset 0 4px 22px rgb(255 255 255 / 0.32);
+  transform: translateY(-1px);
+}
+.tt-home .hero-cta > a:not(.link):active {
+  background-color: #070707;
+  background-image:
+    linear-gradient(
+      100deg,
+      rgb(255 255 255 / 0.45) 0%,
+      rgb(255 255 255 / 0.14) 12%,
+      rgb(255 255 255 / 0) 30%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(58 58 58 / 0) -3.4%,
+      rgb(17 17 17 / 0.5) 17.76%,
+      rgb(7 7 7 / 0.9) 42.26%,
+      rgb(1 1 1 / 0.96) 87.33%,
+      #4a4a4a 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgb(85 85 85 / 0.8) 0%,
+      rgb(54 54 54 / 0.8) 51.85%,
+      rgb(255 255 255 / 0.65) 100%
+    );
+  box-shadow:
+    0 4px 10px -4px rgb(0 0 0 / 0.28),
+    inset 0 2px 4px rgb(0 0 0 / 0.45),
+    inset 0 1px 2px rgb(255 255 255 / 0.08);
+  transform: translateY(1px);
+}
+.tt-home .hero-cta > a:not(.link):focus-visible {
+  outline: 2px solid var(--tt-focus);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tt-home a.hdr-cta,
+  .tt-home .hero-cta > a:not(.link),
+  .tt-home a.hdr-cta:hover,
+  .tt-home .hero-cta > a:not(.link):hover,
+  .tt-home a.hdr-cta:active,
+  .tt-home .hero-cta > a:not(.link):active {
+    transition: none;
+    transform: none;
+  }
+  .tt-home .hero-cta > a:not(.link)::after {
+    animation: none;
+    background-position: 0 0, 18% 50%;
+  }
+}
+
+/* The promo-video mark in the nav menu: one dash running a 9:16 frame. It
+   shares `l-snake`'s keyframe — the same trick the other two marks in that
+   panel use — but strokes flat brand, because the gradient those two reference
+   is defined inside the explainer card's own SVG. */
+.tt-home .l-reel {
+  stroke: var(--tt-primary);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 26 74;
+  animation: l-snake 5.5s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tt-home .l-reel {
+    animation: none;
+  }
+}
+
+/* ======================================================================= HERO
+   Side by side, light and dark: the copy reads on paper, the mechanism plays
+   out on a night panel beside it — the same split the original marketing home
+   uses for its hero, applied to this page's own content instead of copying its
+   artwork. */
+
+.tt-home .hero {
+  position: relative;
+  padding: 0;
+  /* `clip-path`, not `overflow: hidden`: the lattice below reaches up behind
+     the sticky bar, and an overflow clip would cut it off at the fold's top
+     edge. The inset is 0 on the other three sides, so everything that clip was
+     guarding — the night panel's bleed, the diagram — is still bounded. */
+  clip-path: inset(calc(-1 * var(--hdr-h)) 0 0 0);
+}
+/* The cursor lattice sits behind the fold, full bleed. `.hero-grid` below is
+   positioned so that it, and the opaque night panel inside it, paint over the
+   lattice — an absolutely placed layer would otherwise sit above the static
+   content that follows it. The colour is the literal TrainerTwin_home passes;
+   CursorGrid reads a hex rather than a custom property, so the token cannot be
+   handed to it directly. */
+.tt-home .hero-lattice {
+  position: absolute;
+  /* Up past the top of the fold by the height of the bar, so one lattice
+     covers the header band and the hero as a single field. Two canvases would
+     have been two grids: the cells are centred in whatever box they are given,
+     so a separate grid on an 85px bar would sit out of phase with the 866px
+     one under it. */
+  inset: calc(-1 * var(--hdr-h)) 0 auto 0;
+  height: calc(100% + var(--hdr-h));
+  pointer-events: none;
+}
+/* No `.wrap` here. The panel has to reach the viewport's right edge, which a
+   max-width container would cut off, so the grid spans the full width and the
+   left inset the container would have provided is applied as padding instead.
+   The inset is the container's CONTENT edge, gutter included — 50vw − half the
+   container + the gutter — so the headline starts on the same line as the
+   lockup above it, which is what TrainerTwin_home does. Below 1200 the
+   expression falls under the gutter and the `max()` holds it there. */
+/* A true half and half: the dark column is exactly 50vw, so the edge between
+   white and night lands on the window's centre line whatever the width. The
+   copy takes what is left, and the space between the two is the copy's own
+   right padding rather than a grid gap — a gap would push the seam off centre
+   by half its own width. */
+.tt-home .hero-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 50vw;
+  gap: 0;
+  align-items: stretch;
+  padding-left: max(
+    var(--tt-space-6),
+    calc(50vw - (var(--tt-container-lg) / 2) + var(--tt-space-6))
+  );
+}
+.tt-home .hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  padding: var(--tt-space-16) var(--tt-space-12) var(--tt-space-16) 0;
+}
+/* The line above the headline, at TrainerTwin_home's settings: mono at 12px,
+   bold, and painted with the same three-stop ramp the cycling headline below
+   it carries — at 148deg rather than 115, which is the angle that page uses
+   for the eyebrow specifically. Literal stops, for the reason given on `.rot`:
+   a display gradient is page-level decoration (D05). */
+.tt-home .hero-eyebrow {
+  margin-bottom: var(--tt-space-6);
+  font-family: var(--tt-font-mono);
+  font-size: 12px;
+  line-height: 1.14;
+  font-weight: 700;
+  background-image: linear-gradient(
+    148.18deg,
+    var(--tt-blue-600) 3.4%,
+    #b69c26 33.4%,
+    #9f5315 65.75%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* The trust line under the call to action. Quiet: it is reassurance at the end
+   of the fold, not a claim competing with the headline, so the caption sits at
+   `product/body-s` in muted ink and the marks are small enough to be
+   recognised rather than read. */
+.tt-home .hero-backers {
+  margin-top: var(--tt-space-10);
+}
+.tt-home .hero-backers > p {
+  font-size: 13px; /* product/body-s */
+  line-height: 20px;
+  color: var(--tt-text-muted);
+}
+.tt-home .backer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--tt-space-5);
+  margin-top: var(--tt-space-4);
+}
+.tt-home .backer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tt-space-3);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--tt-weight-label);
+  color: var(--tt-text-secondary);
+  white-space: nowrap;
+}
+.tt-home .backer-mark {
+  flex: none;
+}
+/* The rule between the two, not a typed pipe: a `|` in the flow would be read
+   aloud and would have to be sized against two different lockups. */
+.tt-home .backer-sep {
+  width: var(--tt-border-thin);
+  align-self: stretch;
+  min-height: 20px;
+  background: var(--tt-border);
+}
+
+/* marketing/hero, at TrainerTwin_home's size exactly. The cut — 700, -0.0477em
+   — is on `:is(h1, h2)` above, shared with every section title. */
+.tt-home .hero h1 {
+  font-size: 64px;
+  line-height: 1.14;
+}
+/* The two slots in the hero sentence.
+
+   Nothing here sizes or clips them: the words are typed a character at a time,
+   so the box grows with its content and the line reflows as it goes, which is
+   what a typewriter does. An earlier pass tweened the width between measured
+   word widths and clipped the overflow — that clip is what threw the baseline
+   off, because an inline-block with overflow other than visible stops aligning
+   on its text baseline and starts aligning on its bottom margin edge. With
+   nothing to clip, the slot is an ordinary inline run and sits on the line. */
+.tt-home .rot-slot {
+  white-space: nowrap;
+}
+/* One line each. The floor is the line box: the third line holds nothing at
+   all for the frame between erasing and typing, and an empty inline generates
+   no line box, so without it the headline would shorten by a line and the copy
+   under it would jump every cycle. */
+.tt-home .rot-line {
+  display: block;
+  min-height: 1.14em;
+}
+/* The changing words carry the gradient; everything static around them takes
+   the page's ink. The ramp is the same three stops the section titles and the
+   eyebrow use — literal, because a display gradient is page-level decoration
+   rather than something the token file answers (D05). */
+.tt-home .rot-word {
+  background-image: linear-gradient(
+    115.42deg,
+    var(--tt-blue-600) 3.4%,
+    #b69c26 33.4%,
+    #9f5315 65.75%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.tt-home .hero-lede {
+  margin-top: var(--tt-space-6);
+  max-width: 46ch;
+  color: var(--tt-text-tertiary);
+}
+.tt-home .hero-cta {
+  margin-top: var(--tt-space-8);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--tt-space-6);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------- the panel: what goes in, what comes out */
+
+/* `.tt-night` supplies canvas/surface/text/border/cta; the three things it does
+   not redefine (success, fill-soft, primary-subtle) are pointed at the nearest
+   token that reads correctly on night rather than left to the light value. */
+/* The panel is a full-bleed block, not a floating card: no radius, no border,
+   no shadow — it meets the white half on a hard edge and runs off the right of
+   the window, exactly as TrainerTwin_home's hero does.
+
+   Its surface is `--tt-night-panel`, the warm near-black that page calls
+   `--l-hero-panel`. The two texture layers over it are that page's own
+   decoration, copied at their own values rather than tokenised (D05): a 38px
+   blueprint lattice at 2.8% white (`.l-grid-dark`), and the warm bloom its
+   Figma puts in the top-left corner. Both are painted as backgrounds on the
+   panel itself rather than as stacked children, so everything inside the
+   diagram keeps its natural paint order with no z-index to manage. */
+/* 866px is the height TrainerTwin_home gives its own hero panel — the dark
+   half is meant to dominate the fold, with the diagram sitting in it rather
+   than filling it. */
+.tt-home .flow {
+  position: relative;
+  display: grid;
+  align-items: center;
+  justify-items: start;
+  padding: var(--tt-space-10) var(--tt-space-8) var(--tt-space-10) 44px;
+  min-height: 866px;
+  overflow: hidden;
+  background-color: var(--tt-night-panel);
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    radial-gradient(
+      260px circle at 146px 114px,
+      rgba(255, 120, 40, 0.1) 0%,
+      rgba(255, 120, 40, 0) 70%
+    );
+  background-size:
+    38px 38px,
+    38px 38px,
+    auto;
+  background-repeat: repeat, repeat, no-repeat;
+}
+
+/* Full size: the drawing fills the panel's content box rather than being
+   scaled down inside it.
+
+   It used to paint at 0.75, which left 153px of the panel unused down the right
+   and a lot more above and below. There is no scale past this one: the grid is
+   `width: 100%`, so the composition already spans the box, and anything over 1
+   runs out through the 32px right inset and off the window with the DNA tags on
+   the end of it. Bigger than this means a narrower composition — the tags under
+   the bust rather than beside it — not a bigger number here. */
+.tt-home .flow-inner {
+  position: relative;
+  display: grid;
+  /* Sources, a 100px run, then the figure — parked on the panel's left
+     padding, not floating in the right half. */
+  grid-template-columns: auto auto;
+  justify-self: start;
+  align-items: center;
+  gap: 100px;
+  width: auto;
+  max-width: 100%;
+  /* Orbit rings and the cycling caption hang past the bust; this keeps them
+     inside the night panel instead of clipping on the right edge. */
+  padding-right: 64px;
+  text-align: left;
+}
+
+/* The feed from each source chip into the bust. Absolutely positioned over the
+   whole diagram and sized by a viewBox the component measures, so the paths
+   are in the same coordinate space as the boxes they were measured from. */
+.tt-home .feed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  /* Positioned elements paint above in-flow ones, so without this the fan
+     would cross over the chips it is supposed to be leaving from. The columns
+     take the matching step up. */
+  z-index: 0;
+}
+.tt-home .flow-col,
+.tt-home .fig-main {
+  z-index: 1;
+}
+/* Every path is normalised to `pathLength: 100`, so one dash pattern gives all
+   them all the same pulse regardless of how far each actually travels. Negative
+   offset runs the dash from the start of the path — chip to bust, the
+   direction the material moves. */
+@keyframes tt-home-feed {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+.tt-home .feed-pulse {
+  /* 20 of the 100 units each path is normalised to, so the lit stretch is a
+     fifth of the run from chip to figure whatever that run measures. */
+  stroke-dasharray: 20 80;
+  animation: tt-home-feed 3.4s linear infinite;
+}
+/* The bust sits above the lines, so they arrive at it rather than across it. */
+/* The slot the turnaround fills. Sized here rather than by a prop: the
+   component scales everything it draws off the box it is given, and this is
+   the one place that knows how much room the panel has. */
+.tt-home .figure {
+  position: relative;
+  display: block;
+  width: var(--fig-size);
+  height: var(--fig-size);
+  line-height: 0;
+  overflow: visible;
+  isolation: isolate;
+}
+.tt-home .figure canvas {
+  position: relative;
+  z-index: 1;
+}
+.tt-home .orbit-lines {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 48%;
+  width: 176%;
+  max-width: 340px;
+  aspect-ratio: 320 / 220;
+  overflow: visible;
+  color: var(--tt-text-tertiary);
+  opacity: 0.82;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+.tt-home .orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.tt-home .orbit--a {
+  transform: rotate(-7deg);
+}
+.tt-home .orbit--b {
+  transform: rotate(11deg);
+}
+.tt-home .orbit--c {
+  transform: rotate(-19deg);
+}
+.tt-home .orbit-track {
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-dasharray: 1 8;
+  opacity: 0.48;
+  animation: tt-home-orbit-dash 9s linear infinite;
+  vector-effect: non-scaling-stroke;
+}
+.tt-home .orbit-track--soft {
+  stroke-dasharray: 1 12;
+  opacity: 0.3;
+  animation-duration: 12s;
+}
+.tt-home .orbit-dot {
+  fill: var(--tt-blue-300);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--tt-blue-300) 52%, transparent));
+  opacity: 0.86;
+}
+.tt-home .orbit-dot--bright {
+  fill: var(--tt-text-primary);
+  opacity: 0.95;
+}
+.tt-home .orbit-dot--soft {
+  fill: var(--tt-text-tertiary);
+  opacity: 0.62;
+}
+@keyframes tt-home-orbit-dash {
+  to {
+    stroke-dashoffset: -72;
+  }
+}
+.tt-home .flow-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-3);
+}
+/* Capped just above the widest label in each — "Recorded sessions" runs 171px
+   on the left, "An interactive twin" a little more on the right — rather than
+   stretching to fill their tracks. The slack this gives back is where the fans
+   get their horizontal run: the lines were leaving and arriving almost
+   vertically when the chips took the whole column. */
+.tt-home .flow-in {
+  max-width: 184px;
+}
+.tt-home .flow-out {
+  max-width: 200px;
+}
+.tt-home .flow-col > span {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--tt-text-tertiary);
+  margin-bottom: var(--tt-space-1);
+}
+.tt-home .chip {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-3);
+  padding: var(--tt-space-3) var(--tt-space-4);
+  /* Raised, not plain surface — inside `.flow`, surface already equals the
+     panel's own canvas, and a chip drawn in that colour would be invisible.
+     Elevation by lightness is exactly what the dark-theme rule in §6 asks for. */
+  background: var(--tt-surface-raised);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  border-radius: var(--tt-radius-md);
+  font-size: 15px;
+  line-height: 23px;
+  /* They all read the same. They were cycling between a dim and a lit state
+     with a tick landing on each, which said one source was being taken in and
+     the others were not — they are simply the list of what a twin accepts. */
+  color: var(--tt-text-primary);
+}
+.tt-home .chip svg {
+  width: var(--tt-icon-sm);
+  height: var(--tt-icon-sm);
+  flex: none;
+  color: var(--tt-text-tertiary);
+}
+.tt-home .chip--in {
+  padding: var(--tt-space-2) var(--tt-space-3);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* Label, bust, disclosure — all centred on the bust itself.
+
+   The column is the bust's own width, declared here rather than left to the
+   contents. The disclosure below it is a canvas that resizes itself to
+   whichever phrase is showing — 184px to 243px across the cycle — and as the
+   widest thing in an `auto` track it was sizing the track, which slid both
+   chip columns sideways and rebuilt the fan every two seconds. Pinned, the
+   phrase spills into the gaps instead, which is what the gap is for. */
+.tt-home .fig-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tt-space-3);
+  /* 182 is 70% of the 260 the turnaround was drawn at. It gave that quarter
+     back when the results column arrived on its right: the panel is exactly
+     50vw, the two chip columns and the two gaps take a fixed 407 of it, and
+     the figure is the one part of the composition that can shrink without
+     wrapping a label.
+
+     Hence the middle term, which is that sum written out — 50vw less the
+     panel's own 76px of insets, less the 407 the chips and gaps take, with
+     10px kept back for the difference between a measured label and a rendered
+     one. Above about 1350px it resolves past 182 and the cap holds it there;
+     below, it closes rather than pushing the columns off the panel. */
+  /* A step up from the old 182 cap now the results column is gone, still well
+     under the 260 the turnaround was drawn at. */
+  --fig-size: clamp(164px, 50vw - 300px, 210px);
+  width: var(--fig-size);
+}
+/* Matched to the disclosure's height below the bust, so the two flank it and
+   the bust's centre is the column's centre. */
+.tt-home .flow-label {
+  display: flex;
+  align-items: center;
+  min-height: 26px;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--tt-text-tertiary);
+}
+.tt-home .twin-svg {
+  width: 200px;
+  height: auto;
+  display: block;
+}
+.tt-home .twin-paper {
+  fill: var(--tt-surface-raised);
+}
+.tt-home .twin-outline {
+  fill: none;
+  stroke: var(--tt-border-interactive);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.tt-home .row rect {
+  fill: var(--tt-border);
+  transition: fill var(--tt-duration-slow) var(--tt-ease-standard);
+}
+.tt-home .row.on rect {
+  fill: var(--tt-text-primary);
+}
+/* The line currently being written. Orange is the platform acting (D03), which
+   is precisely what this row is. */
+.tt-home .row.head rect {
+  fill: var(--tt-primary);
+}
+
+/* The line under the figure, cycling through what is being extracted.
+
+   No pill and no border: it is a caption rather than a badge, and a box around
+   a phrase that rewrites itself every two seconds draws a frame around the one
+   thing on the panel that is already moving. Its height is pinned to the
+   label's above the bust so the two still flank it evenly whatever word is in
+   it at the time.
+
+   NOTE for the system: this is no longer §8's AI marker. The disclosure now
+   lives in the copy — "AI Twin of You" is the last phrase in the cycle — which
+   states it once a lap rather than continuously. */
+.tt-home .flow-caption {
+  display: flex;
+  align-items: center;
+  /* Centred over the column and free to be wider than it — see `.fig-main`. */
+  justify-content: center;
+  width: 100%;
+  min-height: 26px;
+  /* product/title-m's size at body weight: it is a caption rather than a
+     title, but 20 is the step the scale offers at this size and 26 is the
+     leading that comes with it — which lands exactly on the 26px the label
+     above the bust is pinned to, so the figure stays centred in its column. */
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--tt-text-secondary);
+  white-space: nowrap;
+}
+/* The phrase itself is a canvas — FuzzyText, which smears the text a row at a
+   time and eases the smear away as each new one arrives. It sizes itself to
+   what it draws, so the slot's own height is what keeps the figure centred. */
+.tt-home .flow-caption canvas {
+  display: block;
+}
+
+/* =================================================================== SECTIONS */
+
+.tt-home .sec {
+  padding: var(--tt-space-24) 0;
+}
+.tt-home .sec--line {
+  border-top: var(--tt-border-thin) solid var(--tt-border);
+}
+/* The seam between the fold and the page proper. An aurora washed across the
+   top of the section and faded out downward, so the eye reads a transition
+   rather than a rule.
+
+   Very light on purpose: `lightMode` mixes the shader toward white, the mask
+   takes it to nothing over 320px, and half opacity on top of that leaves a
+   tint rather than a picture. Its three stops are tokens (blue-300 through the
+   primary tint to primary), resolved off this element by the component. */
+.tt-home .sec--aurora {
+  position: relative;
+  overflow: hidden;
+}
+.tt-home .sec-aurora {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 320px;
+  pointer-events: none;
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    rgba(0, 0, 0, 0.5) 58%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    rgba(0, 0, 0, 0.5) 58%,
+    transparent 100%
+  );
+}
+/* The head sits over the wash, not under it. */
+.tt-home .sec--aurora > .wrap {
+  position: relative;
+}
+.tt-home .sec--sunken {
+  background: var(--tt-surface-sunken);
+  border-top: var(--tt-border-thin) solid var(--tt-border);
+  border-bottom: var(--tt-border-thin) solid var(--tt-border);
+}
+/* White is the ground for "One twin, three ways": each row already carries its
+   own lattice and mesh, and a wash under them competed with both. Same call
+   TrainerTwin_home makes for the section this layout comes from. */
+/* Centred, all of them. TrainerTwin_home opens every section the same way — a
+   mono caps kicker naming the section, then the title under it, both on the
+   middle — and a page whose sections each chose their own alignment read as
+   several pages. */
+.tt-home .head {
+  max-width: 620px;
+  margin: 0 auto var(--tt-space-16);
+  text-align: center;
+}
+/* The kicker. Mono at 10px with the tracking wide open: small enough to read
+   as a label rather than as copy, and the tracking is what keeps caps legible
+   at that size. On the one night section the colour token re-points itself
+   (§7), so this is one rule for both grounds. */
+.tt-home .eyebrow {
+  display: block;
+  margin-bottom: var(--tt-space-3);
+  font-family: var(--tt-font-mono);
+  font-size: 10px;
+  line-height: 1.56;
+  font-weight: var(--tt-weight-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tt-text-muted);
+}
+.tt-home .head h2 {
+  font-size: 44px; /* marketing/section */
+  line-height: 1.14;
+}
+.tt-home .head p {
+  margin-top: var(--tt-space-4);
+  color: var(--tt-text-secondary);
+}
+
+/* --------------------------------------------- one twin, three ways to use it */
+
+/* Each row is a pair of panels meeting on a hard edge, as TrainerTwin_home
+   draws "What you give your twin": no gap between the two, and no gap between
+   the rows either, so the whole block reads as one grid of quadrants. */
+.tt-home .ways {
+  display: flex;
+  flex-direction: column;
+}
+.tt-home .way {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+/* Order, not a second column template: the cells keep their source order for a
+   screen reader, and only their painted position swaps. */
+.tt-home .way--reversed .way-copy {
+  order: 2;
+}
+
+/* The copy panel's pale blueprint lattice — `.l-grid-light` from the source
+   page, now at its own values rather than the nearest tokens. The tokens were
+   the warm neutral ramp (D04) and read grey; the lattice is a cool blue-white,
+   which is a different thing and page-level decoration either way (D05). Same
+   38px step the hero's dark lattice uses. */
+/* The aspect ratio is what makes all three rows the same height: the columns
+   are equal thirds of one container, so a fixed ratio on the copy panel gives
+   every row an identical height and the art panel beside it stretches to match.
+   Content-driven heights would have made three different rows, because a chat
+   mock is taller than a 16:9 player. Same mechanism, same 599:560, as the
+   source page. */
+.tt-home .way-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--tt-space-3);
+  /* 68px a side, which is the source page's own figure for this panel
+     (`md:px-[68px]`) rather than a step on the 4pt scale. */
+  padding: var(--tt-space-16) 68px;
+  aspect-ratio: 599 / 560;
+  background-color: #f8fbfe;
+  background-image:
+    linear-gradient(to right, #edf0f3 1px, transparent 1px),
+    linear-gradient(to bottom, #edf0f3 1px, transparent 1px);
+  background-size: 38px 38px;
+}
+/* The row's call to action, at the source page's measurements: 48px tall,
+   24px a side, 16px semibold, 36px clear of the copy above it. None of CtaLink's
+   three sizes is this, so the size comes from here and the colour, hover and
+   focus keep coming from the component — the same split the header button uses.
+
+   36px is off the 4pt scale, like the 68px beside it; both are that page's own
+   figures for this panel rather than steps this page invented. */
+.tt-home .way-cta {
+  margin-top: 36px;
+  align-self: flex-start;
+  height: 48px;
+  padding: 0 var(--tt-space-6);
+  font-size: 16px;
+  line-height: 24px;
+}
+.tt-home .way-copy .kicker {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--tt-weight-label);
+  color: var(--tt-primary-ink);
+}
+.tt-home .way-copy h3 {
+  font-family: var(--tt-font-display);
+  font-size: 24px; /* product/title-l */
+  line-height: 30px;
+}
+.tt-home .way-copy p {
+  color: var(--tt-text-secondary);
+}
+/* The art panels: one four-point mesh each, over white.
+
+   Three of them rather than one repeated, so the section reads as a set rather
+   than as the same tile three times. They share their structure — a colour at
+   each corner, fading to nothing by two thirds — and differ in which hue leads:
+   blue for the conversation, orange for the video, green for the clips.
+
+   Every stop is a ramp token. Each one needs a transparent twin to fade into,
+   and a var() cannot be made transparent inline, so the fade-out is the same
+   colour written as `rgba(…, 0)` — fading to `transparent` instead would
+   interpolate through transparent BLACK and grey the whole panel out. The
+   literal beside each token is that token's own value; keep them in step.
+
+   The grain on top is not ornament: without it four gradients band visibly
+   across a panel this wide. */
+.tt-home .way-art {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: var(--tt-space-12) var(--tt-space-10);
+  min-height: 340px;
+}
+
+/* The three meshes from the Figma at 680:8167 — the pale set.
+
+   Built as stacked radial gradients rather than shipped as three images, so
+   they scale with the panel at any width and cost nothing to download. The
+   stops are literals rather than tokens (D05): none of these colours is in the
+   ramp, and none should be.
+
+   Matched by eye against the exported frames, not fitted to them: the earlier
+   dark set was fitted numerically against a render I could sample on disk, and
+   these arrived as attachments I can only look at. Close, but if a stop is off
+   it is off by more than the last set was — see the note in the handover. */
+
+.tt-home .way-art--moss {
+  background-color: #dbe0d6;
+  background-image:
+    radial-gradient(72% 62% at 92% 0%, #f1f1e4 0%, rgba(241, 241, 228, 0) 74%),
+    radial-gradient(46% 44% at 62% 80%, #e4d4e2 0%, rgba(228, 212, 226, 0) 72%),
+    radial-gradient(
+      44% 38% at 100% 96%,
+      #bcc3cd 0%,
+      rgba(188, 195, 205, 0) 74%
+    ),
+    radial-gradient(
+      70% 40% at 26% 104%,
+      #a6b9ab 0%,
+      rgba(166, 185, 171, 0) 76%
+    ),
+    radial-gradient(54% 92% at 0% 62%, #a3c0a4 0%, rgba(163, 192, 164, 0) 78%);
+}
+
+.tt-home .way-art--orchid {
+  background-color: #ecb0c9;
+  background-image:
+    radial-gradient(40% 38% at 0% 0%, #dc86ee 0%, rgba(220, 134, 238, 0) 70%),
+    radial-gradient(46% 44% at 66% 92%, #f7e2d9 0%, rgba(247, 226, 217, 0) 76%),
+    radial-gradient(58% 62% at 92% 42%, #ecb8c2 0%, rgba(236, 184, 194, 0) 76%),
+    radial-gradient(56% 54% at 0% 78%, #eaa8c2 0%, rgba(234, 168, 194, 0) 76%);
+}
+
+.tt-home .way-art--clay {
+  background-color: #eec6c4;
+  background-image:
+    radial-gradient(54% 50% at 0% 0%, #f8ebdf 0%, rgba(248, 235, 223, 0) 72%),
+    radial-gradient(52% 68% at 100% 6%, #e3dee8 0%, rgba(227, 222, 232, 0) 74%),
+    radial-gradient(46% 42% at 92% 96%, #f2e7e9 0%, rgba(242, 231, 233, 0) 74%),
+    radial-gradient(50% 62% at 2% 76%, #e2aaa8 0%, rgba(226, 170, 168, 0) 76%);
+}
+
+/* The glow wrappers. They are the card now, so they carry the width the mock
+   used to: the art panel centres them, and they stop where the mock stopped. */
+.tt-home .glow-chat,
+.tt-home .glow-mk {
+  width: 100%;
+}
+.tt-home .glow-mk {
+  max-width: 440px;
+}
+
+.tt-home .way-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+/* Above the grain, which is painted as the panel's last child. */
+.tt-home .way-art > * {
+  position: relative;
+  z-index: 1;
+}
+.tt-home .can {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--tt-space-2) var(--tt-space-4);
+  margin-top: var(--tt-space-1);
+}
+.tt-home .can li {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+  font-size: 15px;
+  line-height: 23px;
+}
+.tt-home .can svg {
+  width: var(--tt-icon-sm);
+  height: var(--tt-icon-sm);
+  flex: none;
+  color: var(--tt-success);
+}
+
+/* Two night chats in "Interactive twin": Trainer is a solid GlowCard, the twin
+   is dotted chrome. Panes share Explainer's 9.6s / 3.2s `mk-pane` clock. */
+.tt-home .twin-pair {
+  width: 100%;
+  max-width: 520px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--tt-space-4);
+  align-items: stretch;
+}
+.tt-home .twin-pair .glow-chat,
+.tt-home .twin-pair .glow-chat .border-glow-inner,
+.tt-home .twin-win--wire,
+.tt-home .twin-pair .chat {
+  height: 100%;
+}
+.tt-home .twin-win--wire {
+  border-radius: var(--tt-radius-md);
+  border: 2px dotted color-mix(in srgb, var(--tt-night) 55%, var(--tt-on-night-2));
+  background: color-mix(in srgb, var(--tt-night-panel) 86%, transparent);
+  overflow: hidden;
+}
+.tt-home .chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  color: var(--tt-on-night);
+}
+.tt-home .chat-top {
+  flex: none;
+  padding: var(--tt-space-3) var(--tt-space-4);
+  border-bottom: var(--tt-border-thin) solid var(--tt-line-night);
+}
+.tt-home .twin-win--wire .chat-top {
+  border-bottom: 1.5px dotted var(--tt-on-night-3);
+}
+.tt-home .chat-who {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: var(--tt-weight-label);
+  color: var(--tt-on-night);
+}
+.tt-home .chat-who svg {
+  width: var(--tt-icon-sm);
+  height: var(--tt-icon-sm);
+  flex: none;
+  color: var(--tt-on-night-2);
+}
+.tt-home .chat-body {
+  flex: 1;
+  padding: var(--tt-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-3);
+}
+.tt-home .bubble {
+  max-width: 92%;
+  padding: var(--tt-space-3);
+  border-radius: var(--tt-radius-md);
+  font-size: 13px;
+  line-height: 20px;
+}
+.tt-home .bubble--me {
+  align-self: flex-end;
+  background: color-mix(in srgb, var(--tt-on-night) 12%, transparent);
+  color: var(--tt-on-night);
+}
+.tt-home .bubble--twin {
+  align-self: flex-start;
+  background: var(--tt-night);
+  border: var(--tt-border-thin) solid var(--tt-line-night);
+  color: var(--tt-on-night);
+}
+.tt-home .source {
+  align-self: flex-start;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--tt-on-night-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.tt-home .source::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-success);
+}
+
+/* Same stage as Explainer videos: `mk-pane` on the 9.6s / 3.2s clock. */
+.tt-home .chat-stage {
+  height: 156px;
+}
+.tt-home .chat-status {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--tt-on-night-3);
+  white-space: nowrap;
+}
+.tt-home .chat-answer {
+  align-items: flex-start;
+}
+
+/* The lesson video. Night surfaces, so the in-frame labels take the night ink
+   steps rather than the page's. */
+.tt-home .frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-night-panel);
+  overflow: hidden;
+  box-shadow: var(--tt-elevation-2);
+}
+.tt-home .frame .slide {
+  position: absolute;
+  inset: 16% 42% 32% 7%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tt-home .bar {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--tt-on-night-3);
+  opacity: 0.55;
+}
+.tt-home .bar--title {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--tt-on-night);
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+.tt-home .frame .presenter {
+  position: absolute;
+  right: 7%;
+  bottom: 16%;
+  width: 27%;
+  aspect-ratio: 1;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-neutral-800);
+  display: grid;
+  place-items: end center;
+  overflow: hidden;
+}
+.tt-home .frame .presenter svg {
+  width: 78%;
+  height: 78%;
+  color: var(--tt-on-night-2);
+}
+.tt-home .in-frame {
+  position: absolute;
+  left: var(--tt-space-3);
+  bottom: var(--tt-space-4);
+  padding: var(--tt-pad-pill-sm);
+  border-radius: var(--tt-radius-pill);
+  background: color-mix(in srgb, var(--tt-night) 80%, transparent);
+  border: var(--tt-border-thin) solid var(--tt-line-night);
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--tt-on-night-2);
+  white-space: nowrap;
+}
+.tt-home .in-frame b {
+  color: var(--tt-on-night);
+}
+.tt-home .timecode {
+  position: absolute;
+  right: var(--tt-space-3);
+  top: var(--tt-space-3);
+  font-family: var(--tt-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--tt-on-night-2);
+}
+.tt-home .scrub {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--tt-line-night);
+}
+.tt-home .scrub i {
+  display: block;
+  height: 100%;
+  width: 35%;
+  background: var(--tt-on-night);
+}
+
+/* A diagram being drawn on the slide, with one idea travelling along it. */
+.tt-home .diagram {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 28px;
+  margin: 4px 0 6px;
+}
+.tt-home .diagram::before {
+  content: "";
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 50%;
+  border-top: 1.5px dashed var(--tt-on-night-3);
+}
+.tt-home .diagram i {
+  position: relative;
+  width: 30px;
+  height: 24px;
+  border-radius: var(--tt-radius-sm);
+  border: 1.5px solid var(--tt-on-night-2);
+  background: var(--tt-night-panel);
+}
+.tt-home .pulse {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-primary);
+  animation: tt-home-travel 2.6s var(--tt-ease-standard) infinite;
+}
+@keyframes tt-home-travel {
+  0% {
+    left: 30px;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 36px);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------ explainer: making one
+
+   Three panes on one clock. A single 9.6s cycle with each pane delayed by a
+   third of it means the sequence needs no JavaScript and no state — and the
+   rail's labels run the SAME animation with the SAME delays, so a label can
+   never brighten for a pane that is not up.
+
+   Panes sit at `opacity: 0` at rest, which is also what hides them during
+   their delay on the first lap. */
+.tt-home .mk {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-4);
+  padding: var(--tt-space-5);
+}
+
+.tt-home .mk-rail {
+  display: flex;
+  gap: var(--tt-space-2);
+}
+.tt-home .mk-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  padding-bottom: var(--tt-space-2);
+  border-bottom: 2px solid var(--tt-line-night);
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--tt-on-night-2);
+  white-space: nowrap;
+  opacity: 0.4;
+  animation: tt-home-mk-tab 9.6s step-end infinite;
+  animation-delay: calc(var(--i) * 3.2s);
+}
+.tt-home .mk-num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 15px;
+  height: 15px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-neutral-800);
+  font-family: var(--tt-font-mono);
+  font-size: 9px;
+  color: var(--tt-on-night);
+}
+@keyframes tt-home-mk-tab {
+  0% {
+    opacity: 1;
+    border-bottom-color: var(--tt-primary);
+  }
+  33.34% {
+    opacity: 0.4;
+    border-bottom-color: var(--tt-line-night);
+  }
+}
+
+/* The stage holds its own height so the panel does not resize three times a
+   lap — the tallest pane sets it, and the others are absolute inside it. */
+.tt-home .mk-stage {
+  position: relative;
+  height: 150px;
+}
+.tt-home .mk-pane {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-3);
+  opacity: 0;
+  animation: tt-home-mk-pane 9.6s var(--tt-ease-standard) infinite;
+  animation-delay: calc(var(--i) * 3.2s);
+}
+@keyframes tt-home-mk-pane {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  4%,
+  29% {
+    opacity: 1;
+    transform: none;
+  }
+  33%,
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.tt-home .mk-label {
+  font-family: var(--tt-font-mono);
+  font-size: 9.5px;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tt-on-night-3);
+}
+
+/* ---- 1: the prompt */
+.tt-home .mk-field {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: var(--tt-space-3);
+  border-radius: var(--tt-radius-sm);
+  background: var(--tt-night);
+  border: var(--tt-border-thin) solid var(--tt-line-night);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--tt-on-night);
+}
+/* Typed out, not faded in: the clip runs over the pane's own visible window,
+   so the sentence finishes before the pane leaves. */
+.tt-home .mk-typed {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: tt-home-mk-type 1.5s steps(42) infinite;
+  animation-delay: calc(var(--i) * 3.2s);
+  animation-duration: 9.6s;
+}
+@keyframes tt-home-mk-type {
+  0%,
+  3% {
+    clip-path: inset(0 100% 0 0);
+  }
+  18%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.tt-home .mk-caret {
+  flex: none;
+  width: 1.5px;
+  height: 15px;
+  background: var(--tt-primary);
+  animation: tt-home-blink 1s steps(1) infinite;
+}
+@keyframes tt-home-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.tt-home .mk-hint {
+  font-size: 11.5px;
+  line-height: 16px;
+  color: var(--tt-on-night-3);
+}
+
+/* ---- 2: style, then Generate */
+.tt-home .mk-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tt-home .mk-chip {
+  padding: var(--tt-pad-pill-md);
+  border-radius: var(--tt-radius-pill);
+  border: var(--tt-border-thin) solid var(--tt-line-night);
+  background: var(--tt-night);
+  font-size: 11.5px;
+  line-height: 16px;
+  color: var(--tt-on-night-2);
+}
+.tt-home .mk-chip.is-on {
+  background: var(--tt-primary-subtle);
+  border-color: var(--tt-primary-badge-border);
+  color: var(--tt-primary-ink);
+}
+.tt-home .mk-act {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-3);
+  margin-top: auto;
+}
+.tt-home .mk-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 var(--tt-space-4);
+  border-radius: var(--tt-radius-sm);
+  background: var(--tt-on-night);
+  color: var(--tt-night);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: var(--tt-weight-cta);
+}
+.tt-home .mk-btn--go {
+  background: var(--tt-primary);
+  color: var(--tt-on-primary);
+  animation: tt-home-mk-press 9.6s var(--tt-ease-standard) infinite;
+  animation-delay: 3.2s;
+}
+@keyframes tt-home-mk-press {
+  0%,
+  21% {
+    transform: none;
+  }
+  24% {
+    transform: scale(0.94);
+  }
+  27%,
+  100% {
+    transform: none;
+  }
+}
+/* The pointer that does the pressing — arriving, clicking, gone. */
+.tt-home .mk-cursor {
+  position: absolute;
+  left: 58px;
+  top: 22px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-on-night);
+  opacity: 0;
+  animation: tt-home-mk-point 9.6s var(--tt-ease-standard) infinite;
+  animation-delay: 3.2s;
+}
+@keyframes tt-home-mk-point {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translate(14px, 14px);
+  }
+  20%,
+  26% {
+    opacity: 0.9;
+    transform: none;
+  }
+  31%,
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+/* ---- 3: the result */
+.tt-home .mk-preview {
+  position: relative;
+  display: block;
+  height: 70px;
+  border-radius: var(--tt-radius-sm);
+  background: var(--tt-night);
+  border: var(--tt-border-thin) solid var(--tt-line-night);
+  overflow: hidden;
+}
+.tt-home .mk-play {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin: -7px 0 0 -4px;
+  border-left: 12px solid var(--tt-on-night);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+.tt-home .mk-time {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  font-family: var(--tt-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 9.5px;
+  line-height: 14px;
+  color: var(--tt-on-night-2);
+}
+/* The scrub runs across only while this pane is up. */
+.tt-home .mk-scrub {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--tt-primary);
+  transform-origin: left center;
+  animation: tt-home-mk-scrub 9.6s linear infinite;
+  animation-delay: 6.4s;
+}
+@keyframes tt-home-mk-scrub {
+  0% {
+    transform: scaleX(0);
+  }
+  28%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+.tt-home .mk-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  line-height: 16px;
+  color: var(--tt-available);
+}
+.tt-home .mk-ok svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ------------------------------------------------ promo: cutting the shorts
+
+   Everything here is drawn 9:16. A short IS a portrait object, and the row is
+   about making them — showing one in any other ratio would be showing the
+   wrong thing. `aspect-ratio` rather than a height, so the frames hold the
+   shape whatever the panel does. */
+.tt-home .pv-row {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-4);
+  margin-top: auto;
+}
+.tt-home .pv-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--tt-space-2);
+}
+.tt-home .pv-frames {
+  display: flex;
+  gap: 7px;
+}
+.tt-home .pv-frame {
+  position: relative;
+  flex: none;
+  width: 48px;
+  aspect-ratio: 9 / 16;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--tt-night);
+  border: var(--tt-border-thin) solid var(--tt-line-night);
+}
+.tt-home .pv-frame--lg {
+  width: 64px;
+}
+/* Each clip lands as it finishes rendering, left to right. Scoped to the
+   rendering row: the finished clip in the last pane has no `--i`, and an
+   invalid delay would have left it animating on the wrong third of the cycle
+   — which is to say, invisible when its own pane was up. */
+.tt-home .pv-frames .pv-frame {
+  animation: tt-home-mk-clip 9.6s var(--tt-ease-standard) infinite;
+  animation-delay: calc(3.2s + var(--i) * 0.45s);
+}
+@keyframes tt-home-mk-clip {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  11%,
+  29% {
+    opacity: 1;
+    transform: none;
+  }
+  33%,
+  100% {
+    opacity: 0;
+  }
+}
+/* The render sweep inside a clip that is still being cut. */
+.tt-home .pv-wip {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 65%
+  );
+  animation: tt-home-mk-wip 1.4s linear infinite;
+}
+@keyframes tt-home-mk-wip {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+.tt-home .pv-time {
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  font-family: var(--tt-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 8px;
+  line-height: 12px;
+  color: var(--tt-on-night-2);
+}
+.tt-home .pv-tag {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  padding: 2px 5px;
+  border-radius: var(--tt-radius-pill);
+  background: color-mix(in srgb, var(--tt-night) 80%, transparent);
+  border: var(--tt-border-thin) solid var(--tt-line-night);
+  font-size: 7.5px;
+  line-height: 11px;
+  text-align: center;
+  color: var(--tt-on-night-2);
+  white-space: nowrap;
+}
+.tt-home .pv-tag b {
+  color: var(--tt-on-night);
+}
+/* The drop target, and the link that is the other way in. */
+.tt-home .pv-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+  align-self: flex-start;
+  padding: var(--tt-space-2) var(--tt-space-3);
+  border-radius: var(--tt-radius-sm);
+  border: var(--tt-border-thin) dashed var(--tt-on-night-3);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--tt-on-night-2);
+}
+.tt-home .pv-drop svg {
+  width: 13px;
+  height: 13px;
+}
+.tt-home .pv-or {
+  font-size: 10.5px;
+  line-height: 14px;
+  color: var(--tt-on-night-3);
+}
+.tt-home .pv-bar {
+  width: 150px;
+  height: 5px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-neutral-800);
+  overflow: hidden;
+}
+.tt-home .pv-bar-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  background: var(--tt-primary);
+  transform-origin: left center;
+  animation: tt-home-mk-render 9.6s linear infinite;
+  animation-delay: 3.2s;
+}
+@keyframes tt-home-mk-render {
+  0% {
+    transform: scaleX(0.04);
+  }
+  28%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* ------------------------------------------------------------- who it's for */
+
+/* Arrows sit above the row, right-aligned — not on the cards. The row itself
+   is one line: about three cards plus a peek of the next, then scroll. */
+.tt-home .who-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-4);
+}
+.tt-home .who-arrows {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--tt-space-2);
+}
+.tt-home .who-arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: var(--tt-text-primary);
+  background: transparent;
+  border: var(--tt-border-thin) solid var(--tt-border);
+  border-radius: var(--tt-radius-sm);
+  cursor: pointer;
+  transition:
+    background var(--tt-duration-quick) var(--tt-ease-standard),
+    opacity var(--tt-duration-quick) var(--tt-ease-standard);
+}
+.tt-home .who-arrow:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--tt-text-primary) 8%, transparent);
+}
+.tt-home .who-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.tt-home .who-arrow svg {
+  width: var(--tt-icon-sm);
+  height: var(--tt-icon-sm);
+}
+.tt-home .who-arrow-prev {
+  transform: rotate(180deg);
+}
+
+.tt-home .who-tiles {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: var(--tt-space-4);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 2px;
+  scrollbar-width: none;
+  /* Room for the glow/shadow the cards throw, without letting a wrap start. */
+  padding: 12px 2px 28px;
+  margin: -12px -2px -28px;
+}
+.tt-home .who-tiles::-webkit-scrollbar {
+  display: none;
+}
+.tt-home .who-card {
+  /* Floor 248px on a narrow rail; never grow past the previous 280px size. */
+  flex: 0 0 min(280px, max(248px, calc((100% - 2 * var(--tt-space-4)) / 3.2)));
+  max-width: 280px;
+  min-width: 0;
+  scroll-snap-align: start;
+  height: auto;
+}
+.tt-home .who-card .border-glow-inner {
+  height: 100%;
+}
+
+/* Illustration first, then the copy, all ranged left. Stretch squares the
+   five against each other; `overflow: hidden` keeps the shine in the corners. */
+/* The card itself is the `BorderGlow` wrapper around this link — the surface,
+   the radius and the resting shadow all live there, and the glow is what
+   answers the pointer. What is left here is the link and its layout. */
+.tt-home .who-tile {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  text-align: left;
+  padding: var(--tt-space-5);
+  border-radius: inherit;
+}
+/* One warm corner wash, the same move "Backed by global technology leaders"
+   makes — but a single tint across all four rather than one per card: these
+   are four of the same thing, and colouring them apart said otherwise. At 7%
+   it is light, not a colour. */
+.tt-home .who-tile::before {
+  content: "";
+  position: absolute;
+  right: -80px;
+  bottom: -60px;
+  width: 340px;
+  height: 340px;
+  pointer-events: none;
+  border-radius: var(--tt-radius-pill);
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 227, 209, 0.07),
+    rgba(255, 227, 209, 0)
+  );
+}
+
+.tt-home .who-info {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--tt-space-3);
+}
+/* product/title-s, not the marketing step: at a quarter of the container a
+   28px title spent three lines saying "Communication trainers". */
+.tt-home .who-info h3 {
+  font-size: 18px;
+  line-height: 24px;
+}
+.tt-home .who-info p {
+  flex: 1;
+  font-size: 15px; /* product/body — the column is too narrow for 16 */
+  line-height: 23px;
+  color: var(--tt-text-secondary);
+}
+
+/* The white pill. `strong` flips to white-on-night inside `.tt-night` by the
+   same polarity rule it follows in dark theme, so the reference's white CTA
+   comes out of the token layer rather than being painted here. Shape is the
+   system's button radius, not the reference's pill: §8 sets one radius for
+   every button and this is not the place to fork it. */
+.tt-home .who-go {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tt-space-2);
+  margin-top: auto;
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--tt-space-5);
+  border-radius: var(--tt-radius-sm);
+  background: var(--tt-cta-strong);
+  color: var(--tt-on-cta-strong);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--tt-weight-cta);
+  text-decoration: none;
+  transition: background var(--tt-duration-quick) var(--tt-ease-standard);
+}
+.tt-home .who-go svg {
+  width: var(--tt-icon-sm);
+  height: var(--tt-icon-sm);
+  transition: transform var(--tt-duration-quick) var(--tt-ease-standard);
+}
+.tt-home .who-tile:hover .who-go svg,
+.tt-home .who-other:hover .who-go svg {
+  transform: translateX(4px);
+}
+
+/* The illustration leads the card. */
+.tt-home .who-scene {
+  position: relative;
+  margin-bottom: var(--tt-space-5);
+  width: 100%;
+}
+
+/* ------------------------------------------------------------- the screens
+
+   One panel shape for all four, sunken a step below the card it sits on — on a
+   raised surface a nested panel has to go DOWN to separate, not up.
+
+   Everything inside animates only under `:hover` on the card. Each element
+   carries `--i`, its place in the stagger, so a single delay expression
+   (`calc(var(--i) * 70ms)`) cascades any of them without four sets of rules. */
+.tt-home .usecase {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  height: 124px;
+  overflow: hidden;
+  padding: var(--tt-space-3);
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-surface-sunken);
+  border: var(--tt-border-thin) solid var(--tt-border);
+}
+.tt-home .usecase--pad {
+  justify-content: center;
+  gap: var(--tt-space-4);
+  padding: var(--tt-space-4);
+}
+
+/* Every screen names itself. Mono, because all four captions are labels or
+   readouts — a filename, a score, a level, a count. */
+.tt-home .u-top {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+}
+.tt-home .u-cap {
+  font-family: var(--tt-font-mono);
+  font-size: 9.5px;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+  color: var(--tt-on-night-3);
+  white-space: nowrap;
+}
+.tt-home .u-cap--val {
+  margin-left: auto;
+  color: var(--tt-on-night-2);
+}
+
+/* The window dots, so the code panel reads as a window rather than a list. */
+.tt-home .u-chrome {
+  display: flex;
+  gap: 4px;
+}
+.tt-home .u-chrome span {
+  width: 5px;
+  height: 5px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-neutral-700);
+}
+
+/* -------------------------------------------------------------- tech: code */
+.tt-home .u-code {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2px;
+}
+.tt-home .u-code-line {
+  display: flex;
+  gap: 7px;
+  white-space: pre;
+}
+.tt-home .u-num {
+  flex: none;
+  width: 7px;
+  text-align: right;
+  font-family: var(--tt-font-mono);
+  font-size: 9px;
+  line-height: 15px;
+  color: var(--tt-neutral-700);
+}
+/* 9.5px is below anything in the type scale, deliberately: this is a screen
+   seen from across a card, not copy to be read. It is `aria-hidden`, and the
+   sentence it shows is one the page states properly elsewhere. */
+.tt-home .u-txt {
+  overflow: hidden;
+  font-family: var(--tt-font-mono);
+  font-size: 9.5px;
+  line-height: 15px;
+  color: var(--tt-on-night-2);
+}
+.tt-home .u-code-line--err .u-txt {
+  color: var(--tt-red-500);
+}
+
+/* Revealed by a clip, not a scale: scaling text to nothing and back squashes
+   the glyphs on the way in. */
+@keyframes tt-home-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.tt-home .who-tile:hover .u-txt {
+  animation: tt-home-type var(--tt-duration-slow) var(--tt-ease-standard)
+    calc(var(--i) * 70ms) backwards;
+}
+
+@keyframes tt-home-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ----------------------------------------------------------- sales: score */
+.tt-home .u-meter {
+  height: 8px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-neutral-800);
+  overflow: hidden;
+}
+.tt-home .u-meter-fill {
+  display: block;
+  width: 78%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tt-available);
+  transform-origin: left center;
+}
+.tt-home .who-tile:hover .u-meter-fill {
+  animation: tt-home-draw var(--tt-duration-deliberate) var(--tt-ease-standard)
+    backwards;
+}
+.tt-home .u-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tt-home .u-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--tt-pad-pill-sm);
+  border-radius: var(--tt-radius-pill);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  background: var(--tt-neutral-800);
+  color: var(--tt-on-night-2);
+  font-size: 11px;
+  line-height: 16px;
+}
+.tt-home .u-chip svg {
+  width: 10px;
+  height: 10px;
+  color: var(--tt-available);
+}
+.tt-home .who-tile:hover .u-chip {
+  animation: tt-home-pop var(--tt-duration-base) var(--tt-ease-standard)
+    calc(180ms + var(--i) * 90ms) backwards;
+}
+@keyframes tt-home-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------- communication: the CEFR */
+.tt-home .u-levels {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 100%;
+}
+.tt-home .u-level {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--tt-font-mono);
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--tt-on-night-3);
+}
+.tt-home .u-level.is-on {
+  color: var(--tt-on-night);
+}
+/* The rungs climb: each one is taller than the last, so the ladder reads as a
+   ladder even before anything lights up. */
+.tt-home .u-level-bar {
+  width: 100%;
+  height: calc(14px + var(--i) * 9px);
+  border-radius: 3px;
+  background: var(--tt-neutral-800);
+  transform-origin: bottom center;
+}
+.tt-home .u-level.is-on .u-level-bar {
+  background: var(--tt-primary);
+}
+.tt-home .who-tile:hover .u-level-bar {
+  animation: tt-home-rise var(--tt-duration-slow) var(--tt-ease-standard)
+    calc(var(--i) * 70ms) backwards;
+}
+@keyframes tt-home-rise {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* -------------------------------------------------------- fitness: a week */
+.tt-home .u-week {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 58px;
+}
+.tt-home .u-day {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}
+.tt-home .u-day-bar {
+  width: 100%;
+  /* `--w` is a percentage of the row, reused here as a height. */
+  height: var(--w);
+  border-radius: 3px;
+  background: var(--tt-primary);
+  opacity: 0.55;
+  transform-origin: bottom center;
+}
+/* The last day is the one just logged. */
+.tt-home .u-day:last-child .u-day-bar {
+  opacity: 1;
+}
+.tt-home .who-tile:hover .u-day-bar {
+  animation: tt-home-rise var(--tt-duration-slow) var(--tt-ease-standard)
+    calc(var(--i) * 60ms) backwards;
+}
+.tt-home .u-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+}
+.tt-home .u-foot .u-txt {
+  font-family: var(--tt-font-ui);
+  font-size: 10.5px;
+  line-height: 15px;
+  color: var(--tt-on-night-2);
+}
+.tt-home .u-tick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-available);
+  color: var(--tt-night);
+}
+.tt-home .u-tick svg {
+  width: 10px;
+  height: 10px;
+}
+.tt-home .who-tile:hover .u-tick {
+  animation: tt-home-pop var(--tt-duration-base) var(--tt-ease-standard) 420ms
+    backwards;
+}
+
+/* Reach: overlapping faces beside the same foot row the fitness card uses. */
+.tt-home .u-faces {
+  display: flex;
+  flex: none;
+}
+.tt-home .u-face {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-left: -6px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-neutral-700);
+  color: var(--tt-on-night-2);
+  box-shadow: 0 0 0 1px var(--tt-surface-sunken);
+}
+.tt-home .u-face:first-child {
+  margin-left: 0;
+}
+.tt-home .u-face svg {
+  width: 11px;
+  height: 11px;
+}
+.tt-home .who-tile:hover .u-face {
+  animation: tt-home-pop var(--tt-duration-base) var(--tt-ease-standard)
+    calc(180ms + var(--i) * 90ms) backwards;
+}
+
+/* Dashed, because it is the row for the field that isn't drawn yet. */
+.tt-home .who-other {
+  margin-top: var(--tt-space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tt-space-6);
+  flex-wrap: wrap;
+  padding: var(--tt-space-6);
+  color: inherit;
+  text-decoration: none;
+  border: var(--tt-border-thin) dashed var(--tt-border-field);
+  border-radius: var(--tt-radius-lg);
+  transition: border-color var(--tt-duration-quick) var(--tt-ease-standard);
+}
+.tt-home .who-other:hover {
+  border-color: var(--tt-border-interactive);
+}
+.tt-home .who-other h3 {
+  font-size: 17px;
+  line-height: 24px;
+}
+.tt-home .who-other p {
+  margin-top: var(--tt-space-1);
+  font-size: 15px;
+  line-height: 23px;
+  color: var(--tt-text-secondary);
+}
+/* The one link that is not a whole card, so it keeps the underlined form. */
+.tt-home .who-other .who-go {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin-top: 0;
+  background: none;
+  color: var(--tt-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ----------------------------------------------------------- build your twin */
+
+.tt-home .kit {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) 32px minmax(0, 1fr) 32px minmax(0, 1fr)
+    32px minmax(0, 0.8fr);
+  gap: var(--tt-space-3);
+  align-items: stretch;
+}
+.tt-home .op {
+  align-self: center;
+  text-align: center;
+  font-family: var(--tt-font-display);
+  font-size: 44px;
+  line-height: 50px;
+  color: var(--tt-text-tertiary);
+}
+.tt-home .kit-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--tt-surface);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  border-radius: var(--tt-radius-lg);
+  box-shadow: var(--tt-elevation-1);
+}
+/* The one card that is our half of the bargain sits a step higher. */
+.tt-home .kit-card--us {
+  box-shadow: var(--tt-elevation-2);
+}
+.tt-home .kit-art {
+  height: 148px;
+  display: grid;
+  place-items: center;
+  background: var(--tt-canvas);
+  border-bottom: var(--tt-border-thin) solid var(--tt-border);
+}
+/* Direct child only: the two cards that ARE one drawing size it here, while
+   the knowledge card is a small composition whose own SVG sits nested inside
+   it and must keep its own height. */
+.tt-home .kit-art > svg {
+  width: 200px;
+  height: 120px;
+}
+.tt-home .kit-body {
+  padding: var(--tt-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-1);
+}
+.tt-home .kit-tag {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--tt-text-tertiary);
+}
+.tt-home .kit-card--us .kit-tag {
+  color: var(--tt-primary-ink);
+  font-weight: var(--tt-weight-label);
+}
+.tt-home .kit-body h3 {
+  font-size: 17px;
+  line-height: 24px;
+}
+.tt-home .kit-body p {
+  font-size: 15px;
+  line-height: 23px;
+  color: var(--tt-text-secondary);
+}
+.tt-home .kit-result {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tt-space-3);
+  text-align: center;
+}
+.tt-home .kit-result > canvas {
+  /* Ink on paper here, where the hero's copy of this draws white on night —
+     the component reads `color`, so the difference is a cascade, not a prop. */
+  color: var(--tt-text-primary);
+}
+.tt-home .kit-result h3 {
+  font-family: var(--tt-font-display);
+  font-size: 24px;
+  line-height: 30px;
+}
+
+/* -- the persona mind map
+
+   Six facets converging on the orb, with the same blue pulse running down each
+   connector that TrainerTwin_home uses. Laid out by absolute coordinates in a
+   240x148 box, because the wires are drawn to fixed points and the chips have
+   to meet them exactly. */
+.tt-home .pn {
+  position: relative;
+  width: 240px;
+  height: 148px;
+}
+.tt-home .pn-wires {
+  position: absolute;
+  inset: 0;
+  width: 240px;
+  height: 148px;
+}
+.tt-home .pn-pulse {
+  stroke-dasharray: 16 84;
+  animation: tt-home-pn-pulse 3.4s linear infinite;
+  animation-delay: calc(var(--i) * 0.4s);
+}
+@keyframes tt-home-pn-pulse {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+.tt-home .pn-chip {
+  position: absolute;
+  top: var(--y);
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  /* Fixed, not max-width. The chips hang off the outer edges and the wires
+     meet their inner ones — sized to their own labels, every row but the
+     longest would end short of its connector. Must match CHIP_W in
+     BuildYourTwin.tsx. */
+  width: 84px;
+  padding: 3px 7px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-surface);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  box-shadow: var(--tt-elevation-1);
+  font-size: 9.5px;
+  line-height: 14px;
+  color: var(--tt-text-secondary);
+  white-space: nowrap;
+}
+.tt-home .pn-chip svg {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  color: var(--tt-text-tertiary);
+}
+.tt-home .pn-chip--l {
+  left: 0;
+}
+.tt-home .pn-chip--r {
+  right: 0;
+}
+/* The hub: the real SiriOrb, with the readout over it. */
+.tt-home .pn-hub {
+  position: absolute;
+  left: 50%;
+  top: 74px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-surface);
+  box-shadow: var(--tt-elevation-2);
+}
+.tt-home .pn-hub > * {
+  grid-area: 1 / 1;
+}
+/* `inherits: true` matters: without it the pseudo-element never sees the
+   animated value and the readout sits at zero forever. */
+@property --h-count {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+.tt-home .pn-pct {
+  counter-reset: pct var(--h-count);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: var(--tt-weight-title);
+  color: var(--tt-text-primary);
+  animation: tt-home-pn-count 5.2s linear infinite;
+}
+.tt-home .pn-pct::after {
+  content: counter(pct) "%";
+}
+@keyframes tt-home-pn-count {
+  from {
+    --h-count: 12;
+  }
+  to {
+    --h-count: 96;
+  }
+}
+
+/* -- what gets extracted
+
+   The inverse of the knowledge card: one node opening out into three. Shares
+   its node and its wire treatment, so the three cards read as one drawing in
+   three parts rather than three drawings. */
+.tt-home .dn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 240px;
+}
+.tt-home .dn-wires {
+  width: 240px;
+  height: 46px;
+}
+.tt-home .dn-pulse {
+  stroke-dasharray: 16 84;
+  animation: tt-home-dn-pulse 3.2s linear infinite;
+  animation-delay: calc(var(--i) * 0.36s);
+}
+@keyframes tt-home-dn-pulse {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+.tt-home .dn-row {
+  display: flex;
+  justify-content: space-between;
+  width: 240px;
+}
+.tt-home .dn-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  /* Fixed and evenly spread, so each chip's centre sits under the wire that
+     arrives at it — same reason the persona chips carry a width. */
+  width: 74px;
+  padding: 3px 7px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-surface);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  box-shadow: var(--tt-elevation-1);
+  font-size: 9.5px;
+  line-height: 14px;
+  color: var(--tt-text-secondary);
+  white-space: nowrap;
+}
+.tt-home .dn-chip svg {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  color: var(--tt-text-tertiary);
+}
+
+/* -- the knowledge sources, feeding one node
+
+   The shape TrainerTwin_home draws for "Give it your knowledge", at the size
+   this card is. The sources land in turn, a pulse runs down each wire behind
+   them, and the node lights when the last one arrives. */
+.tt-home .kn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+/* The slot is 148px and the composition is 34 + 34 + 36 — the icons shrink a
+   little so the three parts and their gaps land inside it rather than running
+   over the card's body. */
+.tt-home .kit-art {
+  overflow: hidden;
+}
+.tt-home .kn-row {
+  display: flex;
+  gap: var(--tt-space-3);
+}
+.tt-home .kn-src {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--tt-radius-sm);
+  background: var(--tt-surface);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  box-shadow: var(--tt-elevation-1);
+  color: var(--tt-text-secondary);
+  animation: tt-home-kn-land 5.2s var(--tt-ease-standard) infinite;
+  animation-delay: calc(var(--i) * 0.28s);
+}
+.tt-home .kn-src svg {
+  width: 16px;
+  height: 16px;
+}
+@keyframes tt-home-kn-land {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  12%,
+  86% {
+    opacity: 1;
+    transform: none;
+  }
+  96%,
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* The wires are their own element, not `.kit-art svg`, so the 200x120 sizing
+   rule for the other two cards does not catch them. */
+.tt-home .kn-wires {
+  width: 200px;
+  height: 34px;
+}
+.tt-home .kn-wire {
+  stroke-dasharray: 14 86;
+  animation: tt-home-kn-flow 5.2s linear infinite;
+  animation-delay: calc(var(--i) * 0.28s);
+}
+@keyframes tt-home-kn-flow {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+.tt-home .kn-node {
+  padding: var(--tt-space-2) var(--tt-space-4);
+  border-radius: var(--tt-radius-sm);
+  background: var(--tt-surface);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  box-shadow: var(--tt-elevation-1);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--tt-text-primary);
+}
+
+/* The comparison itself — "Generic AI vs TrainerTwin" — is not built here.
+   It is the existing landing2 section, reused whole (src/components/home/
+   WhyTrainerTwin.tsx); its rules live in TrainerTwin_home_2/landing.css under
+   `.tt-landing`, a stylesheet this route imports but does not own. */
+
+/* ------------------------------------------------- the comparison's switcher
+
+   A segmented control on a sunken track, the selected segment lifted out of
+   it — the same figure/ground move the design system's active nav pill makes
+   (D42).
+
+   The selected segment takes the brand BADGE treatment, not a solid orange
+   fill: white on --tt-primary is 3.13:1 and fails AA at this size (D01 accepts
+   that only where the label is large). Subtle fill with --tt-primary-ink on it
+   reads as orange and stays legible. */
+.tt-home .vs-tabs {
+  display: inline-flex;
+  gap: var(--tt-space-1);
+  margin-top: var(--tt-space-8);
+  padding: var(--tt-space-1);
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-fill-soft);
+  border: var(--tt-border-thin) solid var(--tt-border);
+}
+.tt-home .vs-tab {
+  padding: var(--tt-pad-pill-lg);
+  border-radius: var(--tt-radius-pill);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--tt-weight-label);
+  color: var(--tt-text-tertiary);
+  white-space: nowrap;
+}
+.tt-home .vs-tab.is-on {
+  background: var(--tt-primary-subtle);
+  border: var(--tt-border-thin) solid var(--tt-primary-badge-border);
+  padding: calc(var(--tt-space-2) - 1px) calc(var(--tt-space-4) - 1px);
+  color: var(--tt-primary-ink);
+  box-shadow: var(--tt-elevation-1);
+}
+
+/* The footer is landing2's, reused whole (src/components/home/PageFooter.tsx)
+   — invite CTA, form, link grid and watermark. Its rules live in
+   TrainerTwin_home_2/landing.css under `.tt-landing`. */
+
+/* ================================================================= RESPONSIVE */
+
+/* The hero stacks earlier than the rest of the page. Its panel is exactly half
+   the viewport and now holds three columns — sources, figure, results — which
+   need about 620px between them; half a 1280px viewport, less the panel's own
+   insets, is 564. Below that the grid has to take the difference out of the
+   chips, and their labels wrap to two and three lines. So the panel drops under
+   the copy here instead, where it has the full width. Everything below 1024 is
+   a section-layout question rather than a hero one and stays in that block. */
+@media (max-width: 1280px) {
+  /* The panel drops under the copy, not beside it — a dark card half a viewport
+     wide would otherwise squeeze its own three columns to nothing. It keeps the
+     full-bleed treatment stacked, so the grid's left inset goes and the copy
+     takes over the container's own gutter. */
+  .tt-home .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--tt-space-10);
+    padding-left: 0;
+  }
+  .tt-home .hero-copy {
+    align-items: center;
+    text-align: center;
+    padding: var(--tt-space-12) var(--tt-space-6) 0;
+  }
+  .tt-home .hero-cta {
+    justify-content: center;
+  }
+  .tt-home .hero h1 {
+    font-size: 52px;
+  }
+  .tt-home .rot {
+    min-height: 68px;
+  }
+  .tt-home .flow {
+    min-height: 0;
+    padding: var(--tt-space-8);
+  }
+  /* Stacked, the panel is the full width and nothing is competing for it, so
+     the figure is simply its 70% rather than whatever 50vw leaves over. */
+  .tt-home .fig-main {
+    --fig-size: 210px;
+  }
+  /* The row survives the restack — sources, figure, results, and the fan
+     between them, exactly as above the breakpoint. It is the panel that moved,
+     not the diagram: under the copy it has the whole viewport rather than half
+     of it, which is more room than the composition needs. The cap goes with
+     the move, because `.flow` aligns its child to the start and a 680px grid
+     in a 1180px panel would sit against the left inset instead of centred. */
+  .tt-home .flow-inner {
+    max-width: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Stacked, and the copy always leads: alternating sides is a two-column
+     idea, and reversing it here would only put half the rows' artwork above
+     the sentence that explains it. */
+  .tt-home .way {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tt-home .way--reversed .way-copy {
+    order: 0;
+  }
+  /* Stacked, the ratio would set a height from a full-width column — far too
+     tall. Content governs again once the rows are no longer side by side. */
+  .tt-home .way-copy {
+    aspect-ratio: auto;
+  }
+  /* Narrower: the gap gives way before the words do. */
+  .tt-home .nav {
+    gap: var(--tt-space-4);
+  }
+  .tt-home .kit {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .tt-home .op {
+    font-size: 32px;
+    line-height: 38px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tt-home .wrap {
+    padding: 0 var(--tt-space-4);
+  }
+  /* The nav drops to its own scrolling row under the lockup and the CTA. */
+  .tt-home .hdr-in {
+    flex-wrap: wrap;
+    gap: 0 var(--tt-space-4);
+    /* The nav drops to a second row here, so the bar is as tall as what is in
+       it rather than the 84px the single row is fixed at. */
+    height: auto;
+    min-height: 56px;
+    justify-content: space-between;
+  }
+  .tt-home .nav {
+    order: 3;
+    width: calc(100% + 2 * var(--tt-space-4));
+    margin: 0 calc(-1 * var(--tt-space-4));
+    padding: 0 var(--tt-space-2);
+    overflow-x: auto;
+    border-top: var(--tt-border-thin) solid var(--tt-border);
+  }
+  .tt-home .nav > a[aria-current="true"]::after,
+  .tt-home .nav-trigger[aria-current="true"]::after {
+    bottom: 0;
+  }
+  .tt-home .hero-copy {
+    padding: var(--tt-space-10) var(--tt-space-4) 0;
+  }
+  .tt-home .hero h1 {
+    font-size: 40px;
+  }
+  /* The two lists stay on a phone — they are what the diagram says — but the
+     panel gives back some of its inset and the chips take a step down the
+     scale for them. Two columns in a 375px screen leave about 155px each,
+     which is under what "Recorded sessions" and "An interactive twin" run at
+     14px, and eight two-line chips read as a wall rather than as two lists.
+     The fan between them is already gone with the stacked layout above: at
+     this width a connector would be longer than the chips at either end. */
+  .tt-home .flow {
+    padding: var(--tt-space-8) var(--tt-space-5);
+  }
+  .tt-home .chip--in {
+    gap: var(--tt-space-2);
+    padding: var(--tt-space-2) var(--tt-space-3);
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .tt-home .chip--in svg {
+    width: 14px;
+    height: 14px;
+  }
+  /* Wrapping is allowed here, so the tallest of the three words sets the box. */
+  .tt-home .rot {
+    min-height: 88px;
+    white-space: normal;
+  }
+  .tt-home .sec {
+    padding: var(--tt-space-16) 0;
+  }
+  .tt-home .head {
+    margin-bottom: var(--tt-space-10);
+  }
+  .tt-home .head h2 {
+    font-size: 32px;
+  }
+  .tt-home .way-art {
+    padding: var(--tt-space-8) var(--tt-space-5);
+    min-height: 0;
+  }
+  .tt-home .way-copy {
+    padding: var(--tt-space-10) var(--tt-space-5);
+  }
+}
+
+/* A phone is where the row finally breaks. Three columns need about 545px
+   between them even at the smaller chip size, and a 640px screen has 600 to
+   give, which is the last width that clears it. So the figure takes the top
+   and the lists pair off beneath it — what you give it still on the left and
+   what your client gets still on the right. 640 rather than 768: a tablet has
+   the room, and this is where it runs out. */
+@media (max-width: 640px) {
+  .tt-home .twin-pair {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 360px;
+  }
+  .tt-home .flow-inner {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: var(--tt-space-8);
+  }
+  /* The figure still leads, on the left of the panel with the source list. */
+  .tt-home .fig-main {
+    order: -1;
+    justify-self: start;
+  }
+  /* And the fan goes with the row. Every path runs from a chip's edge to the
+     figure's facing edge, which is a short horizontal hop while the three are
+     side by side and a long diagonal across the whole panel once the figure is
+     above them. */
+  .tt-home .feed {
+    display: none;
+  }
+}

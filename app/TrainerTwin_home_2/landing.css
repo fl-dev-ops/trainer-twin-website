@@ -1,0 +1,1379 @@
+/* ============================================================================
+   TrainerTwin marketing page, v2 — the design system applied
+   Source of truth: Figma SHXsv4d0ROls7tuOqQBNLZ, node 353:9923 (1728 x 8780)
+   Migration spec: TRAINERTWIN-DESIGN-SYSTEM.md §14.
+
+   The landing keeps its own vocabulary — the names here say what a value is FOR
+   on a marketing page — but every value with a system equivalent now points at
+   the system rather than restating it (§14.1). Nobody chose var(--tt-neutral-800) over
+   var(--tt-neutral-800); that difference was entropy, and it is gone.
+
+   What stays literal: the two editorial line colours the system has no answer
+   for, and the mock brand colours inside the illustrations (D05, §14.4).
+   ============================================================================ */
+
+.tt-landing {
+  /* ------------------------------------------------------------ light, pinned
+     The system's semantic tokens follow the reader's OS: the dark block is
+     `@media (prefers-color-scheme: dark) :root:not([data-theme="light"])`, and
+     that lives on the html element, which a route layout does not own. Left
+     alone, a dark preference repaints the sections this page intends to be
+     white and flips `strong` to a white CTA on white paper.
+
+     So the semantic tokens the page consumes are re-pointed at the fixed ramp
+     inside this scope. The values are the light block's own, by reference, not
+     retyped.
+
+     FINDING for the system: `.tt-night` exists to hold a band dark in both
+     themes; there is no counterpart to hold a surface light. A marketing page
+     that must render identically whatever the OS says has no supported way to
+     declare that. */
+  --tt-canvas: var(--tt-neutral-0);
+  --tt-surface: var(--tt-neutral-0);
+  --tt-surface-raised: var(--tt-neutral-0);
+  --tt-surface-sunken: var(--tt-neutral-50);
+
+  --tt-text-primary: var(--tt-neutral-900);
+  --tt-text-secondary: var(--tt-neutral-700);
+  --tt-text-tertiary: var(--tt-neutral-600);
+  --tt-text-muted: var(--tt-neutral-500);
+
+  --tt-border: var(--tt-neutral-200);
+  --tt-cta-strong: var(--tt-neutral-800);
+  --tt-cta-strong-hover: var(--tt-neutral-700);
+  --tt-on-cta-strong: var(--tt-neutral-0);
+
+  /* Ground */
+  --l-paper: var(--tt-surface);
+  --l-paper-soft: var(--tt-surface-sunken);
+  --l-night: var(--tt-night);
+  --l-night-deep: var(--tt-night-deep);
+  --l-hero-panel: var(--tt-night-panel);
+
+  /* Ink */
+  --l-ink: var(--tt-text-primary);
+  --l-ink-nav: var(--tt-text-secondary);
+  --l-ink-body: var(--tt-text-tertiary);
+  --l-ink-body-soft: var(--tt-text-tertiary);
+  --l-ink-onnight: var(--tt-on-night);
+  --l-ink-onnight-2: var(--tt-on-night-2);
+  /* was var(--tt-neutral-500) — 4.41:1 on night, which fails AA by a hair (§14.9) */
+  --l-ink-onnight-3: var(--tt-on-night-3);
+  --l-eyebrow: var(--tt-text-muted);
+  --l-eyebrow-bright: var(--tt-neutral-300);
+
+  /* Line */
+  --l-line: var(--tt-border);
+  --l-line-night: var(--tt-line-night);
+  /* The two warm editorial hairlines have no system equivalent: the neutral
+     ramp is cool by D04, and these are deliberately warm against paper. */
+  --l-line-warm: var(--tt-neutral-200);
+  --l-line-card: var(--tt-neutral-200);
+  --l-line-night-soft: rgba(220, 220, 220, 0.3);
+  --l-line-footer: rgba(81, 66, 85, 0.2);
+
+  /* Brand. One tier, one meaning: the platform is acting (D03). The hot
+     red-orange that used to sit beside it is dropped, not remapped — it
+     measured 1.24:1 against --tt-danger, i.e. it WAS the error colour (D15). */
+  --l-brand: var(--tt-primary);
+  --l-accent: var(--tt-primary);
+  --l-btn: var(--tt-cta-strong);
+  /* Availability is reassurance, not a warning — green, and its own token
+     since the split on 10 Sep (D14). --tt-live stays red, for recording. */
+  --l-live: var(--tt-available);
+
+  /* Grid overlays. 38px is measured off the Figma line spacing, not guessed,
+     and is one of the things the system adopted rather than flattened (§14.10). */
+  --l-grid-step: 38px;
+
+  color: var(--l-ink);
+  background: var(--l-paper);
+  font-family:
+    var(--tt-font-ui),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.tt-landing ::selection {
+  background: rgba(254, 89, 0, 0.18);
+}
+
+/* ------------------------------------------------------------------ MOTION
+   Two behaviours, both driven from one client component (ScrollEffects) that
+   observes `[data-reveal]` and `[data-parallax]` anywhere in the page. Sections
+   stay Server Components because they only need to declare the attribute.
+
+   Reveal animates `transform`; parallax writes the independent `translate`
+   property, so a target keeps any `scale-*` or `rotate-*` it carries (Tailwind
+   v4 compiles those to their own properties too).
+
+   The one rule that follows from that: a parallax target must not carry a
+   Tailwind `translate-*` utility, because v4 compiles those to `translate` —
+   the very property the scroll loop rewrites every frame. Centre such an
+   element with a negative margin instead. */
+
+.l-reveal {
+  opacity: 0;
+  transform: translate3d(0, var(--l-reveal-y, 30px), 0);
+  transition:
+    opacity 780ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 780ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--l-reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.l-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Once it has played, drop the compositor hint — a page this tall would
+   otherwise hold a layer for every revealed block at the same time. */
+.l-reveal.is-done {
+  will-change: auto;
+}
+
+.l-parallax {
+  will-change: translate;
+}
+
+/* The page is 8780px of scroll. Anything that animates on scroll is decoration,
+   so under reduced motion it is not slowed down, it is removed: elements land
+   in their resting state and the parallax loop never starts (ScrollEffects
+   checks the same query). */
+/* With JavaScript off nothing ever adds [data-shown], so every revealed
+   section would sit at opacity 0 forever (§14.9). One rule, and the page is
+   readable without scripting. */
+@media (scripting: none) {
+  .tt-landing .l-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .tt-landing .l-parallax {
+    translate: none !important;
+    will-change: auto;
+  }
+}
+
+/* ------------------------------------------------------------------ FIT
+   Several blocks here are dense, absolutely positioned mockups drawn at a fixed
+   design width. They have to shrink to whatever column they land in.
+
+   `transform: scale(calc(100cqw / 591))` is the obvious way to do that and it
+   does not work: calc() cannot divide a length by a length, so the value is
+   invalid, the whole transform is dropped, and the stage silently renders at
+   full size and overflows. It fails quietly, which is what makes it worth a
+   comment.
+
+   What works instead: the stage publishes a unit. --l-u is one design pixel at
+   the current container width, and every offset inside is a multiple of it. A
+   custom property holds a length, so unlike `em` it is not re-based when a
+   child changes its own font-size. */
+
+.l-fit {
+  container-type: inline-size;
+}
+
+.l-stage {
+  --l-u: calc(100cqi / var(--l-design));
+  width: calc(var(--l-design) * var(--l-u));
+  position: relative;
+}
+
+/* ------------------------------------------------------------------ SURFACES */
+
+/* The pale blueprint panel behind each copy block in "Build your twin today". */
+.l-grid-light {
+  background-color: var(--tt-neutral-50);
+  background-image:
+    linear-gradient(to right, var(--tt-neutral-100) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--tt-neutral-100) 1px, transparent 1px);
+  background-size: var(--l-grid-step) var(--l-grid-step);
+}
+
+/* Same blueprint, tuned for the hero's warm near-black. */
+.l-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: var(--l-grid-step) var(--l-grid-step);
+}
+
+/* The four-point mesh behind each illustration tile: gold top-right, cornflower
+   bottom-right, slate bottom-left, lilac top-left, light core. Values sampled
+   off the Figma render rather than eyeballed. */
+.l-mesh {
+  background-color: var(--tt-neutral-0);
+  background-image:
+    radial-gradient(78% 62% at 100% 0%, #e9a94f 0%, rgba(233, 169, 79, 0) 62%),
+    radial-gradient(
+      82% 72% at 100% 100%,
+      var(--tt-blue-300) 0%,
+      rgba(157, 191, 251, 0) 66%
+    ),
+    radial-gradient(72% 62% at 0% 100%, #a3b7d0 0%, rgba(163, 183, 208, 0) 66%),
+    radial-gradient(
+      62% 52% at 0% 0%,
+      var(--tt-neutral-100) 0%,
+      rgba(239, 237, 242, 0) 70%
+    );
+}
+
+/* The warm/cool wash behind "See Twin in action". */
+.l-wash {
+  background-color: var(--tt-neutral-50);
+  background-image:
+    radial-gradient(
+      60% 70% at 2% 0%,
+      var(--tt-orange-100) 0%,
+      rgba(246, 222, 210, 0) 60%
+    ),
+    radial-gradient(
+      55% 65% at 98% 8%,
+      var(--tt-orange-100) 0%,
+      rgba(247, 230, 203, 0) 62%
+    ),
+    radial-gradient(
+      60% 60% at 100% 100%,
+      var(--tt-orange-100) 0%,
+      rgba(246, 227, 205, 0) 60%
+    ),
+    radial-gradient(
+      50% 60% at 0% 100%,
+      var(--tt-blue-50) 0%,
+      rgba(231, 236, 243, 0) 62%
+    );
+}
+
+/* The mesh tiles in the Figma carry visible film grain. Without it the
+   gradients band badly on a wide display. */
+.l-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------ TYPE */
+
+/* The hero eyebrow and the second hero line share one three-stop ramp — blue,
+   brass, burnt orange — at two different angles. */
+.l-gradient-ink {
+  background-image: linear-gradient(
+    115.42deg,
+    var(--tt-blue-600) 3.4%,
+    #b69c26 33.4%,
+    #9f5315 65.75%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.l-gradient-ink--eyebrow {
+  background-image: linear-gradient(
+    148.18deg,
+    var(--tt-blue-600) 3.4%,
+    #b69c26 33.4%,
+    #9f5315 65.75%
+  );
+}
+
+.l-eyebrow {
+  font-family:
+    var(--tt-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.56;
+}
+
+/* Noto Serif at display sizes needs the tracking pulled in hard; the Figma sets
+   -2.1px at 44px, which is -0.0477em, and that ratio holds across the scale. */
+.l-display {
+  font-family: var(--tt-font-display), Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.0477em;
+  line-height: 1.14;
+}
+
+.l-wordmark {
+  font-family: var(--l-font-wordmark), var(--tt-font-ui), sans-serif;
+  font-weight: 600;
+}
+
+.l-footer-type {
+  font-family: var(--l-font-footer), var(--tt-font-ui), sans-serif;
+}
+
+/* ------------------------------------------------------------------ ICONS
+   The exported glyphs are solid-white SVGs. Painting them through a mask keeps
+   one asset per glyph while letting the list item colour it with currentColor —
+   which is what makes the idle → hover → selected transition possible at all. */
+.l-icon {
+  display: inline-block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: var(--l-icon) center / contain no-repeat;
+  mask: var(--l-icon) center / contain no-repeat;
+}
+
+/* ------------------------------------------------------------------ BITS */
+
+.l-scanline {
+  background: linear-gradient(
+    to bottom,
+    rgba(236, 48, 19, 0) 0%,
+    var(--tt-primary) 12%,
+    var(--tt-orange-500) 50%,
+    var(--tt-primary) 88%,
+    rgba(236, 48, 19, 0) 100%
+  );
+}
+
+/* The blue pulse that runs the connectors in the hero diagram. Purely
+   decorative, so it inherits the reduced-motion rule in globals.css. */
+@keyframes l-pulse-dash {
+  to {
+    stroke-dashoffset: -220;
+  }
+}
+
+.l-pulse {
+  stroke-dasharray: 26 194;
+  animation: l-pulse-dash 3.4s linear infinite;
+}
+
+/* The expertise cards ride a belt into the scan line, where the Twin ingests
+   them. The card is cut off by the line, not faded through it: the track sits
+   in a box whose right edge is the line, so the card is progressively clipped
+   as it arrives and is gone the moment it is level with the beam.
+
+   One track carries two copies of the card set, laid out so the second copy is
+   a full lap to the left of the first. Translating by exactly one lap therefore
+   lands copy two where copy one started, and the wrap is invisible — which is
+   what lets this run with no opacity fade at all. */
+@keyframes l-belt {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--l-belt-lap));
+  }
+}
+
+.l-belt {
+  animation: l-belt var(--l-belt-duration) linear infinite;
+}
+
+/* Reduced motion parks the track at translateX(0), which is exactly the layout
+   the Figma draws. */
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-belt {
+    animation: none;
+  }
+}
+
+@keyframes l-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.l-spin {
+  animation: l-spin 1.1s linear infinite;
+}
+
+/* The typing caret in the session mockup. Its visibility window is driven by
+   the timeline; this only blinks it, on a child element so the two never write
+   the same property. */
+@keyframes l-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.l-caret {
+  animation: l-caret-blink 1s steps(2, jump-none) infinite;
+}
+
+@keyframes l-bars {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.l-bar {
+  transform-origin: center;
+  animation: l-bars 1.2s ease-in-out infinite;
+}
+
+/* ------------------------------------------------- KNOWLEDGE ILLUSTRATION
+   "Give it your knowledge" runs on one beat: 2.8s. A pulse leaves a source
+   tile every quarter beat, the pair of logos inside a tile trade places every
+   two beats, and the pill names a new facet every beat. Everything is a plain
+   CSS loop rather than a JS timeline — the four tracks are decorative and
+   independent, so nothing here needs a shared clock.
+
+   A stack shows one child at a time: the children share a keyframe and are
+   spread across the lap by animation-delay, so the visible window is baked
+   into the keyframe — half a lap for a pair, a fifth for the five facets. */
+/* The stack positions its children against itself, so whatever carries
+   `l-cyc` has to be positioned already — every caller here is either the
+   absolutely placed pill or a `relative` box around the logo. Setting
+   `position` on the class instead would race Tailwind's own `absolute`. */
+.l-cyc > * {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+/* The resting frame, which is what reduced motion is left holding. */
+.l-cyc > :first-child {
+  opacity: 1;
+}
+
+/* Linear, not eased: the outgoing and incoming opacities are meant to sum to
+   1 through the crossfade, and easing both sides dips the middle. */
+.l-cyc-2 > * {
+  animation: l-swap-2 5.6s linear infinite;
+}
+
+@keyframes l-swap-2 {
+  0% {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  5% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  55% {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+}
+
+/* The pulse that carries a source down to the twin. Each connector is drawn
+   twice: once in grey for the diagram, once in blue for this. pathLength
+   normalises every route to 100 units, so the four reach the pill at the same
+   speed however far around the fan they had to come — and the dash pattern is
+   longer than the path (9 + 131) so there is a rest between pulses instead of
+   an unbroken stream. */
+@keyframes l-flow-dash {
+  to {
+    stroke-dashoffset: -140;
+  }
+}
+
+.l-flow {
+  stroke-dasharray: 9 131;
+  animation: l-flow-dash 2.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-cyc > * {
+    animation: none;
+  }
+
+  /* Parked, the dash would leave a blue tick under every tile. */
+  .tt-landing .l-flow {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------ VOICE MIND MAP
+   "Give it your persona". Eight wires feed one hub, and a pulse runs each of
+   them inward on a 2.25s cycle. The lap is 11.25s — five pulses — and the hub
+   turns over at 60% of it, which is exactly three rounds in: the orb counts up
+   to 100% while those three arrive, the trainer takes its place, and the last
+   two rounds run against him.
+
+   pathLength normalises every wire to 100 units, so one dash track runs them
+   all at the same speed whatever their real length. The dash starts at [-12,0]
+   and ends at [100,112]: off the path at both ends, on it for the whole
+   crossing. */
+@keyframes l-mind-flow {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.l-mind-flow {
+  stroke-dasharray: 12 200;
+  animation: l-mind-flow 2.25s linear infinite;
+}
+
+@keyframes l-mind-orb {
+  0%,
+  58% {
+    opacity: 1;
+  }
+  61%,
+  96% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes l-mind-twin {
+  0%,
+  58% {
+    opacity: 0;
+  }
+  61%,
+  96% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.l-mind-orb {
+  animation: l-mind-orb 11.25s ease-in-out infinite;
+}
+
+.l-mind-twin {
+  animation: l-mind-twin 11.25s ease-in-out infinite;
+}
+
+/* The count over the orb. An integer custom property is the only thing on this
+   page a counter can be driven from — `content` cannot read a var directly, and
+   a plain --count is a string to the animation engine, so it would jump from 0
+   to 100 rather than run. */
+@property --l-count {
+  syntax: "<integer>";
+  /* Inherited on purpose: the number is animated on the element and read by
+     its ::after, and a pseudo-element only sees a custom property that
+     inherits — with `false` it would sit on the initial 0 all lap. */
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes l-count {
+  0% {
+    --l-count: 0;
+  }
+  58% {
+    --l-count: 100;
+  }
+  100% {
+    --l-count: 100;
+  }
+}
+
+.l-count {
+  animation: l-count 11.25s linear infinite;
+}
+
+.l-count::after {
+  counter-reset: l-count var(--l-count);
+  content: counter(l-count) "%";
+}
+
+/* The burst behind the hub as it lands. Each piece carries its own direction
+   and spin; the keyframe is shared, and none of them are delayed — a delay
+   would slide that piece out of the lap the rest of the map runs on. */
+@keyframes l-confetti {
+  0%,
+  58% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4) rotate(0deg);
+  }
+  61% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  78% {
+    opacity: 1;
+    transform: translate(var(--l-x), var(--l-y)) scale(1) rotate(var(--l-rot));
+  }
+  88%,
+  100% {
+    opacity: 0;
+    transform: translate(var(--l-x), var(--l-y)) scale(0.85)
+      rotate(var(--l-rot));
+  }
+}
+
+.l-confetti {
+  animation: l-confetti 11.25s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Parked on the finished frame: the trainer, captioned ready. */
+  .tt-landing .l-mind-flow {
+    opacity: 0;
+  }
+
+  .tt-landing .l-mind-orb {
+    animation: none;
+    opacity: 0;
+  }
+
+  .tt-landing .l-mind-twin {
+    animation: none;
+    opacity: 1;
+  }
+
+  .tt-landing .l-count,
+  .tt-landing .l-confetti {
+    animation: none;
+  }
+
+  .tt-landing .l-confetti {
+    opacity: 0;
+  }
+}
+
+/* -------------------------------------------------------------- MENU ROWS
+   The icon in a Services row answers the pointer. A transition rather than a
+   keyframe, and an overshooting curve rather than a bounce animation: it has
+   to travel back as nicely as it travels out, and an animation would snap home
+   the moment the pointer left. */
+.l-menu-tile,
+.l-menu-icon {
+  transition: transform 260ms cubic-bezier(0.34, 1.5, 0.64, 1);
+}
+
+.l-menu-row:hover .l-menu-tile {
+  transform: scale(1.06);
+}
+
+.l-menu-row:hover .l-menu-icon {
+  transform: scale(1.14) translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-menu-row:hover .l-menu-tile,
+  .tt-landing .l-menu-row:hover .l-menu-icon {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------- MENU MARKS
+   The two cards in the Services menu. Both loops are slow and small: the panel
+   is only open for a few seconds at a time, and these are meant to be caught
+   at the edge of the eye rather than watched. */
+.l-dotfield {
+  background-image: radial-gradient(var(--tt-neutral-200) 1px, transparent 1px);
+  background-size: 9px 9px;
+  background-position: 4px 4px;
+  /* Fades into the card rather than ending on a hard edge. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 45%);
+  mask-image: linear-gradient(90deg, transparent, #000 45%);
+}
+
+/* The snake. One dash travels the whole route — pathLength normalises it to
+   100 units so the dash is a share of the run rather than a length in pixels —
+   and the wider, fainter copy lags a fraction of a lap behind it, which reads
+   as the tail it drags. */
+@keyframes l-snake {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.l-snake {
+  stroke: url(#l-menu-snake);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 11 89;
+  animation: l-snake 7s linear infinite;
+}
+
+.l-snake-tail {
+  stroke-width: 3.6;
+  opacity: 0.18;
+  /* A negative delay of just under one lap: it runs a twenty-fifth of the
+     route behind the head rather than waiting to start. */
+  animation-delay: -6.72s;
+}
+
+/* One live arc per ring. Rotating the circle about its own centre is what runs
+   the dash around it; the centre is given in viewBox units, which is what
+   transform-box: view-box makes the origin mean. */
+@keyframes l-ring {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.l-ring {
+  transform-box: view-box;
+  transform-origin: 122px 100px;
+  animation-name: l-ring;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-snake,
+  .tt-landing .l-ring {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------- LIT RULE
+   The seam where one dark section meets the next. Three parts: a hairline that
+   fades to nothing at both ends, a bloom under it, and a highlight that crosses
+   every eight seconds — enough to catch the eye once, not enough to pull at it
+   while somebody is reading. */
+.l-rule {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 150, 80, 0) 0%,
+    rgba(255, 150, 80, 0.35) 18%,
+    rgba(255, 196, 150, 0.85) 50%,
+    rgba(255, 150, 80, 0.35) 82%,
+    rgba(255, 150, 80, 0) 100%
+  );
+}
+
+.l-rule-glow {
+  background: radial-gradient(
+    58% 100% at 50% 0%,
+    rgba(255, 150, 80, 0.22) 0%,
+    rgba(255, 150, 80, 0.08) 38%,
+    rgba(255, 150, 80, 0) 72%
+  );
+}
+
+.l-rule-shine {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 214, 176, 0) 0%,
+    rgba(255, 224, 194, 0.95) 50%,
+    rgba(255, 214, 176, 0) 100%
+  );
+  animation: l-rule-shine 8s ease-in-out infinite;
+}
+
+@keyframes l-rule-shine {
+  0% {
+    transform: translateX(-120%);
+  }
+  55%,
+  100% {
+    transform: translateX(420%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The rule stays lit; only the pass across it stops. */
+  .tt-landing .l-rule-shine {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ ELLIPSIS
+   The three dots after "Updating your twin with your knowledge". Each dot
+   holds a floor of 0.15 rather than going to 0, so the line keeps its width
+   and the sentence never shifts as they come and go. */
+@keyframes l-ellipsis {
+  0%,
+  20% {
+    opacity: 0.15;
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
+}
+
+.l-ellipsis > span {
+  animation: l-ellipsis 1.5s ease-in-out infinite;
+}
+
+.l-ellipsis > span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.l-ellipsis > span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Parked showing all three, which is the sentence written out. */
+  .tt-landing .l-ellipsis > span {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ SIRI ORB
+   Five conic gradients turning at different rates and directions behind one
+   blur, plus a soft highlight over the top. The angle is a registered custom
+   property, which is what makes it animatable at all — a plain `--angle` is a
+   string to the animation engine and would jump rather than sweep.
+
+   The name is prefixed because @property registrations are global: an unscoped
+   `--angle` would be claimed page-wide by whichever sheet declared it first. */
+@property --l-orb-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.l-orb {
+  --l-orb-c1: oklch(75% 0.15 350);
+  --l-orb-c2: oklch(80% 0.12 200);
+  --l-orb-c3: oklch(78% 0.14 280);
+  --l-orb-seconds: 20s;
+  --l-orb-contrast: 1.8;
+  /* Proportional rather than upstream's 8px floor, so a small orb inside a
+     scaled stage stays as crisp as a large one on a page. */
+  --l-orb-blur: calc(var(--l-orb-size, 192px) * 0.08);
+
+  display: grid;
+  grid-template-areas: "stack";
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(
+    --l-orb-bg,
+    radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.03) 30%,
+      transparent 70%
+    )
+  );
+}
+
+/* This page resolves its theme through [data-theme], not a .dark class. */
+[data-theme="dark"] .l-orb {
+  background: var(
+    --l-orb-bg,
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 30%,
+      transparent 70%
+    )
+  );
+}
+
+.l-orb::before {
+  content: "";
+  display: block;
+  grid-area: stack;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from calc(var(--l-orb-angle) * 1.2) at 30% 65%,
+      var(--l-orb-c3) 0deg,
+      transparent 45deg 315deg,
+      var(--l-orb-c3) 360deg
+    ),
+    conic-gradient(
+      from calc(var(--l-orb-angle) * 0.8) at 70% 35%,
+      var(--l-orb-c2) 0deg,
+      transparent 60deg 300deg,
+      var(--l-orb-c2) 360deg
+    ),
+    conic-gradient(
+      from calc(var(--l-orb-angle) * -1.5) at 65% 75%,
+      var(--l-orb-c1) 0deg,
+      transparent 90deg 270deg,
+      var(--l-orb-c1) 360deg
+    ),
+    conic-gradient(
+      from calc(var(--l-orb-angle) * 2.1) at 25% 25%,
+      var(--l-orb-c2) 0deg,
+      transparent 30deg 330deg,
+      var(--l-orb-c2) 360deg
+    ),
+    conic-gradient(
+      from calc(var(--l-orb-angle) * -0.7) at 80% 80%,
+      var(--l-orb-c1) 0deg,
+      transparent 45deg 315deg,
+      var(--l-orb-c1) 360deg
+    ),
+    radial-gradient(
+      ellipse 120% 80% at 40% 60%,
+      var(--l-orb-c3) 0%,
+      transparent 50%
+    );
+  filter: blur(var(--l-orb-blur)) contrast(var(--l-orb-contrast)) saturate(1.2);
+  animation: l-orb-spin var(--l-orb-seconds) linear infinite;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.l-orb::after {
+  content: "";
+  display: block;
+  grid-area: stack;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 45% 55%,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    transparent 60%
+  );
+  mix-blend-mode: overlay;
+}
+
+@keyframes l-orb-spin {
+  from {
+    --l-orb-angle: 0deg;
+  }
+  to {
+    --l-orb-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .l-orb::before {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------ ANCHORS
+   The nav jumps to sections by id, and the header is sticky and 84px tall, so
+   a plain jump would land the section's first line underneath it. The offset
+   goes on the sections rather than on the scroll container so that only anchor
+   navigation is affected — nothing else on the page reads it.
+
+   Smooth is scoped to the landing root, and reduced motion drops it: with the
+   page at 8780px, a smooth jump to the footer is a long ride nobody asked for. */
+/* On the scroller, which is the document — not the landing div, which does not
+   scroll — and only while the landing is the page on screen. */
+:root:has(.tt-landing) {
+  scroll-behavior: smooth;
+}
+
+.tt-landing :where(section[id], footer[id]) {
+  scroll-margin-top: 84px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:has(.tt-landing) {
+    scroll-behavior: auto;
+  }
+}
+
+/* ------------------------------------------------- INTEGRATION GRID
+   Six tools moving around a grid of tiles: each is drawn at three cells and
+   only one of the three is up at a time, so six are on screen at any moment
+   and never the same tool twice. One keyframe, a third of the lap each. */
+@keyframes l-swap-3 {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  4% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  29% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  33.333% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+.l-tool {
+  opacity: 0;
+  animation: l-swap-3 12s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Parked, each tool shows at the first of its three cells. */
+  .tt-landing .l-tool {
+    animation: none;
+  }
+
+  .tt-landing .l-tool[data-rest] {
+    opacity: 1;
+  }
+}
+
+/* A row that scrolls when it has to, without a bar across the design. */
+.l-noscrollbar {
+  scrollbar-width: none;
+}
+
+.l-noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ------------------------------------------------------ SHINY TEXT
+   The sweep behind `ShinyText`. The gradient is set inline because its colours
+   are props; this only moves it across, and restores flat text when the
+   reader has asked for less motion. */
+@keyframes l-shine {
+  from {
+    background-position: 150% center;
+  }
+  to {
+    background-position: -50% center;
+  }
+}
+
+.l-shine {
+  display: inline-block;
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: l-shine var(--l-shine-speed, 2s) linear infinite;
+}
+
+.l-shine-reverse {
+  animation-direction: reverse;
+}
+
+.l-shine-yoyo {
+  animation-direction: alternate;
+}
+
+.l-shine-yoyo.l-shine-reverse {
+  animation-direction: alternate-reverse;
+}
+
+.l-shine-hover:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-shine {
+    animation: none;
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+/* ------------------------------------------------ USE CASE CARD
+   Opening a scenario: the card eases in, then one highlight passes across it
+   and is gone. Both are one-shot — the card is remounted when the selection
+   changes, which is what replays them.
+
+   The sweep moves a gradient background rather than a pseudo-element, so the
+   card's own corners clip it and nothing needs `overflow: hidden` — which
+   would otherwise crop the mockup's bleed inside it on a phone. */
+@keyframes l-usecase-open {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes l-usecase-shine {
+  from {
+    background-position: 160% 0;
+  }
+  to {
+    background-position: -60% 0;
+  }
+}
+
+.l-usecase-card {
+  background-image: linear-gradient(
+    100deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.07) 50%,
+    transparent 60%
+  );
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  animation:
+    l-usecase-open 320ms ease-in-out both,
+    l-usecase-shine 900ms ease-in-out 140ms both;
+}
+
+/* The light that runs the open card's border. A conic gradient with one bright
+   arc in it, rotated behind the card and masked down to a one-pixel ring: the
+   two mask layers cover the whole box and its content box, and excluding one
+   from the other leaves just the frame. It turns once per selection rather than
+   looping — the card is remounted when the selection changes, which restarts
+   it — and its duration is the mockup's lap, so the light arrives back where it
+   started as the list hands over. */
+@property --l-beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes l-beam {
+  from {
+    --l-beam-angle: 0deg;
+  }
+  to {
+    --l-beam-angle: 360deg;
+  }
+}
+
+.l-beam {
+  padding: 1px;
+  background: conic-gradient(
+    from var(--l-beam-angle),
+    rgba(255, 214, 176, 0) 0deg,
+    rgba(255, 214, 176, 0) 300deg,
+    rgba(255, 196, 150, 0.55) 330deg,
+    rgba(255, 236, 214, 0.95) 352deg,
+    rgba(255, 214, 176, 0) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: l-beam var(--l-dwell, 11333ms) linear both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-beam {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-usecase-card {
+    animation: none;
+    background-image: none;
+  }
+}
+
+/* ------------------------------------------------------------ ORBIT
+   The dots circling the mark on the Twin card. Rotating the group rather than
+   each dot keeps them on their ring for free, and a circle looks the same at
+   every angle so nothing needs counter-rotating.
+
+   `view-box` origin, or the box would be measured from each dot's own bounds
+   and every one would spin in place instead of orbiting. */
+@keyframes l-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.l-orbit {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: l-orbit var(--l-orbit, 20s) linear infinite;
+}
+
+.l-orbit-rev {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-orbit {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------- VOICE PILLS
+   The pills travel between the two cards along an arc, not a straight line.
+
+   An arm rotates about the midpoint of the cards and holds the pill out at a
+   fixed radius; an inner wrapper undoes that rotation so the label stays
+   upright the whole way round. The radius is a `u()` value, so the arc scales
+   with the stage — which is why this is not `offset-path`, whose `path()`
+   coordinates are plain pixels and would drift off the cards as the column
+   narrows. */
+@keyframes l-orbit-over {
+  from {
+    transform: rotate(180deg) translateX(var(--l-orbit-r));
+  }
+  to {
+    transform: rotate(0deg) translateX(var(--l-orbit-r));
+  }
+}
+
+@keyframes l-orbit-over-fix {
+  from {
+    transform: rotate(-180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes l-orbit-under {
+  from {
+    transform: rotate(180deg) translateX(var(--l-orbit-r));
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--l-orbit-r));
+  }
+}
+
+@keyframes l-orbit-under-fix {
+  from {
+    transform: rotate(-180deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes l-orbit-fade {
+  0% {
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  84% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* `backwards`, or a pill waiting out its stagger would sit parked and opaque
+   at the start instead of holding the invisible first frame. */
+.l-orbit-arm {
+  animation: l-orbit-over 7s linear infinite backwards;
+}
+
+.l-orbit-arm.is-under {
+  animation-name: l-orbit-under;
+}
+
+.l-orbit-fix {
+  animation:
+    l-orbit-over-fix 7s linear infinite backwards,
+    l-orbit-fade 7s linear infinite backwards;
+}
+
+.l-orbit-fix.is-under {
+  animation-name: l-orbit-under-fix, l-orbit-fade;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Parked around the arc rather than piled at the start line. */
+  .tt-landing .l-orbit-arm {
+    animation: none;
+    transform: rotate(var(--l-orbit-park)) translateX(var(--l-orbit-r));
+  }
+
+  .tt-landing .l-orbit-fix {
+    animation: none;
+    transform: rotate(calc(-1 * var(--l-orbit-park)));
+  }
+}
+
+/* ------------------------------------------------------------ ORBIT
+   The dots circling the mark on the Twin card. Rotating the group rather than
+   each dot keeps them on their ring for free, and a circle looks the same at
+   every angle so nothing needs counter-rotating.
+
+   `view-box` origin, or the box would be measured from each dot's own bounds
+   and every one would spin in place instead of orbiting. */
+@keyframes l-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.l-orbit {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: l-orbit var(--l-orbit, 20s) linear infinite;
+}
+
+.l-orbit-rev {
+  animation-direction: reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-landing .l-orbit {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------- VOICE PILLS
+   What the Twin picks up, carried from the voice card across to the Twin's.
+   Transform is named at the ends only, so it travels at a steady rate while
+   the opacity fades it in as it leaves and out as it arrives. */
+@keyframes l-voice-travel {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(var(--l-travel));
+  }
+}
+
+.l-voice-pill {
+  /* `backwards`, or a pill waiting out its delay would sit parked and fully
+     opaque at the start line instead of holding the invisible first frame —
+     all six stacked in a pile until their turn came round. */
+  animation: l-voice-travel 7s linear infinite backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Parked at the start of the run, spread down their lanes. */
+  .tt-landing .l-voice-pill {
+    animation: none;
+  }
+}

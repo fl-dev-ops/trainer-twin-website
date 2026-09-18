@@ -1,159 +1,205 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
 
+/* `dark:` utilities target the same three-state theme resolution the tokens use.
+   Rarely needed — the tokens already switch themselves — but available for the
+   cases where a component needs a structural (not colour) change in dark. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ----------------------------------------------------------- 3. TAILWIND ALIASES
+   Maps the semantic layer onto Tailwind's utility namespaces, so `bg-canvas`,
+   `text-secondary`, `border-interactive` etc. resolve to the live theme value.
+   `inline` keeps the var() reference intact instead of freezing the value. */
 @theme inline {
-  --color-brand: #ec3013;
-  --color-brand-dark: #c9270f;
-  --color-brand-light: #a81f0b;
-  --color-dark: #201e1d;
-  --color-muted: #5c5a58;
-  --color-body: #4f4d4b;
-  --color-light: #6f6d6b;
-  --color-bg: #f3f2f2;
-  --color-border: #bdbcba;
-  --color-border-light: #d8d6d4;
-  --color-border-lighter: #e2e0de;
-  --font-sans: var(--font-figtree);
-  --font-serif: var(--font-noto-serif);
-  --font-mono: ui-monospace, Menlo, monospace;
-}
+  --color-canvas: var(--tt-canvas);
+  --color-surface: var(--tt-surface);
+  --color-surface-raised: var(--tt-surface-raised);
+  --color-surface-sunken: var(--tt-surface-sunken);
 
-* {
-  box-sizing: border-box;
+  --color-primary: var(--tt-primary);
+  --color-primary-hover: var(--tt-primary-hover);
+  --color-primary-ink: var(--tt-primary-ink);
+  --color-primary-subtle: var(--tt-primary-subtle);
+  --color-on-primary: var(--tt-on-primary);
+
+  --color-strong: var(--tt-cta-strong);
+  --color-strong-hover: var(--tt-cta-strong-hover);
+  --color-on-strong: var(--tt-on-cta-strong);
+
+  --color-ink: var(--tt-text-primary);
+  --color-ink-secondary: var(--tt-text-secondary);
+  --color-ink-tertiary: var(--tt-text-tertiary);
+  --color-ink-muted: var(--tt-text-muted);
+
+  --color-fill-soft: var(--tt-fill-soft);
+  --color-fill-soft-hover: var(--tt-fill-soft-hover);
+
+  --color-line: var(--tt-border);
+  --color-line-interactive: var(--tt-border-interactive);
+  --color-line-field: var(--tt-border-field);
+  --color-focus: var(--tt-focus);
+
+  --color-danger: var(--tt-danger);
+  --color-danger-subtle: var(--tt-danger-subtle);
+  --color-live: var(--tt-live);
+  --color-success: var(--tt-success);
+  --color-success-subtle: var(--tt-success-subtle);
+  --color-info: var(--tt-info);
+  --color-info-subtle: var(--tt-info-subtle);
+  --color-caution: var(--tt-caution);
+  --color-caution-subtle: var(--tt-caution-subtle);
+
+  /* Status borders — the soft edge for alerts and badges. Below 3:1 on purpose;
+     see the note in tokens.css. */
+  --color-primary-border: var(--tt-primary-border);
+  --color-success-border: var(--tt-success-border);
+  --color-info-border: var(--tt-info-border);
+  --color-caution-border: var(--tt-caution-border);
+  --color-danger-border: var(--tt-danger-border);
+
+  /* Badge-specific — lighter than the alert/status border family above. */
+  --color-primary-badge-border: var(--tt-primary-badge-border);
+  --color-success-badge-border: var(--tt-success-badge-border);
+  --color-info-badge-border: var(--tt-info-badge-border);
+  --color-caution-badge-border: var(--tt-caution-badge-border);
+  --color-danger-badge-border: var(--tt-danger-badge-border);
+
+  /* Marketing surfaces — night bands and the availability green. */
+  --color-night: var(--tt-night);
+  --color-night-deep: var(--tt-night-deep);
+  --color-night-panel: var(--tt-night-panel);
+  --color-on-night: var(--tt-on-night);
+  --color-on-night-2: var(--tt-on-night-2);
+  --color-on-night-3: var(--tt-on-night-3);
+  --color-line-night: var(--tt-line-night);
+  --color-available: var(--tt-available);
+
+  --font-display: var(--tt-font-display), Georgia, "Times New Roman", serif;
+  --font-ui: var(--tt-font-ui), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: var(--tt-font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--tt-font-ui), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Weight. `font-normal` and `font-semibold` are the only two the product uses.
+     They are aliased rather than left at Tailwind's defaults so the scale has a
+     single source: changing --tt-weight-semibold moves every label at once.
+
+     font-medium / font-bold / font-extrabold are deliberately NOT aliased. They
+     still resolve to Tailwind's 500 / 700 / 800, which keeps them honest — but
+     they are outside the product scale, and a product component using one is a
+     bug. They stay reachable because src/components/landing/ is a separately
+     designed marketing surface that does use 700. */
+  --font-weight-normal: var(--tt-weight-regular);
+  --font-weight-semibold: var(--tt-weight-semibold);
+
+  /* Breakpoints must live in @theme — Tailwind reads them at build time to
+     generate sm:/md:/lg:/xl: variants. Values match Tailwind's defaults on purpose. */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --container-prose: var(--tt-container-prose);
+  --container-sm: var(--tt-container-sm);
+  --container-md: var(--tt-container-md);
+  --container-lg: var(--tt-container-lg);
+  --container-xl: var(--tt-container-xl);
+
+  --text-icon-xs: var(--tt-icon-xs);
+
+  --radius-xs: var(--tt-radius-xs);
+  --radius-sm: var(--tt-radius-sm);
+  --radius-md: var(--tt-radius-md);
+  --radius-lg: var(--tt-radius-lg);
+
+  --shadow-e1: var(--tt-elevation-1);
+  --shadow-e2: var(--tt-elevation-2);
+  --shadow-e3: var(--tt-elevation-3);
+
+  --ease-standard: var(--tt-ease-standard);
+  --ease-enter: var(--tt-ease-enter);
+  --ease-exit: var(--tt-ease-exit);
 }
 
 body {
-  margin: 0;
-  background: #fff;
-  font-family: var(--font-sans), system-ui, sans-serif;
-  color: var(--color-dark);
+  background: var(--tt-canvas);
+  color: var(--tt-text-primary);
+  font-family: var(--tt-font-ui), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--color-dark);
-  text-decoration: none;
+/* NIGHT SCOPE — put this on any section that sits on --tt-night, and every
+   system component inside it works without a single override. It re-points the
+   text, border and CTA tokens at their night equivalents, so a Card, Button or
+   Badge dropped into an editorial dark band reads correctly instead of needing a
+   hand-written dark variant.
+
+   This is the piece the product system was missing and the marketing page had
+   already solved by hand. It is NOT dark theme: a night band stays night in
+   light theme too, which is exactly why it needs its own scope rather than
+   reusing [data-theme="dark"]. */
+.tt-night {
+  background: var(--tt-night);
+
+  --tt-canvas: var(--tt-night);
+  --tt-surface: var(--tt-night);
+  --tt-surface-raised: var(--tt-night-panel);
+  --tt-surface-sunken: var(--tt-night-deep);
+
+  --tt-text-primary: var(--tt-on-night);
+  --tt-text-secondary: var(--tt-on-night-2);
+  --tt-text-tertiary: var(--tt-on-night-3);
+  --tt-text-muted: var(--tt-on-night-3);
+
+  --tt-border: var(--tt-line-night);
+  --tt-border-field: var(--tt-line-night);
+
+  /* strong flips to white-on-night, the same polarity rule it follows in dark
+     theme — the neutral CTA is always the opposite of its canvas. */
+  --tt-cta-strong: var(--tt-on-night);
+  --tt-on-cta-strong: var(--tt-night);
+
+  --tt-available: #7FD1A0;   /* 9.86:1 on night; the light value is 2.6:1 there */
+
+  /* Elevation, night. D50 says a dark surface elevates with lightness plus a
+     black shadow, because a light-theme shadow is invisible on near-black —
+     but that ladder only ships under [data-theme="dark"], and a night band is
+     not dark theme. So a Card dropped into one was carrying the light ladder
+     and reading flat, `raised` included. Same omission as the text and border
+     tokens above, one line further down the list. Values are dark theme's. */
+  --tt-elevation-1: 0 0 0 1px rgb(253 251 247 / 0.05);
+  --tt-elevation-2: 0 0 0 1px rgb(253 251 247 / 0.07), 0 4px 16px rgb(0 0 0 / 0.5);
+  --tt-elevation-3: 0 0 0 1px rgb(253 251 247 / 0.09), 0 12px 32px rgb(0 0 0 / 0.6);
+
+  color: var(--tt-text-primary);
 }
 
-a:hover {
-  color: var(--color-brand);
+.tt-night-deep { background: var(--tt-night-deep); }
+.tt-night-panel { background: var(--tt-night-panel); }
+
+/* THE weight bug, fixed at the root. Every browser's user-agent stylesheet sets
+   b and strong to `bold` — which computes to 700, a weight that is not in this
+   system. Nothing overrode it, so every emphasised run, every <strong> value in
+   a stat row and every <b> in a twin's answer rendered 700 no matter how
+   carefully the surrounding component was specified. Emphasis is semantic;
+   700 was never the intent. */
+b,
+strong {
+  font-weight: var(--tt-weight-semibold);
 }
 
-h1, h2, h3 {
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  text-wrap: pretty;
-  margin: 0;
-}
-
-p {
-  margin: 0;
-  text-wrap: pretty;
-}
-
-input, select, button {
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-brand);
+/* One focus treatment, everywhere. Brand orange clears 3:1 in both themes, but
+   only just in light — so 2px ring at 2px offset, never 1px flush. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--tt-focus);
   outline-offset: 2px;
 }
 
-::selection {
-  background: rgba(236, 48, 19, 0.18);
-}
-
-/* Prose styles */
-.prose {
-  max-width: 680px;
-}
-
-.prose h1 {
-  font-size: clamp(2.5rem, 2rem + 1.2vw, 3.5rem);
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-}
-
-.prose h2 {
-  font-size: clamp(1.75rem, 1.5rem + 0.5vw, 2rem);
-  line-height: 1.2;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-}
-
-.prose p {
-  font-size: clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem);
-  line-height: 1.75;
-  margin-bottom: 1.5rem;
-  color: var(--color-muted);
-}
-
-.prose p:last-child {
-  margin-bottom: 0;
-}
-
-.prose strong {
-  color: var(--color-dark);
-  font-weight: 600;
-}
-
-.prose a {
-  color: var(--color-brand);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.prose a:hover {
-  text-decoration-thickness: 2px;
-}
-
-.prose a.no-underline {
-  text-decoration: none;
-}
-
-.prose ul, .prose ol {
-  padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
-  list-style-type: disc;
-}
-
-.prose li {
-  font-size: clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem);
-  line-height: 1.75;
-  margin-bottom: 0.5rem;
-  color: var(--color-muted);
-}
-
-.prose blockquote {
-  border-left: 3px solid var(--color-brand);
-  padding-left: 1.25rem;
-  margin: 2rem 0;
-  font-style: italic;
-  color: var(--color-muted);
-}
-
-.prose blockquote p {
-  font-size: 1.25rem;
-}
-
-.prose hr {
-  border: none;
-  border-top: 1px solid var(--color-border-lighter);
-  margin: 3rem 0;
-}
-
-.prose .lead {
-  font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.5rem);
-  line-height: 1.7;
-  color: var(--color-dark);
-}
-
-.prose .caption {
-  font-size: 0.875rem;
-  color: var(--color-light);
-  letter-spacing: 0.02em;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
