@@ -59,10 +59,95 @@ export function EarlyAccessSteps() {
   const [roles, setRoles] = useState<string[]>([]);
   const [goals, setGoals] = useState<string[]>([]);
   const [earnings, setEarnings] = useState<string[]>([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitting(true);
+    setSubmitError("");
+
+    const formData = new FormData(event.currentTarget);
+    // Ensure MultiSelect values are appended if not already present
+    if (!formData.has("role")) roles.forEach((r) => formData.append("role", r));
+    if (!formData.has("earnings")) earnings.forEach((earn) => formData.append("earnings", earn));
+    if (!formData.has("goals")) goals.forEach((g) => formData.append("goals", g));
+
+    try {
+      const res = await fetch("/api/invite", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      setSubmitError("We couldn't submit your details. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="ea" style={{ textAlign: "center", padding: "var(--tt-space-12) var(--tt-space-6)" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 56,
+            height: 56,
+            borderRadius: "999px",
+            background: "var(--tt-success-subtle)",
+            color: "var(--tt-success)",
+            margin: "0 auto var(--tt-space-4)",
+          }}
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M3.5 8.5l3 3 6-7" />
+          </svg>
+        </div>
+        <h3
+          style={{
+            fontFamily: "var(--tt-font-display)",
+            fontSize: 24,
+            lineHeight: 1.2,
+            margin: "0 0 var(--tt-space-2)",
+            color: "var(--tt-text-primary)",
+          }}
+        >
+          Request received!
+        </h3>
+        <p
+          style={{
+            fontFamily: "var(--tt-font-ui)",
+            fontSize: 15,
+            lineHeight: 1.6,
+            color: "var(--tt-text-secondary)",
+            maxWidth: "42ch",
+            margin: "0 auto",
+          }}
+        >
+          Thanks for sharing your details. We’ll follow up with a founding brief and demo slot within 24 hours.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <form
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={handleSubmit}
       className="ea-form"
       aria-labelledby="early-access-step-title"
     >
@@ -75,6 +160,7 @@ export function EarlyAccessSteps() {
           <Input
             name="name"
             label="Your name"
+            required
             autoComplete="name"
             placeholder="Aditi Sharma"
           />
@@ -86,6 +172,7 @@ export function EarlyAccessSteps() {
                 name="email"
                 label="Your email"
                 type="email"
+                required
                 autoComplete="email"
                 placeholder="you@example.com"
               />
@@ -102,7 +189,7 @@ export function EarlyAccessSteps() {
           <Input
             name="links"
             label="Links: website, LinkedIn or YouTube"
-            type="url"
+            type="text"
             autoComplete="url"
             placeholder="yoursite.com, linkedin.com/in/…, youtube.com/@…"
           />
@@ -136,9 +223,20 @@ export function EarlyAccessSteps() {
           />
         </div>
 
-        <div className="ea-actions">
-          <Button variant="strong" size="xl" type="submit" className="ea-go">
-            Request early access
+        <div className="ea-actions" style={{ flexDirection: "column", alignItems: "stretch", gap: "var(--tt-space-3)" }}>
+          {submitError ? (
+            <p role="alert" className="font-ui text-[13px] text-danger text-center">
+              {submitError}
+            </p>
+          ) : null}
+          <Button
+            variant="strong"
+            size="xl"
+            type="submit"
+            disabled={submitting}
+            className="ea-go"
+          >
+            {submitting ? "Submitting…" : "Request early access"}
           </Button>
         </div>
       </div>

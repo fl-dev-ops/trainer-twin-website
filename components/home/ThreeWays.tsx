@@ -181,7 +181,7 @@ function Way({
           stops being readable long before the layout runs out of room. */}
       <div className="way-copy">
         <span className="kicker">{kicker}</span>
-        <h3>{title}</h3>
+        <h3 className={v3 ? "font-ui" : undefined}>{title}</h3>
         <p>{body}</p>
         {points ? (
           <ul className="can">

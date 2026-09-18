@@ -1298,6 +1298,11 @@
   font-size: 24px; /* product/title-l */
   line-height: 30px;
 }
+.tt-home--v3 .way-copy h3 {
+  font-family: var(--tt-font-ui);
+  font-size: clamp(24px, 2.1vw, 30px);
+  line-height: 1.25;
+}
 /* Tertiary, not secondary: on this panel's pale blueprint ground the secondary
    step reads as a second headline rather than as supporting copy. 5.83:1 —
    still AA for body text. */
