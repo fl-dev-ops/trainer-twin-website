@@ -126,7 +126,6 @@ body {
   color: var(--tt-text-primary);
   font-family: var(--tt-font-ui), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
-  zoom: 1.15;
 }
 
 /* NIGHT SCOPE — put this on any section that sits on --tt-night, and every
