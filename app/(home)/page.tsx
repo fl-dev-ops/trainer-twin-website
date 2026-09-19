@@ -58,7 +58,7 @@ export default function Home() {
               body: "Turn your expertise into more conversations, leads, and revenue, 24/7.",
               href: "#early-access",
               art: "experts",
-              cta: "Request a demo",
+              cta: "Get early access",
             },
             {
               key: "tech",
@@ -67,7 +67,7 @@ export default function Home() {
               body: "Turn your knowledge into interactive learning, demos, and practice, anytime.",
               href: "#early-access",
               art: "tech",
-              cta: "Request a demo",
+              cta: "Get early access",
             },
             {
               key: "sales",
@@ -76,7 +76,7 @@ export default function Home() {
               body: "Let learners practise pitches, objections, negotiations, and real-world conversations.",
               href: "#early-access",
               art: "sales",
-              cta: "Request a demo",
+              cta: "Get early access",
             },
             {
               key: "other",

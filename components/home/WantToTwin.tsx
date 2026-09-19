@@ -9,21 +9,25 @@ import { useEffect, useState } from "react";
  */
 const PAIRS: Array<{ askPrefix: string; ask: string; can: string }> = [
   {
-    askPrefix: "Want to",
-    ask: "reach more people?",
-    can: "can extend your reach.",
+    askPrefix: "Tired of",
+    ask: "repeating the same doubts 100 times?",
+    can: "handles the repeats.",
   },
   {
-    askPrefix: "Want to",
-    ask: "enable more practice?",
-    can: "can run role-plays.",
+    askPrefix: "Learners stuck at",
+    ask: "11 PM, waiting for tomorrow's session?",
+    can: "answers their doubts right then.",
   },
   {
-    askPrefix: "Want to",
-    ask: "be available 24/7?",
-    can: "can always be there.",
+    askPrefix: "Sixty learners and",
+    ask: "one of you — no real 1:1?",
+    can: "gives everyone personal attention.",
   },
-  { askPrefix: "Want to", ask: "create more videos?", can: "can do it." },
+  {
+    askPrefix: "Always creating content,",
+    ask: "no time to teach?",
+    can: "turns your material into videos.",
+  },
 ];
 
 /* ms typing or erasing one line, and holding once both are typed. Ask and can
@@ -113,7 +117,7 @@ export function WantToTwin() {
         {spokenAsk} Your AI Twin {pair.can}.
       </span>
       <span aria-hidden="true">
-        <span className="rot-line">Want to</span>
+        <span className="rot-line">{pair.askPrefix}</span>
         <span className="rot-line">
           <span className="rot-slot">
             <span className="rot-word">{cut(pair.ask, askProgress)}</span>

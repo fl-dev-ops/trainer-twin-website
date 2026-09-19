@@ -73,7 +73,7 @@ const PILLS: Array<{
   },
   {
     title: "Your Presence",
-    body: "A few minute of your voice : Pace, tone and pauses",
+    body: "A few minutes of your voice: pace, tone and pauses.",
     Art: PersonaArt,
   },
   {

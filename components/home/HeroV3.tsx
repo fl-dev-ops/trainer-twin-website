@@ -55,7 +55,7 @@ export function HeroV3() {
           </CtaLink>
 
           <div className="hero-v3-trust">
-            <p>Trusted &amp; Backed by global technology leaders</p>
+            <p>Part of Microsoft for Startups &amp; AWS Activate</p>
             <div className="hero-v3-backers">
               <span className="hero-v3-backer">
                 <img

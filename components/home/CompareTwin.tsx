@@ -20,7 +20,7 @@ const COLUMNS = [
       { ok: true, label: "Answers questions" },
       { ok: false, label: "Generic teaching style" },
       { ok: false, label: "No video creation" },
-      { ok: false, label: "No your presence" },
+      { ok: false, label: "No presence" },
     ],
   },
   {

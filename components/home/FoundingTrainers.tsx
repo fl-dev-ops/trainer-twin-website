@@ -19,7 +19,7 @@ const FOUNDERS: Founder[] = [
     name: "Vasanth Bhat",
     href: "https://www.linkedin.com/in/careerwithvasanth/",
     domain: "Career / education",
-    notes: ["Requirements still being captured."],
+    notes: ["Onboarded design partner."],
     photo: "/home-v3/founders/vasanth-bhat.png",
   },
   {
@@ -199,7 +199,7 @@ function OthersCard({ duplicate }: { duplicate: boolean }) {
             className="hero-v3-cta found-cta"
             tabIndex={duplicate ? -1 : undefined}
           >
-            Request a demo
+            Talk to us
           </CtaLink>
         </CardBody>
       </Card>
