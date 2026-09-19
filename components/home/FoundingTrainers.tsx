@@ -112,7 +112,7 @@ export function FoundingTrainers() {
       />
       <div className="wrap">
         <div className="head" data-reveal>
-          <h2 id="found-h">Trainers already building their Twin with us</h2>
+          <h2 id="found-h">Meet people who have shown interest in TrainerTwin</h2>
         </div>
       </div>
       <div className="found-rail" ref={railRef} data-reveal data-reveal-delay="100">

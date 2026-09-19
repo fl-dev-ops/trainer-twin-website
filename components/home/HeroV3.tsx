@@ -43,9 +43,9 @@ export function HeroV3() {
             <div className="hero-v3-titleblock">
               <WantToTwin />
               <p className="hero-v3-lede">
-                TrainerTwin turns your knowledge and persona into a version of
-                you that your learners and followers can reach whenever they
-                need. It talks like you, teaches like you and thinks like you.
+                TrainerTwin turns your knowledge and persona into a version of you
+                that your people can reach whenever they need. It talks like you,
+                teaches like you and thinks like you.
               </p>
             </div>
           </div>

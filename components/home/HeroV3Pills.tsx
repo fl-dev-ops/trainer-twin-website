@@ -77,8 +77,8 @@ const PILLS: Array<{
     Art: PersonaArt,
   },
   {
-    title: "Your Training DNA",
-    body: "We extract your patterns — how you explain, hint and assess.",
+    title: "Your training DNA",
+    body: "We extract your patterns and how you explain, hints and assess.",
     Art: DnaArt,
   },
 ];

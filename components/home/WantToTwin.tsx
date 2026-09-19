@@ -10,23 +10,23 @@ import { useEffect, useState } from "react";
 const PAIRS: Array<{ askPrefix: string; ask: string; can: string }> = [
   {
     askPrefix: "Tired of",
-    ask: "repeating the same doubts 100 times?",
+    ask: "the same doubt 100 times?",
     can: "handles the repeats.",
   },
   {
     askPrefix: "Learners stuck at",
-    ask: "11 PM, waiting for tomorrow's session?",
-    can: "answers their doubts right then.",
+    ask: "11 PM without you?",
+    can: "answers them right then.",
   },
   {
-    askPrefix: "Sixty learners and",
-    ask: "one of you — no real 1:1?",
-    can: "gives everyone personal attention.",
+    askPrefix: "Sixty learners,",
+    ask: "one of you — no 1:1?",
+    can: "makes 1:1 possible.",
   },
   {
-    askPrefix: "Always creating content,",
+    askPrefix: "Making content,",
     ask: "no time to teach?",
-    can: "turns your material into videos.",
+    can: "turns it into videos.",
   },
 ];
 
