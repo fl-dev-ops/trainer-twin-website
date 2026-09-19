@@ -186,14 +186,13 @@ const ACCORDION_HOLD = 5600;
 /**
  * v3 "Who it's for": accordion list + one illustration, then the Other card
  * as its own row. Auto-advances so each persona can be read, and a click
- * still jumps. One CTA is shared across the list.
+ * still jumps.
  */
 function WhoScroll({ profiles }: { profiles: WhoProfileCard[] }) {
   const items = profiles.filter((card) => card.key !== "other");
   const other = profiles.find((card) => card.key === "other");
   const [open, setOpen] = useState(0);
   const [paused, setPaused] = useState(false);
-  const shared = items[0];
   const { ref, inView } = useInView<HTMLElement>();
 
   useEffect(() => {
@@ -283,15 +282,6 @@ function WhoScroll({ profiles }: { profiles: WhoProfileCard[] }) {
                             </li>
                           ))}
                         </ul>
-                      ) : null}
-                      {shared ? (
-                        <CtaLink
-                          size="md"
-                          href={shared.href}
-                          className="hero-v3-cta ws-cta"
-                        >
-                          {shared.cta ?? "Request a demo"}
-                        </CtaLink>
                       ) : null}
                     </div>
                   </div>

@@ -235,12 +235,6 @@ export function SiteFooter({
             <p className="l-footer-type text-[14px] leading-[20px] text-[var(--tt-neutral-500)]">
               Trainer&rsquo;s AI twin that scales their reach and 1:1 impact.
             </p>
-            <span className="l-footer-status inline-flex items-center gap-2 rounded-full border border-[var(--l-line-footer)] bg-[var(--tt-neutral-800)] px-[12px] py-[8px]">
-              <span className="h-2 w-2 rounded-full bg-[var(--l-live)]" />
-              <span className="font-mono text-[11px] leading-[16px] font-normal text-[var(--tt-neutral-500)]">
-                All systems operational
-              </span>
-            </span>
           </div>
 
           {/* The columns share what is left of the grid evenly rather than

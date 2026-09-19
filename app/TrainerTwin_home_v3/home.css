@@ -6547,10 +6547,10 @@
 .tt-home--v3 .st-pip {
   position: absolute;
   z-index: 2;
-  right: 7%;
-  bottom: 14px;
-  width: 44%;
-  max-width: 200px;
+  right: 12px;
+  bottom: 12px;
+  width: 22%;
+  max-width: 100px;
   aspect-ratio: 1 / 1;
   border-radius: 16px;
   overflow: hidden;

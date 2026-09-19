@@ -191,15 +191,6 @@
 .l-footer-v3-chrome .l-footer-type {
   color: var(--tt-text-secondary);
 }
-.l-footer-v3-chrome .l-footer-status {
-  /* `--tt-surface` is the night ground itself under this scope, which would
-     leave the pill invisible; raised is the one step up from it. */
-  background: var(--tt-surface-raised);
-  border-color: var(--tt-border);
-}
-.l-footer-v3-chrome .l-footer-status span:last-child {
-  color: var(--tt-text-tertiary);
-}
 .l-footer-v3-chrome h3 {
   color: var(--tt-text-primary);
   font-weight: var(--tt-weight-title);

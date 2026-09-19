@@ -236,7 +236,7 @@ export function EarlyAccessSteps() {
             disabled={submitting}
             className="ea-go"
           >
-            {submitting ? "Submitting…" : "Request early access"}
+            {submitting ? "Submitting…" : "Submit"}
           </Button>
         </div>
       </div>
