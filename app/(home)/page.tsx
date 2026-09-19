@@ -13,9 +13,9 @@ import { ScrollEffects } from "@/components/landing2/ScrollEffects";
 
 export const metadata: Metadata = {
   title:
-    "TrainerTwin: build a twin of you your learners & followers can reach anytime",
+    "TrainerTwin: a twin of you your learners & followers can reach anytime",
   description:
-    "TrainerTwin turns your knowledge and persona into a version of you your learners & followers can reach whenever they need: an interactive twin, explainer videos and promo clips.",
+    "TrainerTwin turns your knowledge and persona into a version of you that your learners & followers can reach whenever they need: an interactive twin, explainer videos and promo clips.",
 };
 
 export default function Home() {
@@ -100,7 +100,7 @@ export default function Home() {
         points={[
           "A twin that explains, hints and assesses the way you do",
           "Learners can practise even when you are not on a call",
-          "Founding trainers get a special equity program",
+          "Founding trainers get an equity stake",
         ]}
         pointsNote="Takes less than 5 mins. We'll follow up with a demo within 24hrs."
       />

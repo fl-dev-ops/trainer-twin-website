@@ -122,8 +122,8 @@ export function ThreeWays({
           <span className="eyebrow">What your twin can do</span>
           <h2 id="can-do-h">One twin, two ways to use it</h2>
           <p>
-            Every one of them has your face, your voice and your style. Pick
-            the ones your {v3 ? "learners" : "students"} need.
+            Every output has your face, your voice and your style. Pick the
+            ones your {v3 ? "learners" : "students"} need.
           </p>
         </div>
 
