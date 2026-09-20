@@ -35,9 +35,9 @@ const PAIRS: Array<{ askPrefix: string; ask: string; can: string }> = [
    the reverse order, so the last thing written is the first thing taken back —
    one rAF clock drives all five phases rather than a timeout per phase, so the
    loop can't drift in a throttled background tab. */
-const TYPE = 480;
-const ERASE = 320;
-const HOLD = 2000;
+const TYPE = 650;
+const ERASE = 420;
+const HOLD = 2800;
 
 type Phase = "typeAsk" | "typeCan" | "hold" | "eraseCan" | "eraseAsk";
 
@@ -117,7 +117,7 @@ export function WantToTwin() {
         {spokenAsk} Your AI Twin {pair.can}.
       </span>
       <span aria-hidden="true">
-        <span className="rot-line">{pair.askPrefix}</span>
+        <span className="rot-line" key={pair.askPrefix}>{pair.askPrefix}</span>
         <span className="rot-line">
           <span className="rot-slot">
             <span className="rot-word">{cut(pair.ask, askProgress)}</span>
