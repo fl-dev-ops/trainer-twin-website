@@ -77,7 +77,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "TrainerTwin - your AI twin for every learner",
+        alt: "TrainerTwin — build a twin of you your learners & followers can reach anytime",
       },
     ],
   },
