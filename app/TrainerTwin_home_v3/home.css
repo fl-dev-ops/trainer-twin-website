@@ -4675,27 +4675,6 @@
     font-size: 29px;
   }
 }
-/* The rotating prefix ("Tired of", "Learners stuck at", …) swaps per pair: the
-   span remounts via `key`, so this fade-in replaces the hard snap. Both static
-   lead-in lines are upright Figtree per content call — no italic, no display
-   serif. */
-@keyframes rot-prefix-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.tt-home--v3 .hero-v3-want .rot-line:first-child {
-  font-family: var(--tt-font-ui);
-  font-style: normal;
-  animation: rot-prefix-in 0.6s ease both;
-}
-.tt-home--v3 .hero-v3-want .rot-line:not(:has(.rot-slot)):not(:first-child) {
-  font-family: var(--tt-font-ui);
-  font-style: normal;
-}
 /* The typed word itself. Silver, warmed toward the brand: the same value
    climb and fall that reads as metal — a darker stop, a bright peak, a darker
    stop again — but every stop is mixed a little toward `--tt-orange-*`
@@ -4718,6 +4697,13 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+/* Per-character 3D transforms do not preserve the parent's clipped gradient. */
+.tt-home--v3 .hero-v3-want .rot-word--fold {
+  display: inline-block;
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--tt-on-night);
 }
 .tt-home--v3 .hero-v3-copy + .hero-v3-cta {
   margin-top: 38px;

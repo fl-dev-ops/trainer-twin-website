@@ -1,10 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+
+/* v3-style rotating hero line: "Want to" and "Your AI twin can do it." are
+   static; the ask between them cycles, folding in char-by-char (mirrors
+   trainertwin-website's WantToTwin, ported to `motion` instead of GSAP). */
+const ASKS = [
+  "create more videos?",
+  "be available 24/7?",
+  "enable more 1:1 practice?",
+  "reach more people?",
+];
+const HOLD_MS = 3200;
+
+function FoldWord({ text }: { text: string }) {
+  const reduced = useReducedMotion();
+  return (
+    <span className="inline-block" style={{ perspective: "600px" }}>
+      {text.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          className="inline-block whitespace-pre"
+          style={{ transformOrigin: "50% 0%" }}
+          initial={reduced ? false : { rotateX: -92, opacity: 0 }}
+          animate={{ rotateX: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: i * 0.03, ease: "easeOut" }}
+        >
+          {ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export default function Hero() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [askIndex, setAskIndex] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(
+      () => setAskIndex((i) => (i + 1) % ASKS.length),
+      HOLD_MS,
+    );
+    return () => window.clearInterval(id);
+  }, []);
+
+  const ask = ASKS[askIndex];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,8 +66,14 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-[60px] leading-[1.05] mb-6">
-            Scale your interview coaching—not your working hours.
+          <h1 className="text-4xl md:text-[60px] leading-[1.14] mb-6">
+            <span className="block font-light italic">Want to</span>
+            <span className="block">
+              <FoldWord key={ask} text={ask} />
+            </span>
+            <span className="block font-light italic">
+              Your AI twin can do it.
+            </span>
           </h1>
 
           <p className="text-base md:text-[18.5px] leading-[1.55] text-body max-w-[560px]">
