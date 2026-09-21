@@ -78,7 +78,7 @@ export function InteractiveTwinArt() {
         </div>
         <p className="itwin-caption">
           <span>Trainer’s Twin</span>
-          <span>{"<1:1 coaching>"}</span>
+          <span>1:1 coaching</span>
         </p>
       </div>
 

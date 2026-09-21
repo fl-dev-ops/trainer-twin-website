@@ -180,26 +180,32 @@ function Way({
       {/* Copy in normal flow, never scaled: text that shrinks with a transform
           stops being readable long before the layout runs out of room. */}
       <div className="way-copy">
-        <span className="kicker">{kicker}</span>
-        <h3 className={v3 ? "font-ui" : undefined}>{title}</h3>
-        <p>{body}</p>
-        {points ? (
-          <ul className="can">
-            {points.map((item) => (
-              <li key={item}>
-                <Icon name="check" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        <CtaLink
-          size="md"
-          href="#early-access"
-          className={v3 ? "hdr-cta way-cta" : "way-cta"}
-        >
-          {v3 ? "Request a demo" : "Request for early demo"}
-        </CtaLink>
+        {/* The grid lines live on `.way-copy`'s own `::before` so their
+            centre-fade mask never touches this content — a mask on the
+            panel itself would fade the copy along with the lines. */}
+        <div className="way-copy-inner">
+          <span className="kicker">{kicker}</span>
+          <h3>{title}</h3>
+          <p>{body}</p>
+          {points ? (
+            <ul className="can">
+              {points.map((item) => (
+                <li key={item}>
+                  <Icon name="check" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <CtaLink
+            size="md"
+            href="#early-access"
+            className={v3 ? "hdr-cta way-cta" : "way-cta"}
+          >
+            {v3 ? "Request a demo" : "Request for early demo"}
+            <Icon name="chevron" />
+          </CtaLink>
+        </div>
       </div>
 
       <div className={`way-art way-art--${tone}`}>{art}</div>

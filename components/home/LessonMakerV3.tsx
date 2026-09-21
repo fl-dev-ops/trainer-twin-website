@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type CSSProperties } from "react";
 import { ConfettiBurst } from "@/components/ui/motion-confetti";
+import { MutedClip } from "@/components/landing2/MutedClip";
 import { CardStroke } from "./CardStroke";
 import { GlowCard } from "./GlowCard";
 import { Icon } from "./icons";
@@ -88,11 +89,22 @@ const SEQUENCE: Array<{ phase: Phase; ms: number; rail: number }> = [
   { phase: "publish", ms: 2800, rail: 4 },
 ];
 
+/** Tabler's filled "click" mark — the trainer's own cursor, not part of the
+    shared icon set since nothing else on the page needs one. Filled rather
+    than stroked, so it takes `color` via `fill` instead of `stroke`. */
+function CursorIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M7 12a1 1 0 0 1 -1 1h-3a1 1 0 0 1 0 -2h3a1 1 0 0 1 1 1m6 -9v3a1 1 0 0 1 -2 0v-3a1 1 0 0 1 2 0m-6.693 1.893l2.2 2.2a1 1 0 0 1 -1.414 1.414l-2.2 -2.2a1 1 0 0 1 1.414 -1.414m12.8 0a1 1 0 0 1 0 1.414l-2.2 2.2a1 1 0 0 1 -1.414 -1.414l2.2 -2.2a1 1 0 0 1 1.414 0m-10.6 10.6a1 1 0 0 1 0 1.414l-2.2 2.2a1 1 0 1 1 -1.414 -1.414l2.2 -2.2a1 1 0 0 1 1.414 0m3.42 -4.49l.049 -.003l.098 .003l.097 .012l.097 .022l9.048 3.014c.845 .282 .928 1.445 .131 1.843l-3.702 1.851l-1.85 3.702c-.399 .797 -1.562 .714 -1.844 -.13l-3.003 -9.011l-.033 -.135l-.012 -.097v-.148l.012 -.097l.022 -.097l.03 -.094l.04 -.09l.05 -.084l.086 -.117l.067 -.07l.037 -.034l.076 -.06l.081 -.052l.087 -.043l.103 -.04l.135 -.033z" />
+    </svg>
+  );
+}
+
 /** The trainer's pointer, parked on whatever button it is about to press. */
 function TrainerHand() {
   return (
     <span className="mk-hand mk-hand--auto" aria-hidden="true">
-      <Icon name="arrow" />
+      <CursorIcon />
       <span className="mk-hand-tag">Trainer</span>
     </span>
   );
@@ -153,7 +165,7 @@ export function LessonMakerV3() {
   return (
     <div
       ref={ref}
-      className={inView ? "art-sq is-inview" : "art-sq"}
+      className={inView ? "art-sq is-light is-inview" : "art-sq is-light"}
       role="img"
       aria-label="Five steps: drop your training material in or type a prompt, wait while it is analysed, read the script it wrote, pick a hand-drawn style, choose an explainer video and press generate, then check the render is in your voice and publish."
     >
@@ -164,7 +176,8 @@ export function LessonMakerV3() {
 
       <GlowCard
         className="glow-mk art-front"
-        background="var(--tt-night-panel)"
+        background="#fff"
+        surface="light"
         radius="20px"
       >
         <div className="mk mk--v3">
@@ -256,7 +269,7 @@ export function LessonMakerV3() {
                     className={`mk-hand mk-hand--${phase}`}
                     aria-hidden="true"
                   >
-                    <Icon name="arrow" />
+                    <CursorIcon />
                     <span className="mk-hand-tag">Trainer</span>
                   </span>
                 </div>
@@ -364,6 +377,7 @@ export function LessonMakerV3() {
                     className="mk-dest"
                     style={{ ["--i" as string]: i } as CSSProperties}
                   >
+                    {i === 0 ? <TileCheck className="mk-dest-check" /> : null}
                     <DestMark kind={name} />
                     {name}
                   </span>
@@ -613,12 +627,10 @@ function CoursePreview() {
               <i />
             </span>
             <span className="sd-avatar" aria-hidden="true">
-              <svg viewBox="0 0 48 48">
-                <circle cx="24" cy="24" r="24" fill="#3A2A24" />
-                <circle cx="24" cy="20" r="8" fill="#C48A6A" />
-                <path d="M10 46c2-10 10-16 14-16s12 6 14 16" fill="#2A2422" />
-                <path d="M16 18c2-7 14-8 16-1" fill="#1A1210" />
-              </svg>
+              <MutedClip
+                src="/home-v3/interactive-twin/trainers_twin_avatar.mp4"
+                className="sd-avatar-video"
+              />
             </span>
           </span>
 
@@ -640,9 +652,12 @@ function CoursePreview() {
   );
 }
 
-function TileCheck() {
+function TileCheck({ className }: { className?: string } = {}) {
   return (
-    <span className="mk-tile-check" aria-hidden="true">
+    <span
+      className={className ? `mk-tile-check ${className}` : "mk-tile-check"}
+      aria-hidden="true"
+    >
       <svg viewBox="0 0 12 12" width="10" height="10" fill="none">
         <path
           d="M2.5 6.2 5 8.6 9.5 3.4"
