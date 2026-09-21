@@ -7605,84 +7605,31 @@
 .tt-home--v3 .found-rail {
   overflow: hidden;
   padding: var(--tt-space-2) 0 var(--tt-space-2) 8vw;
+  cursor: grab;
+  outline-offset: 4px;
+  touch-action: pan-y;
   scrollbar-width: none;
+}
+.tt-home--v3 .found-rail:active {
+  cursor: grabbing;
+}
+.tt-home--v3 .found-rail:focus-visible {
+  outline: 2px solid var(--tt-primary);
 }
 .tt-home--v3 .found-rail::-webkit-scrollbar {
   display: none;
 }
 .tt-home--v3 .found-track {
   display: flex;
-  width: max-content;
-}
-/* Animate each clone, not the full track: one ~3k CSS-px layer stays under
-   Safari's compositor cap (the 2× retina bitmap of both sets does not).
-   Do not use translateX(-100%) here — WebKit resolves that % against the flex
-   container (the whole track), so both clones fly off and the rail stays blank
-   after one cycle. Shift is the measured first-clone width. */
-.tt-home--v3 .found-set {
-  display: flex;
   gap: var(--tt-space-5);
+  width: max-content;
   margin: 0;
-  padding: 0 var(--tt-space-5) 0 0;
+  padding: 0;
   list-style: none;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  will-change: auto;
-  -webkit-animation: tt-found-marquee 48s linear infinite;
-  animation: tt-found-marquee 48s linear infinite;
-  -webkit-animation-fill-mode: none;
-  animation-fill-mode: none;
+  will-change: transform;
 }
-.tt-home--v3 .found-rail:hover .found-set,
-.tt-home--v3 .found-rail:focus-within .found-set,
-.tt-home--v3 .found-rail:active .found-set {
-  -webkit-animation-play-state: paused;
-  animation-play-state: paused;
-}
-@property --found-shift {
-  syntax: "<length-percentage>";
-  inherits: true;
-  initial-value: -100%;
-}
-
-@-webkit-keyframes tt-found-marquee {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    -webkit-transform: translate3d(var(--found-shift, -100%), 0, 0);
-    transform: translate3d(var(--found-shift, -100%), 0, 0);
-  }
-}
-@keyframes tt-found-marquee {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    -webkit-transform: translate3d(var(--found-shift, -100%), 0, 0);
-    transform: translate3d(var(--found-shift, -100%), 0, 0);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  /* An auto-scrolling rail is the plainest case this query exists for. Parked,
-     the duplicate set is redundant and reads twice to a pointer, so the rail
-     becomes an ordinary scroller and the copy goes. */
-  .tt-home--v3 .found-set {
-    -webkit-animation: none;
-    animation: none;
-  }
-  .tt-home--v3 .found-set[aria-hidden="true"] {
-    display: none;
-  }
-  .tt-home--v3 .found-rail {
-    overflow-x: auto;
-  }
-}
-.tt-home--v3 .found-set > li {
+.tt-home--v3 .found-track > li {
   flex: 0 0 min(510px, 42vw);
   min-width: 0;
   display: flex;
@@ -7853,7 +7800,7 @@
   line-height: 19px;
 }
 @media (max-width: 700px) {
-  .tt-home--v3 .found-set > li {
+  .tt-home--v3 .found-track > li {
     flex-basis: min(240px, 61.5vw);
   }
   .tt-home--v3 .found-card {
@@ -7883,13 +7830,13 @@
     padding-inline: var(--tt-space-6);
   }
   .tt-home--v3 .found-track {
-    animation: none;
-    transform: none;
+    transform: none !important;
+    will-change: auto;
   }
-  .tt-home--v3 .found-set > li {
+  .tt-home--v3 .found-track > li {
     scroll-snap-align: center;
   }
-  .tt-home--v3 .found-set[aria-hidden="true"] {
+  .tt-home--v3 .found-track > [data-marquee-copy="duplicate"] {
     display: none;
   }
 }

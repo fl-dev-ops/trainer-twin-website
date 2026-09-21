@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { Aurora } from "@/components/Aurora";
 import { Card, CardBody, CardTitle } from "@/components/Card";
+import { DraggableMarquee } from "@/components/DraggableMarquee";
 import { CtaLink } from "./CtaLink";
 
 type Founder = {
@@ -69,30 +69,14 @@ const FOUNDERS: Founder[] = [
   },
 ];
 
+type MarqueeItem = Founder | "others";
+const MARQUEE_ITEMS: MarqueeItem[] = [...FOUNDERS, "others"];
+
 /**
- * v3-only: Mixpanel-style looping story cards. Equity invite lives on the last card.
+ * v3-only: draggable, infinitely looping story cards. The 48-second duration
+ * matches the previous CSS marquee exactly.
  */
 export function FoundingTrainers() {
-  const railRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const rail = railRef.current;
-    if (!rail) return;
-    const sets = rail.querySelectorAll<HTMLElement>(".found-set");
-    const first = sets[0];
-    if (!first) return;
-
-    const apply = () => {
-      const shift = `-${first.offsetWidth}px`;
-      rail.style.setProperty("--found-shift", shift);
-      sets.forEach((el) => el.style.setProperty("--found-shift", shift));
-    };
-    apply();
-    const ro = new ResizeObserver(apply);
-    ro.observe(first);
-    return () => ro.disconnect();
-  }, []);
-
   return (
     <section
       className="sec sec--aurora found"
@@ -115,28 +99,26 @@ export function FoundingTrainers() {
           <h2 id="found-h">Meet people who have shown interest in TrainerTwin</h2>
         </div>
       </div>
-      <div className="found-rail" ref={railRef} data-reveal data-reveal-delay="100">
-        <div className="found-track">
-          <CardSet duplicate={false} />
-          <CardSet duplicate />
-        </div>
+      <div data-reveal data-reveal-delay="100">
+        <DraggableMarquee
+          items={MARQUEE_ITEMS}
+          getItemKey={(item) => (item === "others" ? item : item.name)}
+          renderItem={(item, _index, duplicate) =>
+            item === "others" ? (
+              <OthersCard duplicate={duplicate} />
+            ) : (
+              <FounderCard founder={item} duplicate={duplicate} />
+            )
+          }
+          durationSeconds={48}
+          repeatCount={2}
+          pauseOnHover
+          className="found-rail"
+          trackClassName="found-track"
+          label="TrainerTwin community stories. Drag or use the left and right arrow keys."
+        />
       </div>
     </section>
-  );
-}
-
-function CardSet({ duplicate }: { duplicate: boolean }) {
-  return (
-    <ul className="found-set" aria-hidden={duplicate || undefined}>
-      {FOUNDERS.map((founder) => (
-        <FounderCard
-          key={`${founder.name}${duplicate ? "-dup" : ""}`}
-          founder={founder}
-          duplicate={duplicate}
-        />
-      ))}
-      <OthersCard duplicate={duplicate} />
-    </ul>
   );
 }
 
@@ -149,61 +131,57 @@ function FounderCard({
 }) {
   const label = duplicate ? "" : founder.name;
   return (
-    <li>
-      <Card className="found-card">
-        <CardBody className="found-copycol">
-          <CardTitle display className="found-name">
-            {founder.name}
-          </CardTitle>
-          <p className="found-domain">{founder.domain}</p>
-          <a
-            className="found-in"
-            href={founder.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            tabIndex={duplicate ? -1 : undefined}
-            aria-label={`${founder.name} on LinkedIn`}
-          >
-            <LinkedInMark />
-          </a>
-          {founder.notes.map((line) => (
-            <p key={line} className="found-copy">
-              {line}
-            </p>
-          ))}
-        </CardBody>
-        <div className="found-media">
-          <img
-            className="found-photo"
-            src={founder.photo}
-            alt={label}
-            width={800}
-            height={800}
-          />
-        </div>
-      </Card>
-    </li>
+    <Card className="found-card">
+      <CardBody className="found-copycol">
+        <CardTitle display className="found-name">
+          {founder.name}
+        </CardTitle>
+        <p className="found-domain">{founder.domain}</p>
+        <a
+          className="found-in"
+          href={founder.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={duplicate ? -1 : undefined}
+          aria-label={`${founder.name} on LinkedIn`}
+        >
+          <LinkedInMark />
+        </a>
+        {founder.notes.map((line) => (
+          <p key={line} className="found-copy">
+            {line}
+          </p>
+        ))}
+      </CardBody>
+      <div className="found-media">
+        <img
+          className="found-photo"
+          src={founder.photo}
+          alt={label}
+          width={800}
+          height={800}
+        />
+      </div>
+    </Card>
   );
 }
 
 function OthersCard({ duplicate }: { duplicate: boolean }) {
   return (
-    <li>
-      <Card className="found-card found-card--others">
-        <CardBody className="found-copycol found-copycol--others">
-          <h3 className="found-others">
-            And many more are already exploring what we’re building.
-          </h3>
-          <CtaLink
-            href="#early-access"
-            className="hero-v3-cta found-cta"
-            tabIndex={duplicate ? -1 : undefined}
-          >
-            Talk to us
-          </CtaLink>
-        </CardBody>
-      </Card>
-    </li>
+    <Card className="found-card found-card--others">
+      <CardBody className="found-copycol found-copycol--others">
+        <h3 className="found-others">
+          And many more are already exploring what we’re building.
+        </h3>
+        <CtaLink
+          href="#early-access"
+          className="hero-v3-cta found-cta"
+          tabIndex={duplicate ? -1 : undefined}
+        >
+          Talk to us
+        </CtaLink>
+      </CardBody>
+    </Card>
   );
 }
 
