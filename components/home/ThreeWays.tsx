@@ -198,7 +198,7 @@ function Way({
           href="#early-access"
           className={v3 ? "hdr-cta way-cta" : "way-cta"}
         >
-          {v3 ? "See it in action" : "Request for early demo"}
+          {v3 ? "Request a demo" : "Request for early demo"}
         </CtaLink>
       </div>
 
