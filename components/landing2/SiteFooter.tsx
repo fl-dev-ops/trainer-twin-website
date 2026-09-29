@@ -42,12 +42,11 @@ export const DEFAULT_COLUMNS: FooterColumn[] = [
   },
   {
     heading: "Legals",
-    links: placeholders([
-      "Cookies",
-      "Terms of service",
-      "Privacy policy",
-      "Data sourcing",
-    ]),
+    links: [
+      ...placeholders(["Cookies", "Terms of service"]),
+      { label: "Privacy policy", href: "/privacy" },
+      ...placeholders(["Data sourcing"]),
+    ],
   },
 ];
 
@@ -311,6 +310,9 @@ export function SiteFooter({
         <div className="l-footer-bar relative flex flex-col items-start justify-between gap-6 border-t border-[var(--l-line-footer)] pt-[32px] sm:flex-row sm:items-center">
           <div className="l-footer-type flex flex-wrap items-center gap-4 text-[14px] leading-[20px] text-[var(--tt-neutral-600)]">
             <span>© 2026 TrainerTwin.ai All rights reserved</span>
+            {layout === "v3" ? (
+              <a href="/privacy" className="transition-colors hover:text-[var(--tt-neutral-400)]">Privacy policy</a>
+            ) : null}
             <span className="l-footer-hey inline-flex items-center gap-4">
               <span aria-hidden="true">|</span>
               <a
