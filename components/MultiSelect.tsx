@@ -205,7 +205,8 @@ export function MultiSelect({
           onKeyDown={onListKeyDown}
           className={cn(
             "tt-lb-list",
-            "absolute z-20 mt-1 max-h-64 w-full overflow-y-auto",
+            // No height cap: the form's lists are short (≤10), so every option shows without scrolling.
+            "absolute z-20 mt-1 w-full",
             "rounded-sm border-[length:var(--tt-border-form)] border-solid border-line-field",
             "bg-surface-raised py-1 shadow-e2",
           )}
