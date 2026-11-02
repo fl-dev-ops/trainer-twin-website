@@ -1,21 +1,13 @@
-import { LogoSymbol } from "@/components/Logo";
-import { Icon, type IconName } from "../icons";
+import { Icon } from "../icons";
 
-const NODES: Array<{ label: string; icon: IconName }> = [
-  { label: "Your presence", icon: "face" },
-  { label: "Your intelligence", icon: "doc" },
-  { label: "Your training DNA", icon: "chat" },
-];
-
-/** Where each of the three wires lands along the 300-wide drawing. */
-const X = [50, 150, 250];
+const QUESTION = "How do I handle a price objection?";
 
 /**
- * The comparison's two drawings, with nothing moving: a hub, three things a
- * twin can have, and which of them are wired in. "Most AI twins" is wired to
- * presence alone and the other two sit unplugged; "Your TrainerTwin" is wired
- * to all three. Same layout both sides, so the difference is the only thing
- * that changes between the cards.
+ * The comparison's two drawings, still. They show what each twin does with the
+ * same learner question instead of listing what it has — the list under the
+ * card already does that. "Most AI twins" looks and sounds right and answers
+ * with something anyone could say; "Your TrainerTwin" answers the way the
+ * trainer would and says where it came from.
  */
 export function StaticTwinArt({ variant }: { variant: "presence" | "full" }) {
   const full = variant === "full";
@@ -26,47 +18,34 @@ export function StaticTwinArt({ variant }: { variant: "presence" | "full" }) {
       role="img"
       aria-label={
         full
-          ? "A twin connected to three things: your presence, your intelligence and your training DNA."
-          : "A twin connected to your presence only. Your intelligence and your training DNA are not connected."
+          ? `A learner asks "${QUESTION}". The twin answers in the trainer's own approach and cites the lesson it came from.`
+          : `A learner asks "${QUESTION}". The twin answers with generic advice and cites nothing.`
       }
     >
-      <span className="sa-hub">
-        {full ? <LogoSymbol size={24} /> : <Icon name="face" />}
-      </span>
+      <p className="sa-q">{QUESTION}</p>
 
-      <svg
-        className="sa-wires"
-        viewBox="0 0 300 40"
-        preserveAspectRatio="none"
-        fill="none"
-        aria-hidden="true"
-      >
-        {X.map((x, i) => {
-          const on = full || i === 0;
-          return (
-            <path
-              key={x}
-              d={`M150 0 C150 22, ${x} 18, ${x} 40`}
-              className={on ? "sa-wire is-on" : "sa-wire is-off"}
-              vectorEffect="non-scaling-stroke"
-            />
-          );
-        })}
-      </svg>
+      <div className="sa-a">
+        <span className="sa-avatar">
+          <Icon name="face" />
+          <span className="sa-voice" aria-hidden="true">
+            {[0.4, 0.8, 0.55, 1, 0.5, 0.75, 0.35].map((h, i) => (
+              <i key={i} style={{ height: `${h * 100}%` }} />
+            ))}
+          </span>
+        </span>
 
-      <ul className="sa-row">
-        {NODES.map((node, i) => {
-          const on = full || i === 0;
-          return (
-            <li key={node.label} className={on ? "sa-node is-on" : "sa-node is-off"}>
-              <span className="sa-node-icon">
-                <Icon name={node.icon} />
-              </span>
-              {node.label}
-            </li>
-          );
-        })}
-      </ul>
+        <div className="sa-bubble">
+          <p>
+            {full
+              ? "Don’t defend the price yet. Ask what they’re comparing it against first."
+              : "Great question! Stay confident and keep practising."}
+          </p>
+          <span className="sa-source">
+            <Icon name={full ? "doc" : "x"} />
+            {full ? "From your notes, Lesson 6" : "No source"}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
