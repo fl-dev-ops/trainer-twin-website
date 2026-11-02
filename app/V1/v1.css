@@ -1154,3 +1154,16 @@
   height: 14px;
   flex: none;
 }
+
+/* 8px of air between the last list row and the rule above the summary. A
+   margin, since padding would sit inside the rule rather than above it. */
+@media (min-width: 861px) {
+  .tt-v1 .cmp--light .cmp-card > .flex-1 > .cmp-foot {
+    margin-top: 8px;
+  }
+}
+@media (max-width: 860px) {
+  .tt-v1 .cmp--light .cmp-foot {
+    margin-top: 8px;
+  }
+}
