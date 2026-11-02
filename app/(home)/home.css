@@ -975,11 +975,18 @@
   }
 }
 
-/* Inline headline: a slot the width of its longest word, words left-aligned in
-   it, so "Turn your" holds still and only the word changes. */
+/* Inline headline: the slot is sized to the current word (WantToTwin measures
+   it) and eases between widths, so the line stays centred and "Turn your"
+   glides rather than jumps. Until measured it is the longest word's width. */
 .tt-homepage .hero-v3-want .rot-slot--fixed {
   display: inline-grid;
   justify-items: start;
+  transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tt-homepage .hero-v3-want .rot-slot--fixed {
+    transition: none;
+  }
 }
 .tt-homepage .hero-v3-want .rot-slot--fixed > * {
   grid-area: 1 / 1;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 const ASKS = [
@@ -67,6 +67,19 @@ export function WantToTwin({
 
   const ask = asks[index];
 
+  // Inline: size the slot to the current word so the line stays centred.
+  // A ResizeObserver re-measures when the font loads or the size steps down;
+  // its box size is in layout px, unaffected by the hero's scale transform.
+  const ghostRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const [slotWidth, setSlotWidth] = useState<number>();
+  useEffect(() => {
+    const ghost = ghostRefs.current[index];
+    if (!inline || !ghost) return;
+    const observer = new ResizeObserver(([entry]) => setSlotWidth(entry.borderBoxSize[0].inlineSize));
+    observer.observe(ghost);
+    return () => observer.disconnect();
+  }, [inline, index]);
+
   return (
     <p className="hero-v3-want">
       <span className="sr-only">
@@ -76,12 +89,22 @@ export function WantToTwin({
         {inline ? (
           <span className="rot-line">
             <span className="rot-lead">{lead}</span>{" "}
-            {/* The slot is as wide as the widest word, so the lead-in stays
-                where it is while the word changes; the others are laid under
-                the live one, invisible, only to give it that width. */}
-            <span className="rot-slot rot-slot--fixed">
-              {asks.map((word) => (
-                <span key={word} className="rot-ghost" aria-hidden="true">
+            {/* Every word is laid under the live one, invisible: the slot is
+                as wide as the widest until the current word is measured, then
+                eases to that word's width. */}
+            <span
+              className="rot-slot rot-slot--fixed"
+              style={slotWidth ? { width: slotWidth } : undefined}
+            >
+              {asks.map((word, i) => (
+                <span
+                  key={word}
+                  ref={(node) => {
+                    ghostRefs.current[i] = node;
+                  }}
+                  className="rot-ghost"
+                  aria-hidden="true"
+                >
                   {word}
                 </span>
               ))}
