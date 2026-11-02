@@ -76,7 +76,7 @@ export type CompareColumn = {
   rows: ReadonlyArray<{ ok: boolean; label: string; note?: string }>;
   foot?: string;
   /** A glyph set before the summary line. */
-  footIcon?: string;
+  footIcon?: ReactNode;
 };
 
 /**

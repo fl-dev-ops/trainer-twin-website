@@ -1167,3 +1167,12 @@
     margin-top: 16px;
   }
 }
+
+/* The summary glyphs: orange on the TrainerTwin card, grey on the other. */
+.tt-v1 .cmp--light .cmp-foot-icon {
+  display: flex;
+  color: var(--tt-text-muted);
+}
+.tt-v1 .cmp--light .cmp-card--twin .cmp-foot-icon {
+  color: var(--tt-primary);
+}

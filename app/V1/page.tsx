@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/home/SiteHeader";
 import { WantToTwin } from "@/components/home/WantToTwin";
 import { NAV_V1 } from "@/components/home/nav";
 import { FaqV1 } from "@/components/home/v1/FaqV1";
+import { BulbIcon, ConfusedIcon } from "@/components/home/v1/FootIcons";
 import { ModesV1 } from "@/components/home/v1/ModesV1";
 import { SetupSteps } from "@/components/home/v1/SetupSteps";
 import { ScrollEffects } from "@/components/landing2/ScrollEffects";
@@ -44,7 +45,7 @@ const COMPARE: CompareColumn[] = [
       },
     ],
     foot: "Thinks, coaches and debriefs like you.",
-    footIcon: "💡",
+    footIcon: <BulbIcon />,
   },
   {
     key: "presence",
@@ -57,7 +58,7 @@ const COMPARE: CompareColumn[] = [
       { ok: false, label: "Your training DNA" },
     ],
     foot: "Looks and sounds like you.",
-    footIcon: "😕",
+    footIcon: <ConfusedIcon />,
   },
 ];
 
