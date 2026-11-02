@@ -982,3 +982,10 @@
 .tt-v1 .ask-box .itwin--above .itwin-pills {
   margin-bottom: 10px;
 }
+
+/* The card's gradient outline (orange at the top corner fading to a dark grey
+   at the bottom-left) reads as a stray grey line on the light band. The soft
+   shadow already separates the card from the ground, so it goes. */
+.tt-v1 .cmp--light .cmp-card > .card-stroke {
+  display: none;
+}
