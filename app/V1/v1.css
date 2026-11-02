@@ -1194,10 +1194,13 @@
   background: linear-gradient(
     to bottom,
     var(--tt-surface-sunken) 0,
-    #fff 380px
+    #fff 540px
   );
 }
+/* Taller (320px -> 480px) and at 80% of the strength it had (0.5 -> 0.4). */
 .tt-v1 #modes .sec-aurora {
+  height: 480px;
+  opacity: 0.4;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
