@@ -1073,3 +1073,9 @@
 .tt-v1 .cmp--light .can-note {
   font-weight: 400;
 }
+
+/* Notes under the row titles: 12px. */
+.tt-v1 .cmp--light .can-note {
+  font-size: 12px;
+  line-height: 18px;
+}
