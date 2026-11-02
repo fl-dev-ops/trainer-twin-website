@@ -1390,3 +1390,9 @@
     white-space: nowrap;
   }
 }
+
+/* Both mode titles run to two lines (the break is in the copy), so the
+   descriptions under them start on the same line across the two cards. */
+.tt-home--v3 .v1-mode h3 {
+  white-space: pre-line;
+}

@@ -54,7 +54,7 @@ const MODES = [
     id: "ask",
     icon: <AskIcon />,
     kicker: "Ask",
-    title: "Your twin answers as you.",
+    title: "Your twin answers\nas you.",
     body: "Learners ask about your topics, books and courses. Your twin answers, explains and coaches the way you would.",
     points: ["Topic Q&A", "Book Q&A", "Course Q&A"],
   },
@@ -62,7 +62,7 @@ const MODES = [
     id: "practise",
     icon: <PractiseIcon />,
     kicker: "Practise",
-    title: "Personas play the other side. Your twin debriefs.",
+    title: "Personas play the other\nside. Your twin debriefs.",
     body: "AI personas play the part of a tough buyer, a hesitant client or a difficult team member. Use pre-built scenarios or create your own.",
     points: [
       "Persona plays the other side",
