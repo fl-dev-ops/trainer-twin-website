@@ -968,3 +968,18 @@
   align-items: center;
   margin-bottom: 12px;
 }
+
+/* The rotating trait is plain text over the portrait — no pill around it. */
+.tt-v1 .ask-box .itwin-pills--above li {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  font-size: 14px;
+  line-height: 20px;
+}
+.tt-v1 .ask-box .itwin--above .itwin-pills {
+  margin-bottom: 10px;
+}
