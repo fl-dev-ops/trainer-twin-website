@@ -320,9 +320,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Panel centred in the card. 322px leaves ~43px above and below the tallest
-     one (235px) — enough to clear the step title at the top with room over. */
-  height: 322px;
+  /* Panel centred in the card. Every panel is 240px tall, so 330px leaves 45px
+     above and below — the step title clears it with ~13px to spare. */
+  height: 330px;
   padding: var(--tt-space-4);
   border-radius: 24px;
   background: var(--tt-surface-sunken);
@@ -589,7 +589,7 @@
 }
 @media (max-width: 640px) {
   .tt-v1 .v1-card {
-    height: 322px;
+    height: 330px;
   }
   .tt-v1 .v1-how-head h2 {
     font-size: 30px;
