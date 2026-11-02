@@ -359,19 +359,18 @@ export function SetupSteps() {
           <ol className="v1-rail-track">
             {STEPS.map((item) => (
               <li key={item.title}>
-                <div className="v1-card" aria-hidden="true">
+                <div className="v1-card">
                   <span className="v1-card-title">
                     {item.icon}
                     {item.title.replace(/\.$/, "")}
                   </span>
-                  {item.scene}
+                  {/* The drawing is decorative; the title above and the line
+                      below are what a screen reader gets. */}
+                  <div className="v1-card-scene" aria-hidden="true">
+                    {item.scene}
+                  </div>
+                  <p className="v1-caption">{item.copy}</p>
                 </div>
-                {/* The card above is decorative and hidden from assistive tech, so
-                    the step's name rides here for it, off screen. */}
-                <p className="v1-caption">
-                  <b className="sr-only">{item.title} </b>
-                  {item.copy}
-                </p>
               </li>
             ))}
           </ol>

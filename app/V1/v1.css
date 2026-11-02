@@ -318,15 +318,19 @@
 .tt-v1 .v1-card {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Panel centred in the card. Every panel is 240px tall, so 330px leaves 45px
-     above and below — the step title clears it with ~13px to spare. */
-  height: 330px;
-  padding: var(--tt-space-4);
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  /* Title row at the top, the drawing, then the line that describes it, all
+     inside the grey. The cards in a row stretch to the tallest, so they stay
+     the same height whether the line runs to one row or two. */
+  padding: 46px var(--tt-space-4) var(--tt-space-5, 20px);
   border-radius: 24px;
   background: var(--tt-surface-sunken);
   overflow: hidden;
+}
+.tt-v1 .v1-card-scene {
+  display: flex;
 }
 .tt-v1 .v1-card-title {
   display: flex;
@@ -342,16 +346,11 @@
   color: var(--tt-text-primary);
 }
 .tt-v1 .v1-caption {
-  margin: 0;
-  max-width: 520px;
-  padding-inline: var(--tt-space-2);
+  margin: var(--tt-space-4) 0 0;
+  padding-inline: var(--tt-space-1, 4px);
   font-size: 15px;
   line-height: 23px;
   color: var(--tt-text-tertiary);
-}
-.tt-v1 .v1-caption b {
-  color: var(--tt-text-primary);
-  font-weight: var(--tt-weight-label);
 }
 
 /* The white panel inside each card — the thing being described. */
@@ -588,9 +587,6 @@
   height: 20px;
 }
 @media (max-width: 640px) {
-  .tt-v1 .v1-card {
-    height: 330px;
-  }
   .tt-v1 .v1-how-head h2 {
     font-size: 30px;
   }
