@@ -533,17 +533,26 @@
   color: var(--tt-text-tertiary);
 }
 
-/* 4 — share */
-.tt-v1 .v1-share-cta {
-  display: inline-flex;
+/* 4 — share: a sample link in a grey well with a copy mark. Static. */
+.tt-v1 .v1-link-box {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 44px;
-  border-radius: var(--tt-radius-pill);
-  background: var(--tt-text-primary);
-  color: #fff;
-  font-weight: var(--tt-weight-label);
+  justify-content: space-between;
+  gap: var(--tt-space-3);
+  padding: 10px 14px;
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-fill-soft);
+  color: var(--tt-text-tertiary);
+}
+.tt-v1 .v1-link-url {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--tt-text-secondary);
+}
+.tt-v1 .v1-link-box svg {
+  flex: none;
 }
 
 /* 5 — team */
@@ -988,4 +997,37 @@
    shadow already separates the card from the ground, so it goes. */
 .tt-v1 .cmp--light .cmp-card > .card-stroke {
   display: none;
+}
+
+/* ------------------------------------------------ how it works: pinned
+
+   While the pin is on the section is as tall as the screen plus the rail's
+   travel (`--v1-pin-h`, set by SetupSteps), and its content sticks to the top
+   of the screen for that whole distance. The rail stops being a scroll
+   container the reader drives — page scroll sets its position — so snapping
+   and the scrollbar go. The first rule of padding is the header's height, so
+   the stage centres in the visible part of the screen. */
+.tt-v1 .v1-how.is-pinned {
+  height: var(--v1-pin-h, auto);
+  padding: 0;
+}
+.tt-v1 .v1-how.is-pinned .v1-pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: var(--v1-vh, 100vh);
+  padding-top: 92px;
+  box-sizing: border-box;
+}
+.tt-v1 .v1-how.is-pinned .v1-how-head {
+  margin-bottom: var(--tt-space-8, 32px);
+}
+.tt-v1 .v1-how.is-pinned .v1-rail {
+  overflow-x: hidden;
+  scroll-snap-type: none;
+}
+.tt-v1 .v1-how.is-pinned .v1-pin > .wrap {
+  width: 100%;
 }

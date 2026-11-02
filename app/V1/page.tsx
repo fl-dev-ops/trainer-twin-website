@@ -28,8 +28,8 @@ const COMPARE: CompareColumn[] = [
     featured: false,
     rows: [
       { ok: true, label: "Your presence", note: "Face and voice" },
-      { ok: false, label: "Your intelligence", note: "Not included" },
-      { ok: false, label: "Your training DNA", note: "Not included" },
+      { ok: false, label: "Your intelligence" },
+      { ok: false, label: "Your training DNA" },
     ],
     foot: "Looks and sounds like you.",
   },
