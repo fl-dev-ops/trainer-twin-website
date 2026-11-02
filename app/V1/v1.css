@@ -1,6 +1,28 @@
 /* /V1 — styles for the pieces only this page has. Everything else comes from
    the shared v3 stylesheet this layout imports first. */
 
+/* ------------------------------------------------------- one typeface
+
+   Figtree for everything. The shared styles read these four variables, so
+   re-pointing them on this page's own wrapper changes every title, label,
+   footer line and wordmark without touching the stylesheet the other pages
+   share. `--font-display` is Tailwind's copy of the display face; it is
+   declared at :root, so it has to be re-declared here as well or the
+   `font-display` utility (the footer headline) would keep the serif. */
+.tt-v1 {
+  --tt-font-display: var(--v1-font), system-ui, sans-serif;
+  --tt-font-mono: var(--v1-font), system-ui, sans-serif;
+  --font-display: var(--v1-font), system-ui, sans-serif;
+  --h-font-wordmark: var(--v1-font);
+  --h-font-footer: var(--v1-font);
+  font-family: var(--v1-font), system-ui, sans-serif;
+}
+/* The mono labels were counting things; Figtree's figures are proportional by
+   default, so keep digits from jittering. */
+.tt-v1 {
+  font-variant-numeric: tabular-nums;
+}
+
 /* ----------------------------------------------- what's a twin (compare) */
 
 /* A row that carries a second line: the label on top, the detail under it. */
@@ -246,81 +268,366 @@
   }
 }
 
-/* --------------------------------------------------------- how it works */
+/* --------------------------------------------------------- how it works
 
-.tt-home--v3 .v1-steps {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--tt-space-4);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: none;
+   Large cards on a sideways rail. The rail runs the full width of the page
+   but its first card lines up with the content column (`padding-inline`),
+   and the last one runs off the right edge — the cut is what says "there is
+   more". */
+
+.tt-v1 .v1-how {
+  background: var(--tt-canvas);
+  padding-bottom: var(--tt-space-16);
 }
-.tt-home--v3 .v1-steps > li {
+.tt-v1 .v1-how-head {
+  max-width: 760px;
+  margin-bottom: var(--tt-space-12, 48px);
+  text-align: left;
+}
+.tt-v1 .v1-how-head .eyebrow {
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 20px;
+}
+.tt-v1 .v1-how-head h2 {
+  font-size: 40px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.tt-v1 .v1-rail {
+  --v1-edge: max(
+    var(--tt-space-6),
+    calc((100% - var(--tt-container-lg)) / 2 + var(--tt-space-6))
+  );
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--v1-edge);
+  padding-inline: var(--v1-edge);
+  scrollbar-width: none;
+  outline-offset: -2px;
+}
+.tt-v1 .v1-rail::-webkit-scrollbar {
+  display: none;
+}
+.tt-v1 .v1-rail:focus-visible {
+  outline: 2px solid var(--tt-primary);
+}
+.tt-v1 .v1-rail-track {
   display: flex;
+  gap: var(--tt-space-6);
+  width: max-content;
+  margin: 0;
+  padding: 0 var(--v1-edge) 0 0;
+  list-style: none;
 }
-.tt-home--v3 .v1-step {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow:
-    0 4px 8px rgb(30 28 25 / 0.04),
-    0 16px 40px rgb(30 28 25 / 0.06);
-}
-.tt-home--v3 .v1-step-body {
+.tt-v1 .v1-rail-track > li {
   display: flex;
   flex-direction: column;
-  gap: var(--tt-space-3);
-  height: 100%;
+  gap: var(--tt-space-5, 20px);
+  width: min(720px, 82vw);
+  scroll-snap-align: start;
 }
-.tt-home--v3 .v1-step-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--tt-space-3);
-}
-.tt-home--v3 .v1-step-num {
-  font-family: var(--tt-font-mono), ui-monospace, monospace;
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  color: var(--tt-primary);
-}
-.tt-home--v3 .v1-step-icon {
+.tt-v1 .v1-card {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--tt-radius-pill);
-  background: var(--tt-fill-soft);
-  border: var(--tt-border-thin) solid var(--tt-border);
-  color: var(--tt-text-secondary);
+  height: 440px;
+  padding: var(--tt-space-8, 32px);
+  border-radius: 28px;
+  background: var(--tt-surface-sunken);
+  overflow: hidden;
 }
-.tt-home--v3 .v1-step-icon svg {
-  width: 16px;
-  height: 16px;
+.tt-v1 .v1-card-num {
+  position: absolute;
+  top: var(--tt-space-6);
+  left: var(--tt-space-6);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: var(--tt-weight-label);
+  letter-spacing: 0.08em;
+  color: var(--tt-primary);
 }
-.tt-home--v3 .v1-step h3 {
-  font-size: 18px;
-  line-height: 24px;
-}
-.tt-home--v3 .v1-step p {
+.tt-v1 .v1-caption {
   margin: 0;
+  max-width: 520px;
+  padding-inline: var(--tt-space-2);
+  font-size: 17px;
+  line-height: 26px;
   color: var(--tt-text-tertiary);
-  font-size: 15px;
-  line-height: 23px;
 }
-@media (max-width: 1100px) {
-  .tt-home--v3 .v1-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 640px) {
-  .tt-home--v3 .v1-steps {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.tt-v1 .v1-caption b {
+  color: var(--tt-text-primary);
+  font-weight: var(--tt-weight-label);
 }
 
+/* The white panel inside each card — the thing being described. */
+.tt-v1 .v1-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-4);
+  width: min(100%, 440px);
+  padding: var(--tt-space-5, 20px);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow:
+    0 2px 6px rgb(30 28 25 / 0.04),
+    0 18px 44px rgb(30 28 25 / 0.07);
+  color: var(--tt-text-primary);
+  font-size: 15px;
+  line-height: 22px;
+}
+.tt-v1 .v1-panel ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tt-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tt-v1 .v1-panel svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.tt-v1 .v1-panel-label {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: var(--tt-weight-label);
+  color: var(--tt-text-muted);
+}
+
+/* 1 — files going in */
+.tt-v1 .v1-panel--files li {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-3);
+  padding: 10px 12px;
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-fill-soft);
+}
+.tt-v1 .v1-file-icon {
+  display: flex;
+  color: var(--tt-text-tertiary);
+}
+.tt-v1 .v1-file-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--tt-weight-label);
+}
+.tt-v1 .v1-file-meta {
+  font-size: 12.5px;
+  color: var(--tt-text-muted);
+}
+.tt-v1 .v1-file-ok {
+  display: flex;
+  color: var(--tt-success);
+}
+.tt-v1 .v1-file-bar {
+  width: 44px;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--tt-border);
+  overflow: hidden;
+}
+.tt-v1 .v1-file-bar i {
+  display: block;
+  width: 64%;
+  height: 100%;
+  background: var(--tt-primary);
+  animation: v1-load 3.2s ease-in-out infinite;
+}
+@keyframes v1-load {
+  0% { width: 12%; }
+  80%, 100% { width: 100%; }
+}
+
+/* 2 — the twin */
+.tt-v1 .v1-panel--twin {
+  align-items: center;
+  gap: var(--tt-space-5, 20px);
+  padding: var(--tt-space-8, 32px) var(--tt-space-5, 20px);
+}
+.tt-v1 .v1-twin-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--tt-primary-subtle);
+  color: var(--tt-primary);
+}
+.tt-v1 .v1-twin-face svg {
+  width: 44px;
+  height: 44px;
+}
+.tt-v1 .v1-twin-wave {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+}
+.tt-v1 .v1-twin-wave i {
+  width: 4px;
+  height: 100%;
+  border-radius: 99px;
+  background: var(--tt-primary);
+  transform: scaleY(0.25);
+  animation: v1-wave 1.3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.11s);
+}
+@keyframes v1-wave {
+  50% { transform: scaleY(1); }
+}
+
+/* chips: used by the twin, share and calibrate cards */
+.tt-v1 .v1-chips {
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px !important;
+}
+.tt-v1 .v1-chips--stack {
+  flex-direction: column !important;
+  align-items: stretch;
+}
+.tt-v1 .v1-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--tt-radius-pill);
+  border: var(--tt-border-thin) solid var(--tt-border);
+  background: var(--tt-fill-soft);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--tt-text-secondary);
+}
+.tt-v1 .v1-chips li.is-on {
+  border-color: var(--tt-primary-border);
+  background: var(--tt-primary-subtle);
+  color: var(--tt-primary);
+}
+
+/* 3 — guardrails */
+.tt-v1 .v1-checks li {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-3);
+}
+.tt-v1 .v1-checks svg {
+  color: var(--tt-success);
+}
+.tt-v1 .v1-bubble {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-fill-soft);
+  color: var(--tt-text-tertiary);
+}
+
+/* 4 — share */
+.tt-v1 .v1-share-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  border-radius: var(--tt-radius-pill);
+  background: var(--tt-text-primary);
+  color: #fff;
+  font-weight: var(--tt-weight-label);
+}
+
+/* 5 — team */
+.tt-v1 .v1-ticket {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: var(--tt-radius-md);
+  background: var(--tt-fill-soft);
+}
+.tt-v1 .v1-ticket-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--tt-text-muted);
+}
+.tt-v1 .v1-ticket-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tt-primary);
+}
+.tt-v1 .v1-ticket-body {
+  font-weight: var(--tt-weight-label);
+}
+.tt-v1 .v1-ticket-done {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tt-success);
+  font-weight: var(--tt-weight-label);
+}
+
+/* prev / next */
+.tt-v1 .v1-rail-nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--tt-space-3);
+  margin-top: var(--tt-space-8, 32px);
+}
+.tt-v1 .v1-rail-nav button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--tt-fill-soft);
+  color: var(--tt-text-primary);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.tt-v1 .v1-rail-nav button:first-child svg {
+  transform: scaleX(-1);
+}
+.tt-v1 .v1-rail-nav button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.tt-v1 .v1-rail-nav button:focus-visible {
+  outline: 2px solid var(--tt-primary);
+  outline-offset: 2px;
+}
+.tt-v1 .v1-rail-nav svg {
+  width: 20px;
+  height: 20px;
+}
+@media (max-width: 640px) {
+  .tt-v1 .v1-card {
+    height: 380px;
+    padding: var(--tt-space-5, 20px);
+  }
+  .tt-v1 .v1-how-head h2 {
+    font-size: 30px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tt-v1 .v1-file-bar i,
+  .tt-v1 .v1-twin-wave i {
+    animation: none;
+  }
+}
 /* ------------------------------------------------------------------ faq */
 
 .tt-home--v3 .v1-faq-list {
