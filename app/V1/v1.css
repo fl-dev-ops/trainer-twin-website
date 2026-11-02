@@ -1039,9 +1039,9 @@
   width: 100%;
 }
 .tt-v1 .cmp--light .cmp-card--twin .cmp-tag {
-  background: var(--tt-primary-subtle);
-  border-color: var(--tt-primary-border);
-  color: var(--tt-primary);
+  background: var(--tt-primary);
+  border-color: var(--tt-primary);
+  color: #fff;
   font-weight: var(--tt-weight-label);
 }
 
