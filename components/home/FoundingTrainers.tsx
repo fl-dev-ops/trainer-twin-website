@@ -76,7 +76,15 @@ const MARQUEE_ITEMS: MarqueeItem[] = [...FOUNDERS, "others"];
  * v3-only: draggable, infinitely looping story cards. The 48-second duration
  * matches the previous CSS marquee exactly.
  */
-export function FoundingTrainers() {
+export function FoundingTrainers({
+  eyebrow,
+  headClassName,
+}: {
+  /** A small label over the heading. /V1 sets one; the home pages have none. */
+  eyebrow?: string;
+  /** Extra class on the heading block, for a page that restyles it. */
+  headClassName?: string;
+} = {}) {
   return (
     <section
       className="sec sec--aurora found"
@@ -95,7 +103,11 @@ export function FoundingTrainers() {
         lightMode
       />
       <div className="wrap">
-        <div className="head" data-reveal>
+        <div
+          className={headClassName ? `head ${headClassName}` : "head"}
+          data-reveal
+        >
+          {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
           <h2 id="found-h">Meet people who have shown interest in TrainerTwin</h2>
         </div>
       </div>

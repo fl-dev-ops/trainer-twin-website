@@ -1241,3 +1241,10 @@
   position: relative;
   top: 16px;
 }
+
+/* Meet people… takes the How it works heading: small label over a large,
+   left-aligned title. `.head` centres its block, so the margin is reset. */
+.tt-v1 #founders .head.v1-how-head {
+  margin-left: 0;
+  margin-right: 0;
+}

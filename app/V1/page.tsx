@@ -129,7 +129,7 @@ export default function V1() {
         />
         <ModesV1 />
         <SetupSteps />
-        <FoundingTrainers />
+        <FoundingTrainers eyebrow="Early interest" headClassName="v1-how-head" />
         <FaqV1 />
       </main>
       <PageFooter
