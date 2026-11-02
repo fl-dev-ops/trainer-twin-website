@@ -1042,3 +1042,9 @@
   margin-top: auto;
   padding-top: var(--tt-space-5, 20px);
 }
+
+/* What the other twin leaves out reads as disabled: grey label, the red cross
+   stays so the gap is still seen. */
+.tt-v1 .cmp--light .can .is-miss {
+  color: var(--tt-text-muted);
+}
