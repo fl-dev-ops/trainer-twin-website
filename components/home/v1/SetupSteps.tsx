@@ -319,16 +319,19 @@ export function SetupSteps() {
           aria-label="Setup steps, scrolls sideways"
         >
           <ol className="v1-rail-track">
-            {STEPS.map((item, i) => (
+            {STEPS.map((item) => (
               <li key={item.title}>
                 <div className="v1-card" aria-hidden="true">
-                  <span className="v1-card-num">
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="v1-card-title">
+                    {item.title.replace(/\.$/, "")}
                   </span>
                   {item.scene}
                 </div>
+                {/* The card above is decorative and hidden from assistive tech, so
+                    the step's name rides here for it, off screen. */}
                 <p className="v1-caption">
-                  <b>{item.title}</b> {item.copy}
+                  <b className="sr-only">{item.title} </b>
+                  {item.copy}
                 </p>
               </li>
             ))}

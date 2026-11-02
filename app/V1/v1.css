@@ -337,23 +337,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Panel centred in the card. 308px leaves ~37px above and below the tallest
-     one (235px) — enough to clear the step number at the top. */
-  height: 308px;
+  /* Panel centred in the card. 322px leaves ~43px above and below the tallest
+     one (235px) — enough to clear the step title at the top with room over. */
+  height: 322px;
   padding: var(--tt-space-4);
   border-radius: 24px;
   background: var(--tt-surface-sunken);
   overflow: hidden;
 }
-.tt-v1 .v1-card-num {
+.tt-v1 .v1-card-title {
   position: absolute;
-  top: var(--tt-space-4);
+  top: 14px;
   left: var(--tt-space-5, 20px);
-  font-size: 13px;
+  right: var(--tt-space-5, 20px);
+  font-size: 14px;
   line-height: 18px;
   font-weight: var(--tt-weight-label);
-  letter-spacing: 0.08em;
-  color: var(--tt-primary);
+  color: var(--tt-text-primary);
 }
 .tt-v1 .v1-caption {
   margin: 0;
@@ -629,7 +629,7 @@
 }
 @media (max-width: 640px) {
   .tt-v1 .v1-card {
-    height: 308px;
+    height: 322px;
   }
   .tt-v1 .v1-how-head h2 {
     font-size: 30px;
