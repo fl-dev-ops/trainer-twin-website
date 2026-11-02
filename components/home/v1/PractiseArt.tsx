@@ -30,7 +30,7 @@ export function PractiseArt() {
         <div className="p1-bar">
           <span className="p1-bar-title">
             <Icon name="phone" />
-            Role-play · Procurement
+            Role-play
           </span>
           <span className="p1-live">Live</span>
         </div>
