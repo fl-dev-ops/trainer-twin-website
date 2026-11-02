@@ -1185,3 +1185,31 @@
   justify-content: center;
   box-sizing: border-box;
 }
+
+/* Ask & Practise opens out of the grey comparison band above it instead of
+   starting on a hard edge. The section's own ground runs from that same grey
+   down to white, and the aurora fades in from nothing at the top (it used to
+   start at full strength) so the colour seems to rise out of the grey. */
+.tt-v1 #modes {
+  background: linear-gradient(
+    to bottom,
+    var(--tt-surface-sunken) 0,
+    #fff 380px
+  );
+}
+.tt-v1 #modes .sec-aurora {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 30%,
+    rgba(0, 0, 0, 0.5) 66%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 30%,
+    rgba(0, 0, 0, 0.5) 66%,
+    transparent 100%
+  );
+}
