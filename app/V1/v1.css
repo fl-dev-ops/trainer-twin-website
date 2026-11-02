@@ -1361,3 +1361,13 @@
   margin-right: auto;
   text-align: center;
 }
+
+/* Ask and Practise take the width of the comparison cards above (80.5% of the
+   content, centred), so the two rows share their left and right edges. Same
+   breakpoint as that rule; below it both run full width. */
+@media (min-width: 1100px) {
+  .tt-home--v3 .v1-modes {
+    width: 80.5%;
+    margin-inline: auto;
+  }
+}
