@@ -842,8 +842,10 @@
   margin: 0;
   padding: 9px 14px;
   border-radius: 16px 16px 4px 16px;
-  background: var(--tt-text-primary);
-  color: #fff;
+  background: #fff;
+  border: var(--tt-border-thin) solid var(--tt-border);
+  box-shadow: 0 6px 16px rgb(30 28 25 / 0.06);
+  color: var(--tt-text-primary);
   font-size: 13px;
   line-height: 19px;
 }
