@@ -820,8 +820,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--tt-space-4);
-  padding: var(--tt-space-5, 20px);
+  gap: var(--tt-space-3);
+  padding: var(--tt-space-4);
   background-color: var(--tt-surface-sunken);
   background-image: radial-gradient(#dcdcdc 1px, transparent 1.2px);
   background-size: 16px 16px;
@@ -928,4 +928,9 @@
 .tt-v1 .sa--full .sa-source {
   background: var(--tt-primary-subtle);
   color: var(--tt-primary);
+}
+
+/* A shorter drawing, so both cards fit in one screen. */
+.tt-v1 .cmp--light .cmp-art {
+  height: 172px;
 }
