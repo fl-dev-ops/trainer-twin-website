@@ -91,9 +91,7 @@ export function ModesV1() {
         <div className="head" data-reveal>
           <span className="eyebrow">Ask &amp; Practise</span>
           <h2 id="modes-h">
-            One twin. Two modes.
-            <br />
-            Three domains.
+            One twin. Two modes. Three domains.
           </h2>
           <ul className="v1-domains" aria-label="Domains">
             {DOMAINS.map((domain) => (

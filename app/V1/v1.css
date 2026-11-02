@@ -1378,3 +1378,15 @@
   background-color: #fff;
   box-shadow: none;
 }
+
+/* The Ask & Practise title on one line: the heading block is wider than the
+   620px a section head gets by default, and the title does not wrap. Under
+   760px it is allowed to wrap again. */
+.tt-home--v3 #modes .head {
+  max-width: 960px;
+}
+@media (min-width: 761px) {
+  .tt-home--v3 #modes .head h2 {
+    white-space: nowrap;
+  }
+}
