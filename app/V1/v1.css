@@ -696,8 +696,8 @@
   max-width: 600px;
 }
 
-/* "Meet your twin": the three chips sit on one line. The icons go and the
-   chips tighten so all three fit the narrow card without wrapping. */
+/* "Meet your twin": the three chips sit on one line, icons in front. The
+   cards are wide enough now for all three to fit with them. */
 .tt-v1 .v1-panel--twin {
   padding-inline: var(--tt-space-2, 8px);
 }
@@ -713,7 +713,9 @@
   white-space: nowrap;
 }
 .tt-v1 .v1-panel--twin .v1-chips svg {
-  display: none;
+  width: 14px;
+  height: 14px;
+  color: var(--tt-primary);
 }
 
 /* ------------------------------------------------ what's a twin, light
