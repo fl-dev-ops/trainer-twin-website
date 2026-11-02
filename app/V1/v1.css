@@ -1065,3 +1065,11 @@
   color: var(--tt-primary);
   font-weight: var(--tt-weight-label);
 }
+
+/* Row titles at weight 500; the grey note under each stays regular. */
+.tt-v1 .cmp--light .can li {
+  font-weight: 500;
+}
+.tt-v1 .cmp--light .can-note {
+  font-weight: 400;
+}
