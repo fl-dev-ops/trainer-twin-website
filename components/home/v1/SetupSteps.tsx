@@ -22,6 +22,15 @@ const stroke = {
   strokeLinejoin: "round",
 } as const;
 
+/* The shared set's person is a filled silhouette; the chips want a line one to
+   sit with the microphone and chat bubble beside it. */
+const UserLineIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+    <circle cx="8" cy="5.2" r="2.7" {...stroke} />
+    <path d="M2.8 14c.4-2.6 2.5-4.2 5.2-4.2s4.8 1.6 5.2 4.2" {...stroke} />
+  </svg>
+);
+
 const SlidersIcon = () => (
   <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
     <path d="M2 5h6M12.5 5H14M2 11h1.5M8 11h6" {...stroke} />
@@ -102,7 +111,7 @@ const STEPS: Step[] = [
             Your voice
           </li>
           <li>
-            <Icon name="face" />
+            <UserLineIcon />
             Your avatar
           </li>
           <li>
