@@ -75,6 +75,8 @@ export type CompareColumn = {
   featured: boolean;
   rows: ReadonlyArray<{ ok: boolean; label: string; note?: string }>;
   foot?: string;
+  /** A glyph set before the summary line. */
+  footIcon?: string;
 };
 
 /**
@@ -182,7 +184,16 @@ export function CompareTwin({
                       </li>
                     ))}
                   </ul>
-                  {col.foot ? <p className="cmp-foot">{col.foot}</p> : null}
+                  {col.foot ? (
+                    <p className="cmp-foot">
+                      {col.footIcon ? (
+                        <span className="cmp-foot-icon" aria-hidden="true">
+                          {col.footIcon}
+                        </span>
+                      ) : null}
+                      {col.foot}
+                    </p>
+                  ) : null}
                 </CardBody>
               </Card>
             </Fragment>

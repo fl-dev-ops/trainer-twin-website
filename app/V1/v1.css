@@ -1131,3 +1131,16 @@
     margin-top: 0;
   }
 }
+
+/* The summary line: a light grey rule above it and an emoji before it. */
+.tt-v1 .cmp--light .cmp-foot {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-space-2);
+  border-top: var(--tt-border-thin) solid var(--tt-border);
+}
+.tt-v1 .cmp--light .cmp-foot-icon {
+  flex: none;
+  font-size: 18px;
+  line-height: 1;
+}

@@ -44,6 +44,7 @@ const COMPARE: CompareColumn[] = [
       },
     ],
     foot: "Thinks, coaches and debriefs like you.",
+    footIcon: "💡",
   },
   {
     key: "presence",
@@ -56,6 +57,7 @@ const COMPARE: CompareColumn[] = [
       { ok: false, label: "Your training DNA" },
     ],
     foot: "Looks and sounds like you.",
+    footIcon: "😕",
   },
 ];
 
