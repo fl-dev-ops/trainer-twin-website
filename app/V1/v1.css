@@ -797,3 +797,13 @@
 .tt-v1 .cmp--light .cmp-vid {
   background: #1c1b1b;
 }
+
+/* The two cards take three quarters of the content width and sit centred.
+   Below 1100px the row would get too narrow for the lists, so it goes back to
+   full width there. */
+@media (min-width: 1100px) {
+  .tt-v1 .cmp--light .cmp-grid {
+    width: 75%;
+    margin-inline: auto;
+  }
+}
