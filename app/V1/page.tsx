@@ -103,14 +103,9 @@ export default function V1() {
           eyebrow="AN AI TWIN FOR COACHES AND TRAINERS"
           headline={
             <WantToTwin
-              lead="Turn your course into"
-              asks={[
-                "a conversation.",
-                "a practice room.",
-                "a coaching session.",
-                "a Q&A.",
-              ]}
-              tail="Coached in your voice."
+              lead="Turn your"
+              asks={["course", "book", "videos", "workshop"]}
+              tail="into a two-way conversation."
             />
           }
           lede="Your twin brings the one-way parts of your course to life. Learners ask questions and practise real conversations, coached in your voice, with your frameworks."
