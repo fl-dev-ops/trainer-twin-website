@@ -1234,3 +1234,10 @@
     transparent 100%
   );
 }
+
+/* The three chips sit 16px lower than the flow puts them. A relative offset,
+   so the orb above stays where it is. */
+.tt-v1 .v1-panel--twin .v1-chips {
+  position: relative;
+  top: 16px;
+}
