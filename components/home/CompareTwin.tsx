@@ -4,7 +4,6 @@ import { LogoSymbol } from "@/components/Logo";
 import { MutedClip } from "@/components/landing2/MutedClip";
 import { CardStroke } from "./CardStroke";
 import { TwinArt } from "./CompareTwinArt";
-import { StaticTwinArt } from "./v1/StaticTwinArt";
 import { Icon, type IconName } from "./icons";
 
 const TWIN_VIDEO_SRC = "/home-v3/interactive-twin/3d_video.mp4";
@@ -64,12 +63,12 @@ const COLUMNS = [
 }>;
 
 /** The shape `COLUMNS` has, loosened so a page can pass its own set. `note`
-    and `foot` are /V1's: a row can carry a second line, and a card can close
+    and `foot` are the homepage's: a row can carry a second line, and a card can close
     on one summing sentence. */
 export type CompareColumn = {
   key: "chatbot" | "avatar" | "twin" | "presence" | "full";
   title: string;
-  /** Small pill under the title. Optional: /V1 shows none. */
+  /** Small pill under the title. Optional: the homepage shows none. */
   tag?: string;
   icon: IconName;
   featured: boolean;
@@ -82,7 +81,7 @@ export type CompareColumn = {
 /**
  * v3-only: Chatbot vs AI Avatar vs Trainer Twin, above Who uses it.
  *
- * `/V1` passes two columns and its own heading; the "Vs" badge always sits
+ * The homepage passes two columns and its own heading; the "Vs" badge always sits
  * before the last column, which is the featured one.
  */
 export function CompareTwin({
@@ -96,11 +95,11 @@ export function CompareTwin({
   id?: string;
   columns?: ReadonlyArray<CompareColumn>;
   head?: { eyebrow: string; title: string; body: ReactNode };
-  /** /V1: the band sits on a light grey ground instead of night. */
+  /** Homepage: the band sits on a light grey ground instead of night. */
   light?: boolean;
-  /** The "Vs" badge between the last two columns. /V1 turns it off. */
+  /** The "Vs" badge between the last two columns. The homepage turns it off. */
   vs?: boolean;
-  /** The drawing across the top of each card. /V1 turns it off. */
+  /** The drawing across the top of each card. The homepage turns it off. */
   art?: boolean;
 } = {}) {
   return (
@@ -228,9 +227,8 @@ const ASK = "Why is my API slow?";
  * it reads as a window behind without inventing fake document content (D23).
  */
 function CompareArt({ columnKey }: { columnKey: CompareColumn["key"] }) {
-  if (columnKey === "presence" || columnKey === "full") {
-    return <StaticTwinArt variant={columnKey} />;
-  }
+  // The homepage columns run without art.
+  if (columnKey === "presence" || columnKey === "full") return null;
 
   if (columnKey === "avatar") {
     return (

@@ -1,6 +1,6 @@
 import { Aurora } from "@/components/Aurora";
-import { Icon } from "../icons";
-import { CtaLink } from "../CtaLink";
+import { Icon } from "./icons";
+import { CtaLink } from "./CtaLink";
 
 /** Drawn on the same 16 grid and stroke as the shared glyph set. Communication
     borrows that set's chat bubble; the other two are not in it. */
@@ -73,10 +73,10 @@ const MODES = [
 ];
 
 /**
- * /V1's "One twin. Two modes. Three domains." — the two modes as two white
+ * The homepage's "One twin. Two modes. Three domains." — the two modes as two white
  * cards side by side, under a heading that names the three domains they run in.
  */
-export function ModesV1() {
+export function Modes() {
   return (
     <section className="sec sec--aurora" id="modes" aria-labelledby="modes-h">
       <Aurora
@@ -93,7 +93,7 @@ export function ModesV1() {
           <h2 id="modes-h">
             One twin. Two modes. Three domains.
           </h2>
-          <ul className="v1-domains" aria-label="Domains">
+          <ul className="home-domains" aria-label="Domains">
             {DOMAINS.map((domain) => (
               <li key={domain.label}>
                 {domain.icon}
@@ -104,10 +104,10 @@ export function ModesV1() {
           <p>For coaches, trainers and influencers who teach these skills.</p>
         </div>
 
-        <div className="v1-modes" data-reveal data-reveal-delay="100">
+        <div className="home-modes" data-reveal data-reveal-delay="100">
           {MODES.map((mode) => (
-            <article key={mode.id} id={mode.id} className="v1-mode">
-              <span className="kicker v1-mode-kicker">
+            <article key={mode.id} id={mode.id} className="home-mode">
+              <span className="kicker home-mode-kicker">
                 {mode.icon}
                 {mode.kicker}
               </span>
@@ -121,7 +121,7 @@ export function ModesV1() {
                   </li>
                 ))}
               </ul>
-              <div className="v1-mode-cta">
+              <div className="home-mode-cta">
                 <CtaLink size="md" href="#early-access" className="hdr-cta">
                   Request a demo
                 </CtaLink>

@@ -1,4 +1,4 @@
-/* /V1 — styles for the pieces only this page has. Everything else comes from
+/* Homepage — styles for the pieces only this page has. Everything else comes from
    the shared v3 stylesheet this layout imports first. */
 
 /* ------------------------------------------------------- one typeface
@@ -9,17 +9,17 @@
    share. `--font-display` is Tailwind's copy of the display face; it is
    declared at :root, so it has to be re-declared here as well or the
    `font-display` utility (the footer headline) would keep the serif. */
-.tt-v1 {
-  --tt-font-display: var(--v1-font), system-ui, sans-serif;
-  --tt-font-mono: var(--v1-font), system-ui, sans-serif;
-  --font-display: var(--v1-font), system-ui, sans-serif;
-  --h-font-wordmark: var(--v1-font);
-  --h-font-footer: var(--v1-font);
-  font-family: var(--v1-font), system-ui, sans-serif;
+.tt-homepage {
+  --tt-font-display: var(--home-font), system-ui, sans-serif;
+  --tt-font-mono: var(--home-font), system-ui, sans-serif;
+  --font-display: var(--home-font), system-ui, sans-serif;
+  --h-font-wordmark: var(--home-font);
+  --h-font-footer: var(--home-font);
+  font-family: var(--home-font), system-ui, sans-serif;
 }
 /* The mono labels were counting things; Figtree's figures are proportional by
    default, so keep digits from jittering. */
-.tt-v1 {
+.tt-homepage {
   font-variant-numeric: tabular-nums;
 }
 
@@ -55,7 +55,7 @@
 
 /* -------------------------------------------------- one twin, two modes */
 
-.tt-home--v3 .v1-domains {
+.tt-home--v3 .home-domains {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -64,7 +64,7 @@
   padding: 0;
   list-style: none;
 }
-.tt-home--v3 .v1-domains li {
+.tt-home--v3 .home-domains li {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -79,180 +79,6 @@
   font-weight: var(--tt-weight-label);
 }
 
-/* Practise scene — a night panel on the way's white ground, like the other
-   two v3 illustrations. Three beats on one 12s clock, held until in view. */
-.tt-home--v3 .p1 {
-  width: 100%;
-  max-width: 440px;
-}
-.tt-home--v3 .p1-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--tt-space-3);
-  padding: var(--tt-space-4);
-  border-radius: 20px;
-  background: var(--tt-night-panel);
-  box-shadow: var(--tt-elevation-3);
-  color: var(--tt-on-night);
-}
-.tt-home--v3 .p1-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--tt-space-3);
-  font-size: 12.5px;
-  line-height: 18px;
-  color: var(--tt-on-night-2);
-}
-.tt-home--v3 .p1-bar-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.tt-home--v3 .p1-bar svg {
-  width: 14px;
-  height: 14px;
-}
-.tt-home--v3 .p1-scenarios {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.tt-home--v3 .p1-scenarios li {
-  padding: 3px 10px;
-  border-radius: var(--tt-radius-pill);
-  border: var(--tt-border-thin) solid var(--tt-line-night);
-  font-size: 11.5px;
-  line-height: 16px;
-  color: var(--tt-on-night-3);
-}
-.tt-home--v3 .p1-scenarios li.is-on {
-  border-color: var(--tt-primary-border);
-  color: var(--tt-on-night);
-}
-.tt-home--v3 .p1-thread {
-  display: flex;
-  flex-direction: column;
-  gap: var(--tt-space-3);
-}
-.tt-home--v3 .p1-msg {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-width: 86%;
-}
-.tt-home--v3 .p1-msg--learner {
-  align-self: flex-end;
-  align-items: flex-end;
-}
-.tt-home--v3 .p1-who {
-  font-family: var(--tt-font-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--tt-on-night-3);
-}
-.tt-home--v3 .p1-msg p {
-  margin: 0;
-  padding: 9px 12px;
-  border-radius: var(--tt-radius-sm);
-  background: color-mix(in srgb, var(--tt-on-night) 9%, transparent);
-  font-size: 13.5px;
-  line-height: 20px;
-  color: var(--tt-on-night);
-}
-.tt-home--v3 .p1-msg--learner p {
-  background: var(--tt-primary);
-  color: #fff;
-}
-.tt-home--v3 .p1-debrief {
-  display: flex;
-  flex-direction: column;
-  gap: var(--tt-space-2);
-  padding: var(--tt-space-3) var(--tt-space-4);
-  border-radius: var(--tt-radius-md);
-  border: var(--tt-border-thin) solid var(--tt-primary-border);
-  background: color-mix(in srgb, var(--tt-on-night) 5%, transparent);
-}
-.tt-home--v3 .p1-score {
-  display: flex;
-  align-items: baseline;
-  gap: var(--tt-space-2);
-  font-size: 12.5px;
-  line-height: 18px;
-  color: var(--tt-on-night-3);
-}
-.tt-home--v3 .p1-score b {
-  font-family: var(--tt-font-mono), ui-monospace, monospace;
-  font-size: 30px;
-  line-height: 34px;
-  font-weight: var(--tt-weight-semibold);
-  color: var(--tt-primary);
-}
-.tt-home--v3 .p1-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.tt-home--v3 .p1-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: var(--tt-radius-pill);
-  border: var(--tt-border-thin) solid var(--tt-line-night);
-  font-size: 11.5px;
-  line-height: 16px;
-  color: var(--tt-on-night-2);
-}
-.tt-home--v3 .p1-chip.is-on {
-  border-color: var(--tt-primary-border);
-  color: var(--tt-on-night);
-}
-.tt-home--v3 .p1-chip svg {
-  width: 12px;
-  height: 12px;
-  color: var(--tt-success);
-}
-
-/* One clock: each beat rises in on its own delay, all three hold, then all
-   three drop out together and the loop restarts. Paused until in view. */
-.tt-home--v3 .p1-beat {
-  opacity: 0;
-  transform: translateY(8px);
-  animation: p1-beat 12s var(--tt-ease-standard, ease) infinite paused;
-  animation-delay: calc(var(--i, 0) * 1.4s);
-}
-.tt-home--v3 .p1.is-inview .p1-beat {
-  animation-play-state: running;
-}
-@keyframes p1-beat {
-  0% {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  6%,
-  80% {
-    opacity: 1;
-    transform: none;
-  }
-  90%,
-  100% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .tt-home--v3 .p1-beat {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
 /* --------------------------------------------------------- how it works
 
    Large cards on a sideways rail. The rail runs the full width of the page
@@ -260,54 +86,54 @@
    and the last one runs off the right edge — the cut is what says "there is
    more". */
 
-.tt-v1 .v1-how {
+.tt-homepage .home-how {
   background: var(--tt-canvas);
   padding-bottom: var(--tt-space-16);
 }
-.tt-v1 .v1-how-head {
+.tt-homepage .home-how-head {
   max-width: 760px;
   margin-bottom: var(--tt-space-12, 48px);
   text-align: left;
 }
-.tt-v1 .v1-how-head .eyebrow {
+.tt-homepage .home-how-head .eyebrow {
   font-size: 14px;
   letter-spacing: 0;
   text-transform: none;
   line-height: 20px;
 }
-.tt-v1 .v1-how-head h2 {
+.tt-homepage .home-how-head h2 {
   font-size: 40px;
   line-height: 1.15;
   letter-spacing: -0.01em;
 }
 
-.tt-v1 .v1-rail {
-  --v1-edge: max(
+.tt-homepage .home-rail {
+  --home-edge: max(
     var(--tt-space-6),
     calc((100% - var(--tt-container-lg)) / 2 + var(--tt-space-6))
   );
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--v1-edge);
-  padding-inline: var(--v1-edge);
+  scroll-padding-inline: var(--home-edge);
+  padding-inline: var(--home-edge);
   scrollbar-width: none;
   outline-offset: -2px;
 }
-.tt-v1 .v1-rail::-webkit-scrollbar {
+.tt-homepage .home-rail::-webkit-scrollbar {
   display: none;
 }
-.tt-v1 .v1-rail:focus-visible {
+.tt-homepage .home-rail:focus-visible {
   outline: 2px solid var(--tt-primary);
 }
-.tt-v1 .v1-rail-track {
+.tt-homepage .home-rail-track {
   display: flex;
   gap: var(--tt-space-6);
   width: max-content;
   margin: 0;
-  padding: 0 var(--v1-edge) 0 0;
+  padding: 0 var(--home-edge) 0 0;
   list-style: none;
 }
-.tt-v1 .v1-rail-track > li {
+.tt-homepage .home-rail-track > li {
   display: flex;
   flex-direction: column;
   gap: var(--tt-space-5, 20px);
@@ -315,7 +141,7 @@
   width: min(432px, 82vw);
   scroll-snap-align: start;
 }
-.tt-v1 .v1-card {
+.tt-homepage .home-card {
   position: relative;
   display: flex;
   flex: 1;
@@ -329,10 +155,10 @@
   background: var(--tt-surface-sunken);
   overflow: hidden;
 }
-.tt-v1 .v1-card-scene {
+.tt-homepage .home-card-scene {
   display: flex;
 }
-.tt-v1 .v1-card-title {
+.tt-homepage .home-card-title {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -345,7 +171,7 @@
   font-weight: var(--tt-weight-label);
   color: var(--tt-text-primary);
 }
-.tt-v1 .v1-caption {
+.tt-homepage .home-caption {
   margin: var(--tt-space-4) 0 0;
   padding-inline: var(--tt-space-1, 4px);
   font-size: 15px;
@@ -354,7 +180,7 @@
 }
 
 /* The white panel inside each card — the thing being described. */
-.tt-v1 .v1-panel {
+.tt-homepage .home-panel {
   display: flex;
   flex-direction: column;
   gap: var(--tt-space-3);
@@ -369,7 +195,7 @@
   font-size: 14px;
   line-height: 20px;
 }
-.tt-v1 .v1-panel ul {
+.tt-homepage .home-panel ul {
   display: flex;
   flex-direction: column;
   gap: var(--tt-space-2);
@@ -377,12 +203,12 @@
   padding: 0;
   list-style: none;
 }
-.tt-v1 .v1-panel svg {
+.tt-homepage .home-panel svg {
   width: 16px;
   height: 16px;
   flex: none;
 }
-.tt-v1 .v1-panel-label {
+.tt-homepage .home-panel-label {
   font-size: 13px;
   line-height: 18px;
   font-weight: var(--tt-weight-label);
@@ -390,7 +216,7 @@
 }
 
 /* 1 — files going in */
-.tt-v1 .v1-panel--files li {
+.tt-homepage .home-panel--files li {
   display: flex;
   align-items: center;
   gap: var(--tt-space-2);
@@ -398,11 +224,11 @@
   border-radius: var(--tt-radius-md);
   background: var(--tt-fill-soft);
 }
-.tt-v1 .v1-file-icon {
+.tt-homepage .home-file-icon {
   display: flex;
   color: var(--tt-text-tertiary);
 }
-.tt-v1 .v1-file-name {
+.tt-homepage .home-file-name {
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -410,40 +236,40 @@
   white-space: nowrap;
   font-weight: var(--tt-weight-label);
 }
-.tt-v1 .v1-file-meta {
+.tt-homepage .home-file-meta {
   font-size: 12px;
   color: var(--tt-text-muted);
 }
-.tt-v1 .v1-file-ok {
+.tt-homepage .home-file-ok {
   display: flex;
   color: var(--tt-success);
 }
-.tt-v1 .v1-file-bar {
+.tt-homepage .home-file-bar {
   width: 32px;
   height: 5px;
   border-radius: 99px;
   background: var(--tt-border);
   overflow: hidden;
 }
-.tt-v1 .v1-file-bar i {
+.tt-homepage .home-file-bar i {
   display: block;
   width: 64%;
   height: 100%;
   background: var(--tt-primary);
-  animation: v1-load 3.2s ease-in-out infinite;
+  animation: home-load 3.2s ease-in-out infinite;
 }
-@keyframes v1-load {
+@keyframes home-load {
   0% { width: 12%; }
   80%, 100% { width: 100%; }
 }
 
 /* 2 — the twin */
-.tt-v1 .v1-panel--twin {
+.tt-homepage .home-panel--twin {
   align-items: center;
   gap: var(--tt-space-5, 20px);
   padding: var(--tt-space-6) var(--tt-space-4);
 }
-.tt-v1 .v1-twin-orb {
+.tt-homepage .home-twin-orb {
   display: flex;
   border-radius: 50%;
   box-shadow:
@@ -451,13 +277,13 @@
     0 0 64px rgb(255 140 70 / 0.2);
 }
 /* chips: used by the twin, share and calibrate cards */
-.tt-v1 .v1-chips {
+.tt-homepage .home-chips {
   flex-direction: row !important;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px !important;
 }
-.tt-v1 .v1-chips li {
+.tt-homepage .home-chips li {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -469,22 +295,22 @@
   line-height: 20px;
   color: var(--tt-text-secondary);
 }
-.tt-v1 .v1-chips li.is-on {
+.tt-homepage .home-chips li.is-on {
   border-color: var(--tt-primary-border);
   background: var(--tt-primary-subtle);
   color: var(--tt-primary);
 }
 
 /* 3 — guardrails */
-.tt-v1 .v1-checks li {
+.tt-homepage .home-checks li {
   display: flex;
   align-items: center;
   gap: var(--tt-space-3);
 }
-.tt-v1 .v1-checks svg {
+.tt-homepage .home-checks svg {
   color: var(--tt-success);
 }
-.tt-v1 .v1-bubble {
+.tt-homepage .home-bubble {
   margin: 0;
   padding: 10px 14px;
   border-radius: var(--tt-radius-md);
@@ -493,7 +319,7 @@
 }
 
 /* 4 — share: a sample link in a grey well with a copy mark. Static. */
-.tt-v1 .v1-link-box {
+.tt-homepage .home-link-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -503,19 +329,19 @@
   background: var(--tt-fill-soft);
   color: var(--tt-text-tertiary);
 }
-.tt-v1 .v1-link-url {
+.tt-homepage .home-link-url {
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--tt-text-secondary);
 }
-.tt-v1 .v1-link-box svg {
+.tt-homepage .home-link-box svg {
   flex: none;
 }
 
 /* 5 — team */
-.tt-v1 .v1-ticket {
+.tt-homepage .home-ticket {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -523,23 +349,23 @@
   border-radius: var(--tt-radius-md);
   background: var(--tt-fill-soft);
 }
-.tt-v1 .v1-ticket-top {
+.tt-homepage .home-ticket-top {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
   color: var(--tt-text-muted);
 }
-.tt-v1 .v1-ticket-dot {
+.tt-homepage .home-ticket-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--tt-primary);
 }
-.tt-v1 .v1-ticket-body {
+.tt-homepage .home-ticket-body {
   font-weight: var(--tt-weight-label);
 }
-.tt-v1 .v1-ticket-done {
+.tt-homepage .home-ticket-done {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -548,13 +374,13 @@
 }
 
 /* prev / next */
-.tt-v1 .v1-rail-nav {
+.tt-homepage .home-rail-nav {
   display: flex;
   justify-content: center;
   gap: var(--tt-space-3);
   margin-top: var(--tt-space-8, 32px);
 }
-.tt-v1 .v1-rail-nav button {
+.tt-homepage .home-rail-nav button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -567,42 +393,42 @@
   cursor: pointer;
   transition: opacity 0.15s ease;
 }
-.tt-v1 .v1-rail-nav button:first-child svg {
+.tt-homepage .home-rail-nav button:first-child svg {
   transform: scaleX(-1);
 }
-.tt-v1 .v1-rail-nav button:disabled {
+.tt-homepage .home-rail-nav button:disabled {
   opacity: 0.4;
   cursor: default;
 }
-.tt-v1 .v1-rail-nav button:focus-visible {
+.tt-homepage .home-rail-nav button:focus-visible {
   outline: 2px solid var(--tt-primary);
   outline-offset: 2px;
 }
-.tt-v1 .v1-rail-nav svg {
+.tt-homepage .home-rail-nav svg {
   width: 20px;
   height: 20px;
 }
 @media (max-width: 640px) {
-  .tt-v1 .v1-how-head h2 {
+  .tt-homepage .home-how-head h2 {
     font-size: 30px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .tt-v1 .v1-file-bar i {
+  .tt-homepage .home-file-bar i {
     animation: none;
   }
 }
 /* ------------------------------------------------------------------ faq */
 
-.tt-home--v3 .v1-faq-list {
+.tt-home--v3 .home-faq-list {
   max-width: 760px;
   margin: 0 auto;
   border-top: var(--tt-border-thin) solid var(--tt-border);
 }
-.tt-home--v3 .v1-faq-list details {
+.tt-home--v3 .home-faq-list details {
   border-bottom: var(--tt-border-thin) solid var(--tt-border);
 }
-.tt-home--v3 .v1-faq-list summary {
+.tt-home--v3 .home-faq-list summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -616,23 +442,23 @@
   font-weight: var(--tt-weight-label);
   color: var(--tt-text-primary);
 }
-.tt-home--v3 .v1-faq-list summary::-webkit-details-marker {
+.tt-home--v3 .home-faq-list summary::-webkit-details-marker {
   display: none;
 }
-.tt-home--v3 .v1-faq-list summary:focus-visible {
+.tt-home--v3 .home-faq-list summary:focus-visible {
   outline: 2px solid var(--tt-primary);
   outline-offset: 4px;
   border-radius: 4px;
 }
-.tt-home--v3 .v1-faq-mark {
+.tt-home--v3 .home-faq-mark {
   position: relative;
   flex: none;
   width: 14px;
   height: 14px;
   color: var(--tt-primary);
 }
-.tt-home--v3 .v1-faq-mark::before,
-.tt-home--v3 .v1-faq-mark::after {
+.tt-home--v3 .home-faq-mark::before,
+.tt-home--v3 .home-faq-mark::after {
   content: "";
   position: absolute;
   inset: 50% 0 auto 0;
@@ -642,13 +468,13 @@
   background: currentColor;
   transition: transform 0.2s var(--tt-ease-standard, ease);
 }
-.tt-home--v3 .v1-faq-mark::after {
+.tt-home--v3 .home-faq-mark::after {
   transform: rotate(90deg);
 }
-.tt-home--v3 .v1-faq-list details[open] .v1-faq-mark::after {
+.tt-home--v3 .home-faq-list details[open] .home-faq-mark::after {
   transform: rotate(0deg);
 }
-.tt-home--v3 .v1-faq-list details p {
+.tt-home--v3 .home-faq-list details p {
   margin: 0;
   padding: 0 var(--tt-space-8, 32px) var(--tt-space-6, 24px) 0;
   color: var(--tt-text-secondary);
@@ -656,8 +482,8 @@
   line-height: 26px;
 }
 @media (prefers-reduced-motion: reduce) {
-  .tt-home--v3 .v1-faq-mark::before,
-  .tt-home--v3 .v1-faq-mark::after {
+  .tt-home--v3 .home-faq-mark::before,
+  .tt-home--v3 .home-faq-mark::after {
     transition: none;
   }
 }
@@ -667,44 +493,44 @@
    The shared hero is a two-column grid with the copy left-aligned. Here the
    pills column is not rendered at all, so the grid collapses to one column and
    every left-alignment the copy carries is turned round to the middle. */
-.tt-v1 .hero--centered .hero-v3-inner {
+.tt-homepage .hero--centered .hero-v3-inner {
   grid-template-columns: minmax(0, 1fr);
   justify-items: center;
 }
-.tt-v1 .hero--centered .hero-v3-col--copy,
-.tt-v1 .hero--centered .hero-v3-copy,
-.tt-v1 .hero--centered .hero-v3-titleblock,
-.tt-v1 .hero--centered .hero-v3-trust,
-.tt-v1 .hero--centered .hero-v3-backers {
+.tt-homepage .hero--centered .hero-v3-col--copy,
+.tt-homepage .hero--centered .hero-v3-copy,
+.tt-homepage .hero--centered .hero-v3-titleblock,
+.tt-homepage .hero--centered .hero-v3-trust,
+.tt-homepage .hero--centered .hero-v3-backers {
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-.tt-v1 .hero--centered .hero-v3-want,
-.tt-v1 .hero--centered .hero-v3-trust > p {
+.tt-homepage .hero--centered .hero-v3-want,
+.tt-homepage .hero--centered .hero-v3-trust > p {
   text-align: center;
 }
-.tt-v1 .hero--centered .hero-v3-lede {
+.tt-homepage .hero--centered .hero-v3-lede {
   max-width: 600px;
 }
 
 /* "Meet your twin": the three chips sit on one line, icons in front. The
    cards are wide enough now for all three to fit with them. */
-.tt-v1 .v1-panel--twin {
+.tt-homepage .home-panel--twin {
   padding-inline: var(--tt-space-2, 8px);
 }
-.tt-v1 .v1-panel--twin .v1-chips {
+.tt-homepage .home-panel--twin .home-chips {
   flex-wrap: nowrap;
   gap: 4px !important;
 }
-.tt-v1 .v1-panel--twin .v1-chips li {
+.tt-homepage .home-panel--twin .home-chips li {
   flex: none;
   padding: 5px 9px;
   font-size: 12px;
   line-height: 16px;
   white-space: nowrap;
 }
-.tt-v1 .v1-panel--twin .v1-chips svg {
+.tt-homepage .home-panel--twin .home-chips svg {
   width: 14px;
   height: 14px;
   color: var(--tt-primary);
@@ -718,7 +544,7 @@
    tokens at light values, so the whole band flips at once and the shared
    stylesheet stays untouched. The band itself takes the grey ground and the
    cards stay white on it; that step is the difference. */
-.tt-v1 .cmp--light {
+.tt-homepage .cmp--light {
   --tt-night: #ffffff;
   --tt-night-panel: #f4f4f4;
   --tt-on-night: #1c1b1b;
@@ -730,10 +556,10 @@
   background: var(--tt-surface-sunken);
   color: var(--tt-text-primary);
 }
-.tt-v1 .cmp--light .head p {
+.tt-homepage .cmp--light .head p {
   color: var(--tt-text-secondary);
 }
-.tt-v1 .cmp--light .cmp-card {
+.tt-homepage .cmp--light .cmp-card {
   background-color: #fff;
   background-image: none;
   box-shadow:
@@ -742,13 +568,13 @@
 }
 /* The featured card keeps its travelling edge, in the brand orange — white on
    white would draw nothing. */
-.tt-v1 .cmp--light .cmp-card--twin {
+.tt-homepage .cmp--light .cmp-card--twin {
   box-shadow:
     0 4px 10px rgb(30 28 25 / 0.05),
     0 24px 56px rgb(254 89 0 / 0.12),
     0 0 0 1px rgb(254 89 0 / 0.14);
 }
-.tt-v1 .cmp--light .cmp-card--twin::before {
+.tt-homepage .cmp--light .cmp-card--twin::before {
   background: conic-gradient(
     from var(--tt-cmp-shine),
     transparent 0 86%,
@@ -758,10 +584,10 @@
     transparent 100%
   );
 }
-.tt-v1 .cmp--light .cmp-pane--front {
+.tt-homepage .cmp--light .cmp-pane--front {
   box-shadow: 0 6px 18px rgb(30 28 25 / 0.08);
 }
-.tt-v1 .cmp--light .cmp-vid {
+.tt-homepage .cmp--light .cmp-vid {
   background: #1c1b1b;
 }
 
@@ -769,233 +595,78 @@
    Below 1100px the row would get too narrow for the lists, so it goes back to
    full width there. */
 @media (min-width: 1100px) {
-  .tt-v1 .cmp--light .cmp-grid {
+  .tt-homepage .cmp--light .cmp-grid {
     width: 80.5%;
     margin-inline: auto;
   }
 }
 
-/* ------------------------------------------- comparison: static drawings
-
-   The same learner question put to each twin. A flat drawing on a faint dot
-   grid: a question bubble, then the twin — avatar with a still voice trace —
-   and its answer. The left answer is generic and cites nothing; the right one
-   is specific and names the lesson it came from. */
-.tt-v1 .sa {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--tt-space-3);
-  padding: var(--tt-space-4);
-  background-color: var(--tt-surface-sunken);
-  background-image: radial-gradient(#dcdcdc 1px, transparent 1.2px);
-  background-size: 16px 16px;
-}
-.tt-v1 .sa-q {
-  align-self: flex-end;
-  max-width: 78%;
-  margin: 0;
-  padding: 9px 14px;
-  border-radius: 16px 16px 4px 16px;
-  background: #fff;
-  border: var(--tt-border-thin) solid var(--tt-border);
-  box-shadow: 0 6px 16px rgb(30 28 25 / 0.06);
-  color: var(--tt-text-primary);
-  font-size: 13px;
-  line-height: 19px;
-}
-.tt-v1 .sa-a {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--tt-space-3);
-}
-.tt-v1 .sa-avatar {
-  position: relative;
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #fff;
-  border: var(--tt-border-thin) solid var(--tt-border);
-  color: var(--tt-text-tertiary);
-  box-shadow: 0 4px 12px rgb(30 28 25 / 0.08);
-}
-.tt-v1 .sa-avatar > svg {
-  width: 22px;
-  height: 22px;
-}
-.tt-v1 .sa--full .sa-avatar {
-  border-color: var(--tt-primary-border);
-  color: var(--tt-primary);
-}
-.tt-v1 .sa-bubble {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  min-width: 0;
-  padding: 10px 14px;
-  border-radius: 16px 16px 16px 4px;
-  background: #fff;
-  border: var(--tt-border-thin) solid var(--tt-border);
-  box-shadow: 0 6px 16px rgb(30 28 25 / 0.06);
-}
-.tt-v1 .sa--full .sa-bubble {
-  border-color: var(--tt-primary-border);
-}
-.tt-v1 .sa-bubble p {
-  margin: 0;
-  font-size: 13px;
-  line-height: 19px;
-  color: var(--tt-text-primary);
-}
-.tt-v1 .sa--presence .sa-bubble p {
-  color: var(--tt-text-tertiary);
-}
-.tt-v1 .sa-source {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 8px 2px 6px;
-  border-radius: var(--tt-radius-pill);
-  font-size: 11.5px;
-  line-height: 16px;
-  font-weight: var(--tt-weight-label);
-  background: var(--tt-fill-soft);
-  color: var(--tt-text-muted);
-}
-.tt-v1 .sa-source svg {
-  width: 12px;
-  height: 12px;
-}
-.tt-v1 .sa--full .sa-source {
-  background: var(--tt-primary-subtle);
-  color: var(--tt-primary);
-}
-
-/* A shorter drawing, so both cards fit in one screen. */
-.tt-v1 .cmp--light .cmp-art {
-  height: 172px;
-}
-
-/* Ask scene — the interactive twin held in a white box with a light grey
-   border, the same footprint as the Practise card beside it. */
-.tt-v1 .ask-box {
-  width: 100%;
-  max-width: 480px;
-  padding: var(--tt-space-4);
-  border-radius: 20px;
-  background: #fff;
-  border: var(--tt-border-thin) solid var(--tt-border);
-  overflow: hidden;
-}
-.tt-v1 .ask-box .itwin {
-  min-height: 0;
-  padding: 8px 0;
-}
-
-/* Ask scene: the trait pill rides above the portrait, centred on it and
-   aligned to the top of the stack. With the pill out of the first column the
-   grid is two columns — portrait, then the thread. */
-.tt-v1 .ask-box .itwin--above {
-  grid-template-columns: minmax(130px, 0.9fr) minmax(0, 1.25fr);
-  column-gap: 16px;
-  align-items: start;
-}
-.tt-v1 .ask-box .itwin--above .itwin-hero {
-  align-self: center;
-}
-.tt-v1 .ask-box .itwin--above .itwin-pills {
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-/* The rotating trait is plain text over the portrait — no pill around it. */
-.tt-v1 .ask-box .itwin-pills--above li {
-  min-height: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-  font-size: 14px;
-  line-height: 20px;
-}
-.tt-v1 .ask-box .itwin--above .itwin-pills {
-  margin-bottom: 10px;
-}
-
 /* The card's gradient outline (orange at the top corner fading to a dark grey
    at the bottom-left) reads as a stray grey line on the light band. The soft
    shadow already separates the card from the ground, so it goes. */
-.tt-v1 .cmp--light .cmp-card > .card-stroke {
+.tt-homepage .cmp--light .cmp-card > .card-stroke {
   display: none;
 }
 
 /* ------------------------------------------------ how it works: pinned
 
    While the pin is on the section is as tall as the screen plus the rail's
-   travel (`--v1-pin-h`, set by SetupSteps), and its content sticks to the top
+   travel (`--home-pin-h`, set by SetupSteps), and its content sticks to the top
    of the screen for that whole distance. The rail stops being a scroll
    container the reader drives — page scroll sets its position — so snapping
    and the scrollbar go. The first rule of padding is the header's height, so
    the stage centres in the visible part of the screen. */
-.tt-v1 .v1-how.is-pinned {
-  height: var(--v1-pin-h, auto);
+.tt-homepage .home-how.is-pinned {
+  height: var(--home-pin-h, auto);
   padding: 0;
 }
-.tt-v1 .v1-how.is-pinned .v1-pin {
+.tt-homepage .home-how.is-pinned .home-pin {
   position: sticky;
   top: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: var(--v1-vh, 100vh);
+  height: var(--home-vh, 100vh);
   padding-top: 92px;
   box-sizing: border-box;
 }
-.tt-v1 .v1-how.is-pinned .v1-how-head {
+.tt-homepage .home-how.is-pinned .home-how-head {
   margin-bottom: var(--tt-space-8, 32px);
 }
-.tt-v1 .v1-how.is-pinned .v1-rail {
+.tt-homepage .home-how.is-pinned .home-rail {
   overflow-x: hidden;
   scroll-snap-type: none;
 }
-.tt-v1 .v1-how.is-pinned .v1-pin > .wrap {
+.tt-homepage .home-how.is-pinned .home-pin > .wrap {
   width: 100%;
 }
 
 /* The summary sentence sits on the bottom of each card, so the two line up
    across the pair whatever the lists above them run to. */
-.tt-v1 .cmp--light .cmp-card > .flex-1 {
+.tt-homepage .cmp--light .cmp-card > .flex-1 {
   display: flex;
   flex-direction: column;
 }
-.tt-v1 .cmp--light .cmp-foot {
+.tt-homepage .cmp--light .cmp-foot {
   margin-top: auto;
   padding-top: var(--tt-space-5, 20px);
 }
 
 /* What the other twin leaves out reads as disabled: grey label, the red cross
    stays so the gap is still seen. */
-.tt-v1 .cmp--light .can .is-miss {
+.tt-homepage .cmp--light .can .is-miss {
   color: var(--tt-text-muted);
 }
 
 /* Title and tag on one row, the tag pushed to the right edge. The tag is the
    brand orange, on the TrainerTwin card only (the other card has none). */
-.tt-v1 .cmp--light .cmp-card-head {
+.tt-homepage .cmp--light .cmp-card-head {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
-.tt-v1 .cmp--light .cmp-card--twin .cmp-tag {
+.tt-homepage .cmp--light .cmp-card--twin .cmp-tag {
   background: var(--tt-primary);
   border-color: var(--tt-primary);
   color: #fff;
@@ -1003,21 +674,21 @@
 }
 
 /* Row titles at weight 500; the grey note under each stays regular. */
-.tt-v1 .cmp--light .can li {
+.tt-homepage .cmp--light .can li {
   font-weight: 500;
 }
-.tt-v1 .cmp--light .can-note {
+.tt-homepage .cmp--light .can-note {
   font-weight: 400;
 }
 
 /* Notes under the row titles: 12px. */
-.tt-v1 .cmp--light .can-note {
+.tt-homepage .cmp--light .can-note {
   font-size: 12px;
   line-height: 18px;
 }
 
 /* 16px between the rows of each comparison list (it was 8px). */
-.tt-v1 .cmp--light .can {
+.tt-homepage .cmp--light .can {
   row-gap: 16px;
 }
 
@@ -1030,7 +701,7 @@
    the title, the three list rows and the summary. Below 861px the cards stack
    and none of this applies. */
 @media (min-width: 861px) {
-  .tt-v1 .cmp--light .cmp-grid {
+  .tt-homepage .cmp--light .cmp-grid {
     display: grid;
     /* No Vs badge between them now. The TrainerTwin card (on the right) is 30% wider
        and the Most AI twins card 20% narrower than the equal split, hence 0.8 : 1.3; from 1100px
@@ -1042,47 +713,47 @@
     align-items: stretch;
     justify-content: normal;
   }
-  .tt-v1 .cmp--light .cmp-grid > .cmp-card {
+  .tt-homepage .cmp--light .cmp-grid > .cmp-card {
     display: grid;
     grid-template-rows: subgrid;
     grid-row: 1 / span 6;
     width: auto;
   }
-  .tt-v1 .cmp--light .cmp-grid > .cmp-card:first-of-type {
+  .tt-homepage .cmp--light .cmp-grid > .cmp-card:first-of-type {
     grid-column: 1;
   }
-  .tt-v1 .cmp--light .cmp-grid > .cmp-card:last-of-type {
+  .tt-homepage .cmp--light .cmp-grid > .cmp-card:last-of-type {
     grid-column: 2;
   }
-  .tt-v1 .cmp--light .cmp-grid > .cmp-vs {
+  .tt-homepage .cmp--light .cmp-grid > .cmp-vs {
     grid-column: 2;
     grid-row: 1 / -1;
     align-self: center;
     justify-self: center;
   }
   /* the card's art spans row 1, its title row 2, its body the four below */
-  .tt-v1 .cmp--light .cmp-card > .cmp-art {
+  .tt-homepage .cmp--light .cmp-card > .cmp-art {
     grid-row: 1;
   }
-  .tt-v1 .cmp--light .cmp-card > .border-b {
+  .tt-homepage .cmp--light .cmp-card > .border-b {
     grid-row: 2;
   }
-  .tt-v1 .cmp--light .cmp-card > .flex-1 {
+  .tt-homepage .cmp--light .cmp-card > .flex-1 {
     display: grid;
     grid-template-rows: subgrid;
     grid-row: 3 / span 4;
   }
-  .tt-v1 .cmp--light .cmp-card > .flex-1 > .can {
+  .tt-homepage .cmp--light .cmp-card > .flex-1 > .can {
     display: grid;
     grid-template-rows: subgrid;
     grid-row: 1 / span 3;
     margin-top: 0;
     row-gap: 16px;
   }
-  .tt-v1 .cmp--light .cmp-card > .flex-1 > .can > li {
+  .tt-homepage .cmp--light .cmp-card > .flex-1 > .can > li {
     align-self: start;
   }
-  .tt-v1 .cmp--light .cmp-card > .flex-1 > .cmp-foot {
+  .tt-homepage .cmp--light .cmp-card > .flex-1 > .cmp-foot {
     grid-row: 4;
     align-self: end;
     margin-top: 0;
@@ -1090,19 +761,19 @@
 }
 
 /* The summary line: a light grey rule above it and an emoji before it. */
-.tt-v1 .cmp--light .cmp-foot {
+.tt-homepage .cmp--light .cmp-foot {
   display: flex;
   align-items: center;
   gap: var(--tt-space-2);
   border-top: var(--tt-border-thin) solid var(--tt-border);
 }
-.tt-v1 .cmp--light .cmp-foot-icon {
+.tt-homepage .cmp--light .cmp-foot-icon {
   flex: none;
   font-size: 18px;
   line-height: 1;
 }
 
-.tt-home--v3 .v1-domains svg {
+.tt-home--v3 .home-domains svg {
   width: 14px;
   height: 14px;
   flex: none;
@@ -1111,52 +782,26 @@
 /* 16px of air between the last list row and the rule above the summary. A
    margin, since padding would sit inside the rule rather than above it. */
 @media (min-width: 861px) {
-  .tt-v1 .cmp--light .cmp-card > .flex-1 > .cmp-foot {
+  .tt-homepage .cmp--light .cmp-card > .flex-1 > .cmp-foot {
     margin-top: 16px;
   }
 }
 @media (max-width: 860px) {
-  .tt-v1 .cmp--light .cmp-foot {
+  .tt-homepage .cmp--light .cmp-foot {
     margin-top: 16px;
   }
 }
 
 /* The summary glyphs: orange on the TrainerTwin card, grey on the other. */
-.tt-v1 .cmp--light .cmp-foot-icon {
+.tt-homepage .cmp--light .cmp-foot-icon {
   display: flex;
   color: var(--tt-text-muted);
 }
-.tt-v1 .cmp--light .cmp-card--twin .cmp-foot-icon {
+.tt-homepage .cmp--light .cmp-card--twin .cmp-foot-icon {
   color: var(--tt-primary);
 }
 
-/* Practise scene, light. It was the one dark panel on the page; its colours
-   all come from the night tokens, so re-pointing those on its own wrapper
-   turns the whole scene over at once. The box takes the same white, light grey
-   border and flat edge as the Ask box beside it. */
-.tt-v1 .p1 {
-  --tt-night-panel: #ffffff;
-  --tt-on-night: #1c1b1b;
-  --tt-on-night-2: #4a4a4a;
-  --tt-on-night-3: #656565;
-  --tt-line-night: #e3e3e3;
-}
-.tt-v1 .p1-card {
-  background: #fff;
-  border: var(--tt-border-thin) solid var(--tt-border);
-  box-shadow: none;
-  color: var(--tt-text-primary);
-}
-/* Grey for the buyer only. The learner's bubble keeps its orange fill and
-   white text, which this rule had been flattening to grey. */
-.tt-v1 .p1-msg--persona p {
-  background: var(--tt-fill-soft);
-}
-.tt-v1 .p1-debrief {
-  background: var(--tt-surface-sunken);
-}
-
-.tt-v1 .v1-card-title svg {
+.tt-homepage .home-card-title svg {
   width: 16px;
   height: 16px;
   flex: none;
@@ -1164,15 +809,15 @@
 }
 
 /* No grey tile behind the title icons on the comparison cards. */
-.tt-v1 .cmp--light .cmp-card-icon,
-.tt-v1 .cmp--light .cmp-card--twin .cmp-card-icon {
+.tt-homepage .cmp--light .cmp-card-icon,
+.tt-homepage .cmp--light .cmp-card--twin .cmp-card-icon {
   background: none;
 }
 
 /* Every white panel in the How it works cards is the same size: as tall as
    the tallest one's content (the library, 235px) plus a little, with the
    shorter ones' content centred in it. */
-.tt-v1 .v1-panel {
+.tt-homepage .home-panel {
   min-height: 240px;
   justify-content: center;
   box-sizing: border-box;
@@ -1182,7 +827,7 @@
    starting on a hard edge. The section's own ground runs from that same grey
    down to white, and the aurora fades in from nothing at the top (it used to
    start at full strength) so the colour seems to rise out of the grey. */
-.tt-v1 #modes {
+.tt-homepage #modes {
   background: linear-gradient(
     to bottom,
     var(--tt-surface-sunken) 0,
@@ -1190,7 +835,7 @@
   );
 }
 /* Taller (320px -> 480px) and at 80% of the strength it had (0.5 -> 0.4). */
-.tt-v1 #modes .sec-aurora {
+.tt-homepage #modes .sec-aurora {
   height: 480px;
   opacity: 0.4;
   -webkit-mask-image: linear-gradient(
@@ -1213,10 +858,10 @@
    taller (480px), at 0.4, and fades in from nothing at the top, and the hairline
    the section draws across its top edge goes, so the colour rises out of the
    white band above (How it works) instead of starting on a rule. */
-.tt-v1 #founders {
+.tt-homepage #founders {
   border-top: 0;
 }
-.tt-v1 #founders .sec-aurora {
+.tt-homepage #founders .sec-aurora {
   height: 480px;
   opacity: 0.4;
   -webkit-mask-image: linear-gradient(
@@ -1237,14 +882,14 @@
 
 /* The three chips sit 16px lower than the flow puts them. A relative offset,
    so the orb above stays where it is. */
-.tt-v1 .v1-panel--twin .v1-chips {
+.tt-homepage .home-panel--twin .home-chips {
   position: relative;
   top: 16px;
 }
 
 /* Meet people… takes the How it works heading: small label over a large,
    left-aligned title. `.head` centres its block, so the margin is reset. */
-.tt-v1 #founders .head.v1-how-head {
+.tt-homepage #founders .head.home-how-head {
   margin-left: 0;
   margin-right: 0;
 }
@@ -1252,17 +897,17 @@
 /* No drawing across the top of the comparison cards: five grid rows instead of
    six — the title row, the three list rows, the summary. */
 @media (min-width: 861px) {
-  .tt-v1 .cmp--light .cmp-grid.cmp-grid--flat {
+  .tt-homepage .cmp--light .cmp-grid.cmp-grid--flat {
     grid-template-rows: auto auto auto auto auto;
   }
-  .tt-v1 .cmp--light .cmp-grid--flat > .cmp-card {
+  .tt-homepage .cmp--light .cmp-grid--flat > .cmp-card {
     grid-row: 1 / span 5;
   }
-  .tt-v1 .cmp--light .cmp-grid--flat .cmp-card > .border-b {
+  .tt-homepage .cmp--light .cmp-grid--flat .cmp-card > .border-b {
     grid-row: 1;
     padding-top: var(--tt-space-5, 20px);
   }
-  .tt-v1 .cmp--light .cmp-grid--flat .cmp-card > .flex-1 {
+  .tt-homepage .cmp--light .cmp-grid--flat .cmp-card > .flex-1 {
     grid-row: 2 / span 4;
   }
 }
@@ -1270,24 +915,24 @@
 /* Hero headline, first line: the light italic lead-in and the bold changing word
    share a line. The lead takes the same register as the static lines (a rule
    that keys on a line having no .rot-slot, which this line does). */
-.tt-v1 .hero-v3-want .rot-lead {
+.tt-homepage .hero-v3-want .rot-lead {
   font-weight: 300;
   font-style: italic;
   font-size: 54px;
 }
 @media (max-width: 700px) {
-  .tt-v1 .hero-v3-want .rot-lead {
+  .tt-homepage .hero-v3-want .rot-lead {
     font-size: 29px;
   }
 }
 
 /* Ask and Practise: two white cards side by side on a soft shadow, copy only. */
-.tt-home--v3 .v1-modes {
+.tt-home--v3 .home-modes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--tt-space-6);
 }
-.tt-home--v3 .v1-mode {
+.tt-home--v3 .home-mode {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1299,64 +944,64 @@
     0 2px 6px rgb(30 28 25 / 0.04),
     0 16px 40px rgb(30 28 25 / 0.06);
 }
-.tt-home--v3 .v1-mode .kicker {
+.tt-home--v3 .home-mode .kicker {
   color: var(--tt-primary);
 }
-.tt-home--v3 .v1-mode h3 {
+.tt-home--v3 .home-mode h3 {
   margin: 0;
   font-size: 28px;
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
-.tt-home--v3 .v1-mode p {
+.tt-home--v3 .home-mode p {
   margin: 0;
   color: var(--tt-text-secondary);
   font-size: 16px;
   line-height: 26px;
 }
-.tt-home--v3 .v1-mode .can {
+.tt-home--v3 .home-mode .can {
   margin-top: var(--tt-space-1);
 }
-.tt-home--v3 .v1-mode-cta {
+.tt-home--v3 .home-mode-cta {
   margin-top: auto;
   padding-top: var(--tt-space-4);
 }
 @media (max-width: 860px) {
-  .tt-home--v3 .v1-modes {
+  .tt-home--v3 .home-modes {
     grid-template-columns: minmax(0, 1fr);
   }
-  .tt-home--v3 .v1-mode {
+  .tt-home--v3 .home-mode {
     padding: var(--tt-space-6);
   }
 }
 
 /* Inline headline: a slot the width of its longest word, words left-aligned in
    it, so "Turn your" holds still and only the word changes. */
-.tt-v1 .hero-v3-want .rot-slot--fixed {
+.tt-homepage .hero-v3-want .rot-slot--fixed {
   display: inline-grid;
   justify-items: start;
 }
-.tt-v1 .hero-v3-want .rot-slot--fixed > * {
+.tt-homepage .hero-v3-want .rot-slot--fixed > * {
   grid-area: 1 / 1;
 }
-.tt-v1 .hero-v3-want .rot-ghost {
+.tt-homepage .hero-v3-want .rot-ghost {
   visibility: hidden;
   pointer-events: none;
 }
 
 /* The mode's glyph sits straight in front of its label, no tile around it. */
-.tt-home--v3 .v1-mode-kicker {
+.tt-home--v3 .home-mode-kicker {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
-.tt-home--v3 .v1-mode-kicker svg {
+.tt-home--v3 .home-mode-kicker svg {
   flex: none;
 }
 
 /* Meet people… keeps the How it works type (label and 40px title) but sits on
    the page's centre line, like the other section headings. */
-.tt-v1 #founders .head.v1-how-head {
+.tt-homepage #founders .head.home-how-head {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -1366,7 +1011,7 @@
    content, centred), so the two rows share their left and right edges. Same
    breakpoint as that rule; below it both run full width. */
 @media (min-width: 1100px) {
-  .tt-home--v3 .v1-modes {
+  .tt-home--v3 .home-modes {
     width: 80.5%;
     margin-inline: auto;
   }
@@ -1374,7 +1019,7 @@
 
 /* Most AI twins is white and flat — no shadow — so the TrainerTwin card, which
    keeps its lift and orange edge, is the one that stands out. */
-.tt-v1 .cmp--light .cmp-card:not(.cmp-card--twin) {
+.tt-homepage .cmp--light .cmp-card:not(.cmp-card--twin) {
   background-color: #fff;
   box-shadow: none;
 }
@@ -1393,14 +1038,14 @@
 
 /* Both mode titles run to two lines (the break is in the copy), so the
    descriptions under them start on the same line across the two cards. */
-.tt-home--v3 .v1-mode h3 {
+.tt-home--v3 .home-mode h3 {
   white-space: pre-line;
 }
 
 /* The two descriptions reserve three lines, so the tick lists start level even
    when one card's copy runs to two. */
 @media (min-width: 861px) {
-  .tt-home--v3 .v1-mode > p {
+  .tt-home--v3 .home-mode > p {
     min-height: 78px;
   }
 }
@@ -1409,17 +1054,17 @@
    of running off the panel, centred, and drop the 16px nudge that only made
    sense with one row. The orb sits a little higher in the panel to make room. */
 @media (max-width: 640px) {
-  .tt-v1 .v1-panel--twin {
+  .tt-homepage .home-panel--twin {
     padding-inline: var(--tt-space-4);
     gap: var(--tt-space-2);
   }
-  .tt-v1 .v1-panel--twin .v1-chips {
+  .tt-homepage .home-panel--twin .home-chips {
     flex-wrap: wrap;
     justify-content: center;
     top: 0;
     gap: 6px !important;
   }
-  .tt-v1 .v1-twin-orb {
+  .tt-homepage .home-twin-orb {
     margin-top: -12px;
   }
 }

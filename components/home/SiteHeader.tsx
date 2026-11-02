@@ -65,7 +65,7 @@ export function SiteHeader({
   ctaLabel?: string;
   /** Careers keeps the lockup in ink instead of brand orange. */
   logoColor?: string;
-  /** The lockup's size in px. /V1 runs it smaller. */
+  /** The lockup's size in px. The homepage runs it smaller. */
   logoSize?: number;
 } = {}) {
   const [current, setCurrent] = useState<string | null>(null);

@@ -36,7 +36,7 @@ function FoldWord({ text }: { text: string }) {
 }
 
 /**
- * `lead` / `asks` / `tail` default to the home page's sentence; /V1 passes its
+ * `lead` / `asks` / `tail` default to the original v3 sentence; the homepage passes its
  * own. The fold, the timing and the markup are the same either way.
  */
 export function WantToTwin({

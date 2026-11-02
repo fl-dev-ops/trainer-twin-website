@@ -55,12 +55,7 @@ const EARNINGS = [
 /** "Choose up to three" — the cap the counter under the list reports against. */
 const GOAL_MAX = 3;
 
-export function EarlyAccessSteps({
-  submitLabel = "Submit",
-}: {
-  /** The button text. /V1 uses "Submit request". */
-  submitLabel?: string;
-} = {}) {
+export function EarlyAccessSteps() {
   const [roles, setRoles] = useState<string[]>([]);
   const [goals, setGoals] = useState<string[]>([]);
   const [earnings, setEarnings] = useState<string[]>([]);
@@ -241,7 +236,7 @@ export function EarlyAccessSteps({
             disabled={submitting}
             className="ea-go"
           >
-            {submitting ? "Submitting…" : submitLabel}
+            {submitting ? "Submitting…" : "Submit"}
           </Button>
         </div>
       </div>

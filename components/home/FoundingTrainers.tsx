@@ -80,7 +80,7 @@ export function FoundingTrainers({
   eyebrow,
   headClassName,
 }: {
-  /** A small label over the heading. /V1 sets one; the home pages have none. */
+  /** A small label over the heading. The homepage sets one; the older pages have none. */
   eyebrow?: string;
   /** Extra class on the heading block, for a page that restyles it. */
   headClassName?: string;

@@ -50,40 +50,23 @@ const THREAD = [
   },
 ] as const;
 
-export function InteractiveTwinArt({
-  pillsAbove = false,
-}: {
-  /** /V1: the trait pill sits over the portrait instead of beside it. */
-  pillsAbove?: boolean;
-} = {}) {
+export function InteractiveTwinArt() {
   const { ref, inView } = useInView<HTMLDivElement>();
 
   return (
     <div
       ref={ref}
-      className={
-        (inView ? "art-sq itwin is-inview" : "art-sq itwin") +
-        (pillsAbove ? " itwin--above" : "")
-      }
+      className={inView ? "art-sq itwin is-inview" : "art-sq itwin"}
       role="img"
       aria-label="Trainer’s Twin speaking in a 1:1 coaching session. Arjun asks when to use a formula; the twin hints, then confirms that a rate of change means starting from the derivative."
     >
-      {pillsAbove ? null : (
-        <ul className="itwin-pills">
-          <li>
-            <TraitRotator active={inView} />
-          </li>
-        </ul>
-      )}
+      <ul className="itwin-pills">
+        <li>
+          <TraitRotator active={inView} />
+        </li>
+      </ul>
 
       <div className="itwin-hero">
-        {pillsAbove ? (
-          <ul className="itwin-pills itwin-pills--above">
-            <li>
-              <TraitRotator active={inView} />
-            </li>
-          </ul>
-        ) : null}
         <div className="itwin-plate" aria-hidden="true" />
         <div className="itwin-media">
           <TwinFace active={inView} />

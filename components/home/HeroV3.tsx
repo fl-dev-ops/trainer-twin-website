@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { CursorGrid } from "@/components/CursorGrid";
 import { CtaLink } from "./CtaLink";
-import { HeroV3Pills, type HeroPill } from "./HeroV3Pills";
+import { HeroV3Pills } from "./HeroV3Pills";
 import { ShinyText } from "./ShinyText";
 import { WantToTwin } from "./WantToTwin";
 
@@ -12,14 +12,12 @@ export function HeroV3({
   eyebrow = "AI TWIN FOR EVERY EXPERT",
   headline = <WantToTwin />,
   lede = "TrainerTwin turns your knowledge and persona into a version of you that your people can reach whenever they need. It talks like you, teaches like you and thinks like you.",
-  pills,
   centered = false,
 }: {
   eyebrow?: string;
   headline?: ReactNode;
   lede?: ReactNode;
-  pills?: HeroPill[];
-  /** /V1: copy centred on its own, no pills column beside it. */
+  /** Homepage: copy centred on its own, no pills column beside it. */
   centered?: boolean;
 } = {}) {
   return (
@@ -89,7 +87,7 @@ export function HeroV3({
 
         {centered ? null : (
           <div className="hero-v3-col hero-v3-col--pills">
-            <HeroV3Pills pills={pills} />
+            <HeroV3Pills />
           </div>
         )}
       </div>

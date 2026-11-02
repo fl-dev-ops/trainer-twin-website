@@ -78,7 +78,7 @@ export function PageFooter({
   points?: string[];
   pointsNote?: string;
   layout?: "default" | "v3";
-  /** Replaces the link grid wholesale — for a page (/V1) whose sections and
+  /** Replaces the link grid wholesale — for a page (the homepage) whose sections and
       fields differ from the ones the shared columns point at. */
   columns?: FooterColumn[];
   /** Lockup size in px, passed to the footer. */

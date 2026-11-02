@@ -145,7 +145,7 @@ export function ThreeWays({
   );
 }
 
-export function Way({
+function Way({
   id,
   kicker,
   title,

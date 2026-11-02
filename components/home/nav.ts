@@ -38,12 +38,12 @@ export const NAV_V3 = [
 ];
 
 /**
- * The /V1 page's own list — the new "Turn your course into a conversation"
+ * The homepage's own list — the "Turn your course into a conversation"
  * structure. Written out rather than derived, for the same reason NAV_V3 is:
  * its sections share no ids with the other two pages. Header and footer both
  * read it.
  */
-export const NAV_V1 = [
+export const NAV_HOME = [
   { href: "#twin", label: "What’s a twin?" },
   { href: "#modes", label: "Ask & Practise" },
   { href: "#how", label: "How it works" },

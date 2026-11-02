@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { SiriOrb } from "@/components/SiriOrb";
-import { Icon } from "../icons";
+import { Icon } from "./icons";
 
 type Step = {
   title: string;
@@ -60,22 +60,22 @@ const STEPS: Step[] = [
     icon: <Icon name="doc" />,
     copy: "Courses, books, frameworks and a few of your sessions.",
     scene: (
-      <div className="v1-panel v1-panel--files">
-        <span className="v1-panel-label">Your library</span>
+      <div className="home-panel home-panel--files">
+        <span className="home-panel-label">Your library</span>
         <ul>
           {FILES.map((file) => (
             <li key={file.name} className={file.done ? "is-done" : undefined}>
-              <span className="v1-file-icon">
+              <span className="home-file-icon">
                 <Icon name="doc" />
               </span>
-              <span className="v1-file-name">{file.name}</span>
-              <span className="v1-file-meta">{file.meta}</span>
+              <span className="home-file-name">{file.name}</span>
+              <span className="home-file-meta">{file.meta}</span>
               {file.done ? (
-                <span className="v1-file-ok">
+                <span className="home-file-ok">
                   <Icon name="check" />
                 </span>
               ) : (
-                <span className="v1-file-bar">
+                <span className="home-file-bar">
                   <i />
                 </span>
               )}
@@ -90,10 +90,10 @@ const STEPS: Step[] = [
     icon: <Icon name="face" />,
     copy: "Your voice, your avatar, your coaching style.",
     scene: (
-      <div className="v1-panel v1-panel--twin">
+      <div className="home-panel home-panel--twin">
         {/* The twin as a glowing orb, in the brand's oranges, rather than a
             person glyph. The glow is the wrapper's: the orb clips itself. */}
-        <span className="v1-twin-orb">
+        <span className="home-twin-orb">
           <SiriOrb
             size="84px"
             animationDuration={10}
@@ -105,7 +105,7 @@ const STEPS: Step[] = [
             }}
           />
         </span>
-        <ul className="v1-chips">
+        <ul className="home-chips">
           <li>
             <Icon name="mic" />
             Your voice
@@ -127,9 +127,9 @@ const STEPS: Step[] = [
     icon: <SlidersIcon />,
     copy: "Check the guardrails, and make sure it looks, sounds and thinks like you.",
     scene: (
-      <div className="v1-panel v1-panel--calibrate">
-        <span className="v1-panel-label">Guardrails</span>
-        <ul className="v1-checks">
+      <div className="home-panel home-panel--calibrate">
+        <span className="home-panel-label">Guardrails</span>
+        <ul className="home-checks">
           <li>
             <Icon name="check" />
             Answers only from your material
@@ -143,7 +143,7 @@ const STEPS: Step[] = [
             Thinks and coaches like you
           </li>
         </ul>
-        <p className="v1-bubble">Try asking your twin a question.</p>
+        <p className="home-bubble">Try asking your twin a question.</p>
       </div>
     ),
   },
@@ -152,9 +152,9 @@ const STEPS: Step[] = [
     icon: <ShareIcon />,
     copy: "At the end of a module, a course or a book.",
     scene: (
-      <div className="v1-panel v1-panel--share">
-        <span className="v1-panel-label">Share your twin</span>
-        <ul className="v1-checks">
+      <div className="home-panel home-panel--share">
+        <span className="home-panel-label">Share your twin</span>
+        <ul className="home-checks">
           <li>
             <Icon name="check" />
             End of a module
@@ -168,8 +168,8 @@ const STEPS: Step[] = [
             End of a book
           </li>
         </ul>
-        <span className="v1-link-box">
-          <span className="v1-link-url">trainertwin.ai/s/your-twin</span>
+        <span className="home-link-box">
+          <span className="home-link-url">trainertwin.ai/s/your-twin</span>
           <svg
             aria-hidden="true"
             viewBox="0 0 16 16"
@@ -192,16 +192,16 @@ const STEPS: Step[] = [
     icon: <Icon name="chat" />,
     copy: "End-to-end support, so your time goes into growing your practice.",
     scene: (
-      <div className="v1-panel v1-panel--team">
-        <span className="v1-panel-label">Dedicated platform admin</span>
-        <div className="v1-ticket">
-          <span className="v1-ticket-top">
-            <span className="v1-ticket-dot" />
+      <div className="home-panel home-panel--team">
+        <span className="home-panel-label">Dedicated platform admin</span>
+        <div className="home-ticket">
+          <span className="home-ticket-top">
+            <span className="home-ticket-dot" />
             Learner reported an issue
           </span>
-          <span className="v1-ticket-body">We’re on it.</span>
+          <span className="home-ticket-body">We’re on it.</span>
         </div>
-        <span className="v1-ticket-done">
+        <span className="home-ticket-done">
           <Icon name="check" />
           Resolved by the TrainerTwin team
         </span>
@@ -220,14 +220,14 @@ const PIN_QUERY =
   "(min-width: 900px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)";
 
 /**
- * /V1's "Set up once. Share it anywhere." — large cards on a horizontal rail,
+ * The homepage's "Set up once. Share it anywhere." — large cards on a horizontal rail,
  * a caption under each, previous/next buttons below.
  *
  * On a large screen the section pins to the viewport and the page's own
  * vertical scroll is spent moving the rail sideways, one pixel of scroll for
  * one pixel of travel, until the fifth card is in view; then it lets go and
  * the page carries on down. The section is made exactly that much taller than
- * the screen (`--v1-pin-h`) so the scroll distance is the travel and nothing
+ * the screen (`--home-pin-h`) so the scroll distance is the travel and nothing
  * more. Elsewhere it is a plain scroll-snap rail, and the buttons step it.
  */
 export function SetupSteps() {
@@ -273,8 +273,8 @@ export function SetupSteps() {
     const sec = section.current;
     const el = rail.current;
     if (!pinned || !sec || !el) {
-      sec?.style.removeProperty("--v1-pin-h");
-      sec?.style.removeProperty("--v1-vh");
+      sec?.style.removeProperty("--home-pin-h");
+      sec?.style.removeProperty("--home-vh");
       return;
     }
 
@@ -290,8 +290,8 @@ export function SetupSteps() {
       const z = zoom();
       travel.current = Math.max(0, el.scrollWidth - el.clientWidth);
       const screenH = window.innerHeight / z;
-      sec.style.setProperty("--v1-vh", `${screenH}px`);
-      sec.style.setProperty("--v1-pin-h", `${screenH + travel.current}px`);
+      sec.style.setProperty("--home-vh", `${screenH}px`);
+      sec.style.setProperty("--home-pin-h", `${screenH + travel.current}px`);
     };
 
     const place = () => {
@@ -325,8 +325,8 @@ export function SetupSteps() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       if (frame) cancelAnimationFrame(frame);
-      sec.style.removeProperty("--v1-pin-h");
-      sec.style.removeProperty("--v1-vh");
+      sec.style.removeProperty("--home-pin-h");
+      sec.style.removeProperty("--home-vh");
     };
   }, [pinned]);
 
@@ -355,12 +355,12 @@ export function SetupSteps() {
     <section
       ref={section}
       id="how"
-      className={pinned ? "sec v1-how is-pinned" : "sec v1-how"}
+      className={pinned ? "sec home-how is-pinned" : "sec home-how"}
       aria-labelledby="how-h"
     >
-      <div className="v1-pin">
+      <div className="home-pin">
         <div className="wrap">
-          <div className="v1-how-head" data-reveal>
+          <div className="home-how-head" data-reveal>
             <span className="eyebrow">How it works</span>
             <h2 id="how-h">Set up once. Share it anywhere.</h2>
           </div>
@@ -368,32 +368,32 @@ export function SetupSteps() {
 
         <div
           ref={rail}
-          className="v1-rail"
+          className="home-rail"
           tabIndex={0}
           role="region"
           aria-label="Setup steps, scrolls sideways"
         >
-          <ol className="v1-rail-track">
+          <ol className="home-rail-track">
             {STEPS.map((item) => (
               <li key={item.title}>
-                <div className="v1-card">
-                  <span className="v1-card-title">
+                <div className="home-card">
+                  <span className="home-card-title">
                     {item.icon}
                     {item.title.replace(/\.$/, "")}
                   </span>
                   {/* The drawing is decorative; the title above and the line
                       below are what a screen reader gets. */}
-                  <div className="v1-card-scene" aria-hidden="true">
+                  <div className="home-card-scene" aria-hidden="true">
                     {item.scene}
                   </div>
-                  <p className="v1-caption">{item.copy}</p>
+                  <p className="home-caption">{item.copy}</p>
                 </div>
               </li>
             ))}
           </ol>
         </div>
 
-        <div className="v1-rail-nav">
+        <div className="home-rail-nav">
           <button
             type="button"
             aria-label="Previous step"

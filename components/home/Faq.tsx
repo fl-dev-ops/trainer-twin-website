@@ -18,25 +18,25 @@ const FAQS = [
 ];
 
 /**
- * /V1's FAQ. Native <details>, grouped by `name` so opening one closes the
+ * The homepage FAQ. Native <details>, grouped by `name` so opening one closes the
  * others — no state, and the browser owns the keyboard and screen-reader
  * behaviour.
  */
-export function FaqV1() {
+export function Faq() {
   return (
-    <section id="faq" className="sec sec--line v1-faq" aria-labelledby="faq-h">
+    <section id="faq" className="sec sec--line home-faq" aria-labelledby="faq-h">
       <div className="wrap">
         <div className="head" data-reveal>
           <span className="eyebrow">FAQ</span>
           <h2 id="faq-h">Questions, answered.</h2>
         </div>
 
-        <div className="v1-faq-list" data-reveal data-reveal-delay="100">
+        <div className="home-faq-list" data-reveal data-reveal-delay="100">
           {FAQS.map((item, i) => (
             <details key={item.q} name="faq" open={i === 0}>
               <summary>
                 <span>{item.q}</span>
-                <span className="v1-faq-mark" aria-hidden="true" />
+                <span className="home-faq-mark" aria-hidden="true" />
               </summary>
               <p>{item.a}</p>
             </details>
