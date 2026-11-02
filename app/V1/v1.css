@@ -1188,3 +1188,9 @@
   flex: none;
   color: var(--tt-primary);
 }
+
+/* No grey tile behind the title icons on the comparison cards. */
+.tt-v1 .cmp--light .cmp-card-icon,
+.tt-v1 .cmp--light .cmp-card--twin .cmp-card-icon {
+  background: none;
+}
