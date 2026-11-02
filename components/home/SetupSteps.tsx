@@ -1,0 +1,417 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { SiriOrb } from "@/components/SiriOrb";
+import { Icon } from "./icons";
+
+type Step = {
+  title: string;
+  copy: string;
+  /** Glyph before the title in the card header. */
+  icon: ReactNode;
+  scene: ReactNode;
+};
+
+/** Two header glyphs the shared icon set does not have, on the same 16 grid
+    and stroke as it. */
+const stroke = {
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+} as const;
+
+/* The shared set's person is a filled silhouette; the chips want a line one to
+   sit with the microphone and chat bubble beside it. */
+const UserLineIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+    <circle cx="8" cy="5.2" r="2.7" {...stroke} />
+    <path d="M2.8 14c.4-2.6 2.5-4.2 5.2-4.2s4.8 1.6 5.2 4.2" {...stroke} />
+  </svg>
+);
+
+const SlidersIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+    <path d="M2 5h6M12.5 5H14M2 11h1.5M8 11h6" {...stroke} />
+    <circle cx="10.2" cy="5" r="1.7" {...stroke} />
+    <circle cx="5.7" cy="11" r="1.7" {...stroke} />
+  </svg>
+);
+
+const ShareIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+    <path d="M8 10V2.5M5.2 5.2 8 2.5l2.8 2.7M3 8.5v4a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-4" {...stroke} />
+  </svg>
+);
+
+/* Names that fit any trainer — sales, communication, leadership, technical —
+   rather than one field's material. */
+const FILES = [
+  { name: "Course modules", meta: "Course", done: true },
+  { name: "Book manuscript.pdf", meta: "Book", done: true },
+  { name: "Workshop recording.mp4", meta: "Session", done: true },
+  { name: "Signature framework", meta: "Framework", done: false },
+];
+
+const STEPS: Step[] = [
+  {
+    title: "Add your material.",
+    icon: <Icon name="doc" />,
+    copy: "Courses, books, frameworks and a few of your sessions.",
+    scene: (
+      <div className="home-panel home-panel--files">
+        <span className="home-panel-label">Your library</span>
+        <ul>
+          {FILES.map((file) => (
+            <li key={file.name} className={file.done ? "is-done" : undefined}>
+              <span className="home-file-icon">
+                <Icon name="doc" />
+              </span>
+              <span className="home-file-name">{file.name}</span>
+              <span className="home-file-meta">{file.meta}</span>
+              {file.done ? (
+                <span className="home-file-ok">
+                  <Icon name="check" />
+                </span>
+              ) : (
+                <span className="home-file-bar">
+                  <i />
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ),
+  },
+  {
+    title: "Meet your twin.",
+    icon: <Icon name="face" />,
+    copy: "Your voice, your avatar, your coaching style.",
+    scene: (
+      <div className="home-panel home-panel--twin">
+        {/* The twin as a glowing orb, in the brand's oranges, rather than a
+            person glyph. The glow is the wrapper's: the orb clips itself. */}
+        <span className="home-twin-orb">
+          <SiriOrb
+            size="84px"
+            animationDuration={10}
+            colors={{
+              bg: "transparent",
+              c1: "oklch(76% 0.17 50)",
+              c2: "oklch(84% 0.11 75)",
+              c3: "oklch(68% 0.2 35)",
+            }}
+          />
+        </span>
+        <ul className="home-chips">
+          <li>
+            <Icon name="mic" />
+            Your voice
+          </li>
+          <li>
+            <UserLineIcon />
+            Your avatar
+          </li>
+          <li>
+            <Icon name="chat" />
+            Your coaching style
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    title: "Calibrate it.",
+    icon: <SlidersIcon />,
+    copy: "Check the guardrails, and make sure it looks, sounds and thinks like you.",
+    scene: (
+      <div className="home-panel home-panel--calibrate">
+        <span className="home-panel-label">Guardrails</span>
+        <ul className="home-checks">
+          <li>
+            <Icon name="check" />
+            Answers only from your material
+          </li>
+          <li>
+            <Icon name="check" />
+            Looks and sounds like you
+          </li>
+          <li>
+            <Icon name="check" />
+            Thinks and coaches like you
+          </li>
+        </ul>
+        <p className="home-bubble">Try asking your twin a question.</p>
+      </div>
+    ),
+  },
+  {
+    title: "Share with your learners.",
+    icon: <ShareIcon />,
+    copy: "At the end of a module, a course or a book.",
+    scene: (
+      <div className="home-panel home-panel--share">
+        <span className="home-panel-label">Share your twin</span>
+        <ul className="home-checks">
+          <li>
+            <Icon name="check" />
+            End of a module
+          </li>
+          <li>
+            <Icon name="check" />
+            End of a course
+          </li>
+          <li>
+            <Icon name="check" />
+            End of a book
+          </li>
+        </ul>
+        <span className="home-link-box">
+          <span className="home-link-url">trainertwin.ai/s/your-twin</span>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          >
+            <rect x="5.5" y="5.5" width="8" height="8" rx="1.5" />
+            <path d="M10.5 5.5v-2A1.5 1.5 0 0 0 9 2H4A1.5 1.5 0 0 0 2.5 3.5v5A1.5 1.5 0 0 0 4 10h1.5" />
+          </svg>
+        </span>
+      </div>
+    ),
+  },
+  {
+    title: "Lean on our team.",
+    icon: <Icon name="chat" />,
+    copy: "End-to-end support, so your time goes into growing your practice.",
+    scene: (
+      <div className="home-panel home-panel--team">
+        <span className="home-panel-label">Dedicated platform admin</span>
+        <div className="home-ticket">
+          <span className="home-ticket-top">
+            <span className="home-ticket-dot" />
+            Learner reported an issue
+          </span>
+          <span className="home-ticket-body">We’re on it.</span>
+        </div>
+        <span className="home-ticket-done">
+          <Icon name="check" />
+          Resolved by the TrainerTwin team
+        </span>
+      </div>
+    ),
+  },
+];
+
+/**
+ * Where the page scroll stops driving the rail and starts being a plain
+ * scroll again: a pointer wide and tall enough to hold the pinned stage, and
+ * no request for reduced motion. Anywhere else the rail is an ordinary
+ * horizontal scroller, as it was before the pin.
+ */
+const PIN_QUERY =
+  "(min-width: 900px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)";
+
+/**
+ * The homepage's "Set up once. Share it anywhere." — large cards on a horizontal rail,
+ * a caption under each, previous/next buttons below.
+ *
+ * On a large screen the section pins to the viewport and the page's own
+ * vertical scroll is spent moving the rail sideways, one pixel of scroll for
+ * one pixel of travel, until the fifth card is in view; then it lets go and
+ * the page carries on down. The section is made exactly that much taller than
+ * the screen (`--home-pin-h`) so the scroll distance is the travel and nothing
+ * more. Elsewhere it is a plain scroll-snap rail, and the buttons step it.
+ */
+export function SetupSteps() {
+  const section = useRef<HTMLElement>(null);
+  const rail = useRef<HTMLDivElement>(null);
+  const travel = useRef(0);
+  const [pinned, setPinned] = useState(false);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  const read = useCallback(() => {
+    const el = rail.current;
+    if (!el) return;
+    setAtStart(el.scrollLeft <= 4);
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
+  }, []);
+
+  /* Is the pin on? Follows the media query as the window changes. */
+  useEffect(() => {
+    const mq = window.matchMedia(PIN_QUERY);
+    const sync = () => setPinned(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  /* Plain rail: keep the end-stops in step with its own scrolling. */
+  useEffect(() => {
+    const el = rail.current;
+    if (!el) return;
+    read();
+    el.addEventListener("scroll", read, { passive: true });
+    window.addEventListener("resize", read);
+    return () => {
+      el.removeEventListener("scroll", read);
+      window.removeEventListener("resize", read);
+    };
+  }, [read]);
+
+  /* Pinned: size the section to the travel, then turn page scroll into rail
+     position. */
+  useEffect(() => {
+    const sec = section.current;
+    const el = rail.current;
+    if (!pinned || !sec || !el) {
+      sec?.style.removeProperty("--home-pin-h");
+      sec?.style.removeProperty("--home-vh");
+      return;
+    }
+
+    let frame = 0;
+
+    /* The site sets `zoom` on <body>. Layout sizes (`scrollWidth`, a height in
+       CSS) are in the zoomed element's own pixels, while scroll positions and
+       `getBoundingClientRect` are in screen pixels, so one pixel of travel
+       costs `zoom` pixels of scroll. Everything below converts through it. */
+    const zoom = () => parseFloat(getComputedStyle(document.body).zoom) || 1;
+
+    const measure = () => {
+      const z = zoom();
+      travel.current = Math.max(0, el.scrollWidth - el.clientWidth);
+      const screenH = window.innerHeight / z;
+      sec.style.setProperty("--home-vh", `${screenH}px`);
+      sec.style.setProperty("--home-pin-h", `${screenH + travel.current}px`);
+    };
+
+    const place = () => {
+      frame = 0;
+      const top = sec.getBoundingClientRect().top / zoom();
+      const progress = travel.current ? Math.min(Math.max(-top / travel.current, 0), 1) : 0;
+      el.scrollLeft = progress * travel.current;
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(place);
+    };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    measure();
+    place();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    /* The travel is only right once the cards have their final size, which
+       can be after this first read (fonts, images, the scrollbar appearing),
+       so it is read again whenever the rail or its track changes size. */
+    const observer = new ResizeObserver(onResize);
+    observer.observe(el);
+    if (el.firstElementChild) observer.observe(el.firstElementChild);
+    void document.fonts?.ready.then(onResize);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      if (frame) cancelAnimationFrame(frame);
+      sec.style.removeProperty("--home-pin-h");
+      sec.style.removeProperty("--home-vh");
+    };
+  }, [pinned]);
+
+  const step = (dir: 1 | -1) => {
+    const el = rail.current;
+    const card = el?.querySelector<HTMLElement>("li");
+    if (!el || !card) return;
+    const gap = parseFloat(getComputedStyle(el.firstElementChild!).columnGap) || 0;
+    const by = dir * (card.offsetWidth + gap);
+    /* Pinned, the page scroll IS the rail position, so the buttons move the
+       page by the same distance; the scroll listener does the rest. */
+    if (pinned) {
+      const z = parseFloat(getComputedStyle(document.body).zoom) || 1;
+      window.scrollBy({ top: by * z, behavior: "smooth" });
+    } else {
+      el.scrollBy({
+        left: by,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+    }
+  };
+
+  return (
+    <section
+      ref={section}
+      id="how"
+      className={pinned ? "sec home-how is-pinned" : "sec home-how"}
+      aria-labelledby="how-h"
+    >
+      <div className="home-pin">
+        <div className="wrap">
+          <div className="home-how-head" data-reveal>
+            <span className="eyebrow">How it works</span>
+            <h2 id="how-h">Set up once. Share it anywhere.</h2>
+          </div>
+        </div>
+
+        <div
+          ref={rail}
+          className="home-rail"
+          tabIndex={0}
+          role="region"
+          aria-label="Setup steps, scrolls sideways"
+        >
+          <ol className="home-rail-track">
+            {STEPS.map((item) => (
+              <li key={item.title}>
+                <div className="home-card">
+                  <span className="home-card-title">
+                    {item.icon}
+                    {item.title.replace(/\.$/, "")}
+                  </span>
+                  {/* The drawing is decorative; the title above and the line
+                      below are what a screen reader gets. */}
+                  <div className="home-card-scene" aria-hidden="true">
+                    {item.scene}
+                  </div>
+                  <p className="home-caption">{item.copy}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="home-rail-nav">
+          <button
+            type="button"
+            aria-label="Previous step"
+            disabled={atStart}
+            onClick={() => step(-1)}
+          >
+            <Icon name="arrow" />
+          </button>
+          <button
+            type="button"
+            aria-label="Next step"
+            disabled={atEnd}
+            onClick={() => step(1)}
+          >
+            <Icon name="arrow" />
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}

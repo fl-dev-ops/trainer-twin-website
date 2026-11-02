@@ -90,6 +90,7 @@ export function SiteFooter({
   points,
   pointsNote,
   layout = "default",
+  logoSize,
 }: {
   columns?: FooterColumn[];
   /**
@@ -117,6 +118,8 @@ export function SiteFooter({
    * Home / v1 keep `default`.
    */
   layout?: "default" | "v3";
+  /** Overrides the lockup size in px (default 22 on v3, 28 otherwise). */
+  logoSize?: number;
 } = {}) {
   const copy = (
     <div
@@ -224,7 +227,7 @@ export function SiteFooter({
                 — the other two pages' headers draw their own bespoke lockup,
                 so 28 stays their footer's own size rather than a mismatch. */}
             <Logo
-              size={layout === "v3" ? 22 : 28}
+              size={logoSize ?? (layout === "v3" ? 22 : 28)}
               className={
                 layout === "v3"
                   ? "l-footer-logo"

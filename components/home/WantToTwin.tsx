@@ -35,35 +35,70 @@ function FoldWord({ text }: { text: string }) {
   );
 }
 
-export function WantToTwin() {
+/**
+ * `lead` / `asks` / `tail` default to the original v3 sentence; the homepage passes its
+ * own. The fold, the timing and the markup are the same either way.
+ */
+export function WantToTwin({
+  lead = "Want to",
+  asks = ASKS,
+  tail = "Your AI Twin can do it",
+  inline = false,
+}: {
+  lead?: string;
+  asks?: readonly string[];
+  tail?: string;
+  /** The lead-in and the changing word share one line, the tail below:
+      "Turn your [course]" / "into a two-way conversation." */
+  inline?: boolean;
+} = {}) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = window.setInterval(
-      () => setIndex((current) => (current + 1) % ASKS.length),
+      () => setIndex((current) => (current + 1) % asks.length),
       HOLD_MS,
     );
 
     return () => window.clearInterval(id);
-  }, []);
+  }, [asks.length]);
 
-  const ask = ASKS[index];
+  const ask = asks[index];
 
   return (
     <p className="hero-v3-want">
       <span className="sr-only">
-        Want to {ask} Your AI Twin can do it
+        {lead} {ask} {tail}
       </span>
       <span aria-hidden="true">
-        <span className="rot-line">Want to</span>
-        <span className="rot-line">
-          <span className="rot-slot">
-            <FoldWord key={ask} text={ask} />
+        {inline ? (
+          <span className="rot-line">
+            <span className="rot-lead">{lead}</span>{" "}
+            {/* The slot is as wide as the widest word, so the lead-in stays
+                where it is while the word changes; the others are laid under
+                the live one, invisible, only to give it that width. */}
+            <span className="rot-slot rot-slot--fixed">
+              {asks.map((word) => (
+                <span key={word} className="rot-ghost" aria-hidden="true">
+                  {word}
+                </span>
+              ))}
+              <FoldWord key={ask} text={ask} />
+            </span>
           </span>
-        </span>
-        <span className="rot-line">Your AI Twin can do it</span>
+        ) : (
+          <>
+            <span className="rot-line">{lead}</span>
+            <span className="rot-line">
+              <span className="rot-slot">
+                <FoldWord key={ask} text={ask} />
+              </span>
+            </span>
+          </>
+        )}
+        <span className="rot-line">{tail}</span>
       </span>
     </p>
   );
