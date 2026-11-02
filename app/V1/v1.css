@@ -1176,3 +1176,12 @@
 .tt-v1 .cmp--light .cmp-card--twin .cmp-card-icon {
   background: none;
 }
+
+/* Every white panel in the How it works cards is the same size: as tall as
+   the tallest one's content (the library, 235px) plus a little, with the
+   shorter ones' content centred in it. */
+.tt-v1 .v1-panel {
+  min-height: 240px;
+  justify-content: center;
+  box-sizing: border-box;
+}
