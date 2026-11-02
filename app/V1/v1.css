@@ -1079,3 +1079,8 @@
   font-size: 12px;
   line-height: 18px;
 }
+
+/* 12px between the rows of each comparison list (it was 8px). */
+.tt-v1 .cmp--light .can {
+  row-gap: 12px;
+}
