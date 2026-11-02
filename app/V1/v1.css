@@ -46,8 +46,7 @@
 }
 .tt-home--v3 .cmp-foot {
   margin: var(--tt-space-5, 20px) 0 0;
-  padding-top: var(--tt-space-4);
-  border-top: var(--tt-border-thin) solid var(--tt-line-night);
+  padding-top: 0;
   font-size: 15px;
   line-height: 22px;
   font-weight: var(--tt-weight-label);
