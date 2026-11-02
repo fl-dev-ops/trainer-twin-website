@@ -722,3 +722,23 @@
 .tt-v1 .hero--centered .hero-v3-lede {
   max-width: 600px;
 }
+
+/* "Meet your twin": the three chips sit on one line. The icons go and the
+   chips tighten so all three fit the narrow card without wrapping. */
+.tt-v1 .v1-panel--twin {
+  padding-inline: var(--tt-space-2, 8px);
+}
+.tt-v1 .v1-panel--twin .v1-chips {
+  flex-wrap: nowrap;
+  gap: 4px !important;
+}
+.tt-v1 .v1-panel--twin .v1-chips li {
+  flex: none;
+  padding: 5px 9px;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.tt-v1 .v1-panel--twin .v1-chips svg {
+  display: none;
+}
