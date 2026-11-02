@@ -334,7 +334,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 380px;
+  /* Tallest panel (235px) plus ~40px above and below — about half the air
+     the card had at 380. */
+  height: 316px;
   padding: var(--tt-space-4);
   border-radius: 24px;
   background: var(--tt-surface-sunken);
@@ -615,7 +617,7 @@
 }
 @media (max-width: 640px) {
   .tt-v1 .v1-card {
-    height: 360px;
+    height: 316px;
   }
   .tt-v1 .v1-how-head h2 {
     font-size: 30px;
