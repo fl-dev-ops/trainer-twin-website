@@ -1343,3 +1343,25 @@
   visibility: hidden;
   pointer-events: none;
 }
+
+/* A soft orange tile with the mode's glyph, over its label. */
+.tt-home--v3 .v1-mode-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--tt-space-1);
+  border-radius: 12px;
+  background: var(--tt-primary-subtle);
+  border: var(--tt-border-thin) solid var(--tt-primary-border);
+  color: var(--tt-primary);
+}
+
+/* Meet people… keeps the How it works type (label and 40px title) but sits on
+   the page's centre line, like the other section headings. */
+.tt-v1 #founders .head.v1-how-head {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}

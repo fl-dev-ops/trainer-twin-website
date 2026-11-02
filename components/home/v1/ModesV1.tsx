@@ -32,9 +32,27 @@ const DOMAINS: Array<{ label: string; icon: React.ReactNode }> = [
   },
 ];
 
+/** Larger glyphs for the two mode cards, on a 24 grid (the small set is 16). */
+const glyph = { ...stroke, viewBox: "0 0 24 24", width: 22, height: 22 };
+
+const AskIcon = () => (
+  <svg aria-hidden="true" {...glyph}>
+    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5Z" />
+    <path d="M10 8.6a2 2 0 1 1 3 1.7c-.7.4-1 .8-1 1.5M12 13.7v.01" />
+  </svg>
+);
+
+const PractiseIcon = () => (
+  <svg aria-hidden="true" {...glyph}>
+    <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H13a2.5 2.5 0 0 1 2.5 2.5v3A2.5 2.5 0 0 1 13 12H9l-3 2.5V12A2.5 2.5 0 0 1 4 9.5Z" />
+    <path d="M18 9.5A2.5 2.5 0 0 1 20.5 12v3a2.5 2.5 0 0 1-2.5 2.5v2.5L15 17.5h-3.5a2.5 2.5 0 0 1-2-1" />
+  </svg>
+);
+
 const MODES = [
   {
     id: "ask",
+    icon: <AskIcon />,
     kicker: "Ask",
     title: "Your twin answers as you.",
     body: "Learners ask about your topics, books and courses. Your twin answers, explains and coaches the way you would.",
@@ -42,6 +60,7 @@ const MODES = [
   },
   {
     id: "practise",
+    icon: <PractiseIcon />,
     kicker: "Practise",
     title: "Personas play the other side. Your twin debriefs.",
     body: "AI personas play the part of a tough buyer, a hesitant client or a difficult team member. Use pre-built scenarios or create your own.",
@@ -90,6 +109,7 @@ export function ModesV1() {
         <div className="v1-modes" data-reveal data-reveal-delay="100">
           {MODES.map((mode) => (
             <article key={mode.id} id={mode.id} className="v1-mode">
+              <span className="v1-mode-icon">{mode.icon}</span>
               <span className="kicker">{mode.kicker}</span>
               <h3>{mode.title}</h3>
               <p>{mode.body}</p>
