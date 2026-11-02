@@ -91,7 +91,12 @@ const FOOTER_COLUMNS: FooterColumn[] = [
 export default function V1() {
   return (
     <>
-      <SiteHeader nav={NAV_V1} mobileMenu ctaLabel="Request a demo" />
+      <SiteHeader
+        nav={NAV_V1}
+        mobileMenu
+        ctaLabel="Request a demo"
+        logoSize={16.5}
+      />
       <main id="top">
         <HeroV3
           eyebrow="AN AI TWIN FOR COACHES AND TRAINERS"
