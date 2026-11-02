@@ -1,9 +1,38 @@
 import { Aurora } from "@/components/Aurora";
+import { Icon } from "../icons";
 import { InteractiveTwinArt } from "../InteractiveTwinArt";
 import { Way } from "../ThreeWays";
 import { PractiseArt } from "./PractiseArt";
 
-const DOMAINS = ["Sales", "Communication", "Leadership"];
+/** Drawn on the same 16 grid and stroke as the shared glyph set. Communication
+    borrows that set's chat bubble; the other two are not in it. */
+const stroke = {
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+} as const;
+
+const DOMAINS: Array<{ label: string; icon: React.ReactNode }> = [
+  {
+    label: "Sales",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+        <path d="M2 11.5 6 7.5l2.5 2.5L14 4.5M10.5 4.5H14V8" {...stroke} />
+      </svg>
+    ),
+  },
+  { label: "Communication", icon: <Icon name="chat" /> },
+  {
+    label: "Leadership",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+        <path d="M4 14V2.5M4 3h8l-1.8 3L12 9H4" {...stroke} />
+      </svg>
+    ),
+  },
+];
 
 /**
  * /V1's "One twin. Two modes. Three domains." — the two modes laid out the way
@@ -31,7 +60,10 @@ export function ModesV1() {
           </h2>
           <ul className="v1-domains" aria-label="Domains">
             {DOMAINS.map((domain) => (
-              <li key={domain}>{domain}</li>
+              <li key={domain.label}>
+                {domain.icon}
+                {domain.label}
+              </li>
             ))}
           </ul>
           <p>For coaches, trainers and influencers who teach these skills.</p>

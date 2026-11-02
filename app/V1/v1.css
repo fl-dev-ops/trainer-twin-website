@@ -65,6 +65,9 @@
   list-style: none;
 }
 .tt-home--v3 .v1-domains li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: var(--tt-pad-pill-md, 4px 12px);
   border-radius: var(--tt-radius-pill);
   border: var(--tt-border-thin) solid var(--tt-primary-border);
@@ -1143,4 +1146,10 @@
   flex: none;
   font-size: 18px;
   line-height: 1;
+}
+
+.tt-home--v3 .v1-domains svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
 }
