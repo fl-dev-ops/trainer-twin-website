@@ -1371,3 +1371,11 @@
     margin-inline: auto;
   }
 }
+
+/* Most AI twins recedes: a light grey card, flat, so the white TrainerTwin card
+   beside it is the one that stands out. Grey is one step darker than the band
+   (#F0F0F0 on #F7F7F7). */
+.tt-v1 .cmp--light .cmp-card:not(.cmp-card--twin) {
+  background-color: var(--tt-fill-soft);
+  box-shadow: none;
+}
