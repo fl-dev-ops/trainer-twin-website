@@ -1329,3 +1329,17 @@
     padding: var(--tt-space-6);
   }
 }
+
+/* Inline headline: a slot the width of its longest word, words left-aligned in
+   it, so "Turn your" holds still and only the word changes. */
+.tt-v1 .hero-v3-want .rot-slot--fixed {
+  display: inline-grid;
+  justify-items: start;
+}
+.tt-v1 .hero-v3-want .rot-slot--fixed > * {
+  grid-area: 1 / 1;
+}
+.tt-v1 .hero-v3-want .rot-ghost {
+  visibility: hidden;
+  pointer-events: none;
+}

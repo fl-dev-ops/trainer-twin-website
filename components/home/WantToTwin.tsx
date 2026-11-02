@@ -76,7 +76,15 @@ export function WantToTwin({
         {inline ? (
           <span className="rot-line">
             <span className="rot-lead">{lead}</span>{" "}
-            <span className="rot-slot">
+            {/* The slot is as wide as the widest word, so the lead-in stays
+                where it is while the word changes; the others are laid under
+                the live one, invisible, only to give it that width. */}
+            <span className="rot-slot rot-slot--fixed">
+              {asks.map((word) => (
+                <span key={word} className="rot-ghost" aria-hidden="true">
+                  {word}
+                </span>
+              ))}
               <FoldWord key={ask} text={ask} />
             </span>
           </span>
