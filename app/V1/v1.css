@@ -1084,3 +1084,68 @@
 .tt-v1 .cmp--light .can {
   row-gap: 16px;
 }
+
+/* ------------------------------------------- comparison: shared row lines
+
+   The two cards are laid out on one grid and each hands its rows down to its
+   children as a subgrid (card -> body -> list), so "Your presence",
+   "Your intelligence" and "Your training DNA" sit on the same line in both
+   cards however many lines each note runs to. Six rows in all: the drawing,
+   the title, the three list rows and the summary. Below 861px the cards stack
+   and none of this applies. */
+@media (min-width: 861px) {
+  .tt-v1 .cmp--light .cmp-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto auto auto;
+    column-gap: var(--tt-space-6);
+    row-gap: 0;
+    align-items: stretch;
+    justify-content: normal;
+  }
+  .tt-v1 .cmp--light .cmp-grid > .cmp-card {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span 6;
+    width: auto;
+  }
+  .tt-v1 .cmp--light .cmp-grid > .cmp-card:first-of-type {
+    grid-column: 1;
+  }
+  .tt-v1 .cmp--light .cmp-grid > .cmp-card:last-of-type {
+    grid-column: 3;
+  }
+  .tt-v1 .cmp--light .cmp-grid > .cmp-vs {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    justify-self: center;
+  }
+  /* the card's art spans row 1, its title row 2, its body the four below */
+  .tt-v1 .cmp--light .cmp-card > .cmp-art {
+    grid-row: 1;
+  }
+  .tt-v1 .cmp--light .cmp-card > .border-b {
+    grid-row: 2;
+  }
+  .tt-v1 .cmp--light .cmp-card > .flex-1 {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 3 / span 4;
+  }
+  .tt-v1 .cmp--light .cmp-card > .flex-1 > .can {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span 3;
+    margin-top: 0;
+    row-gap: 16px;
+  }
+  .tt-v1 .cmp--light .cmp-card > .flex-1 > .can > li {
+    align-self: start;
+  }
+  .tt-v1 .cmp--light .cmp-card > .flex-1 > .cmp-foot {
+    grid-row: 4;
+    align-self: end;
+    margin-top: 0;
+  }
+}
