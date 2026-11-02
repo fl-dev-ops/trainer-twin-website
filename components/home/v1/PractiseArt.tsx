@@ -45,7 +45,7 @@ export function PractiseArt() {
 
         <div className="p1-thread">
           <div className="p1-msg p1-msg--persona p1-beat" style={{ ["--i" as string]: 0 }}>
-            <span className="p1-who">Persona · Tough buyer</span>
+            <span className="p1-who">Tough buyer</span>
             <p>Honestly, you are twice what we budgeted.</p>
           </div>
           <div className="p1-msg p1-msg--learner p1-beat" style={{ ["--i" as string]: 1 }}>
