@@ -457,10 +457,6 @@
   justify-content: center;
   gap: 8px !important;
 }
-.tt-v1 .v1-chips--stack {
-  flex-direction: column !important;
-  align-items: stretch;
-}
 .tt-v1 .v1-chips li {
   display: inline-flex;
   align-items: center;

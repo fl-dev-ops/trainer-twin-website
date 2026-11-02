@@ -145,13 +145,19 @@ const STEPS: Step[] = [
     scene: (
       <div className="v1-panel v1-panel--share">
         <span className="v1-panel-label">Share your twin</span>
-        <ul className="v1-chips v1-chips--stack">
-          <li className="is-on">
+        <ul className="v1-checks">
+          <li>
             <Icon name="check" />
             End of a module
           </li>
-          <li>End of a course</li>
-          <li>End of a book</li>
+          <li>
+            <Icon name="check" />
+            End of a course
+          </li>
+          <li>
+            <Icon name="check" />
+            End of a book
+          </li>
         </ul>
         <span className="v1-link-box">
           <span className="v1-link-url">trainertwin.ai/s/your-twin</span>
