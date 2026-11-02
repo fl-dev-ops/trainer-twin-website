@@ -332,12 +332,12 @@
 .tt-v1 .v1-card {
   position: relative;
   display: flex;
+  align-items: center;
   justify-content: center;
-  /* Panels hang from a fixed top offset (clear of the step number) and the
-     card ends ~22px under the tallest one (235px), half the 43px it had. */
-  align-items: flex-start;
-  height: 300px;
-  padding: 43px var(--tt-space-4) var(--tt-space-4);
+  /* Panel centred in the card. 308px leaves ~37px above and below the tallest
+     one (235px) — enough to clear the step number at the top. */
+  height: 308px;
+  padding: var(--tt-space-4);
   border-radius: 24px;
   background: var(--tt-surface-sunken);
   overflow: hidden;
@@ -617,7 +617,7 @@
 }
 @media (max-width: 640px) {
   .tt-v1 .v1-card {
-    height: 300px;
+    height: 308px;
   }
   .tt-v1 .v1-how-head h2 {
     font-size: 30px;
