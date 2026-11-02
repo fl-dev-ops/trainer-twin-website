@@ -1176,3 +1176,27 @@
 .tt-v1 .cmp--light .cmp-card--twin .cmp-foot-icon {
   color: var(--tt-primary);
 }
+
+/* Practise scene, light. It was the one dark panel on the page; its colours
+   all come from the night tokens, so re-pointing those on its own wrapper
+   turns the whole scene over at once. The box takes the same white, light grey
+   border and flat edge as the Ask box beside it. */
+.tt-v1 .p1 {
+  --tt-night-panel: #ffffff;
+  --tt-on-night: #1c1b1b;
+  --tt-on-night-2: #4a4a4a;
+  --tt-on-night-3: #656565;
+  --tt-line-night: #e3e3e3;
+}
+.tt-v1 .p1-card {
+  background: #fff;
+  border: var(--tt-border-thin) solid var(--tt-border);
+  box-shadow: none;
+  color: var(--tt-text-primary);
+}
+.tt-v1 .p1-msg p {
+  background: var(--tt-fill-soft);
+}
+.tt-v1 .p1-debrief {
+  background: var(--tt-surface-sunken);
+}
