@@ -329,6 +329,9 @@
   overflow: hidden;
 }
 .tt-v1 .v1-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   position: absolute;
   top: 14px;
   left: var(--tt-space-5, 20px);
@@ -1184,4 +1187,11 @@
 }
 .tt-v1 .p1-debrief {
   background: var(--tt-surface-sunken);
+}
+
+.tt-v1 .v1-card-title svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--tt-primary);
 }

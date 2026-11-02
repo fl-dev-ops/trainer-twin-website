@@ -6,8 +6,34 @@ import { Icon } from "../icons";
 type Step = {
   title: string;
   copy: string;
+  /** Glyph before the title in the card header. */
+  icon: ReactNode;
   scene: ReactNode;
 };
+
+/** Two header glyphs the shared icon set does not have, on the same 16 grid
+    and stroke as it. */
+const stroke = {
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+} as const;
+
+const SlidersIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+    <path d="M2 5h6M12.5 5H14M2 11h1.5M8 11h6" {...stroke} />
+    <circle cx="10.2" cy="5" r="1.7" {...stroke} />
+    <circle cx="5.7" cy="11" r="1.7" {...stroke} />
+  </svg>
+);
+
+const ShareIcon = () => (
+  <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16">
+    <path d="M8 10V2.5M5.2 5.2 8 2.5l2.8 2.7M3 8.5v4a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-4" {...stroke} />
+  </svg>
+);
 
 const FILES = [
   { name: "System design course", meta: "Course", done: true },
@@ -19,6 +45,7 @@ const FILES = [
 const STEPS: Step[] = [
   {
     title: "Add your material.",
+    icon: <Icon name="doc" />,
     copy: "Courses, books, frameworks and a few of your sessions.",
     scene: (
       <div className="v1-panel v1-panel--files">
@@ -48,6 +75,7 @@ const STEPS: Step[] = [
   },
   {
     title: "Meet your twin.",
+    icon: <Icon name="face" />,
     copy: "Your voice, your avatar, your coaching style.",
     scene: (
       <div className="v1-panel v1-panel--twin">
@@ -78,6 +106,7 @@ const STEPS: Step[] = [
   },
   {
     title: "Calibrate it.",
+    icon: <SlidersIcon />,
     copy: "Check the guardrails, and make sure it looks, sounds and thinks like you.",
     scene: (
       <div className="v1-panel v1-panel--calibrate">
@@ -102,6 +131,7 @@ const STEPS: Step[] = [
   },
   {
     title: "Share with your learners.",
+    icon: <ShareIcon />,
     copy: "At the end of a module, a course or a book.",
     scene: (
       <div className="v1-panel v1-panel--share">
@@ -135,6 +165,7 @@ const STEPS: Step[] = [
   },
   {
     title: "Lean on our team.",
+    icon: <Icon name="chat" />,
     copy: "End-to-end support, so your time goes into growing your practice.",
     scene: (
       <div className="v1-panel v1-panel--team">
@@ -323,6 +354,7 @@ export function SetupSteps() {
               <li key={item.title}>
                 <div className="v1-card" aria-hidden="true">
                   <span className="v1-card-title">
+                    {item.icon}
                     {item.title.replace(/\.$/, "")}
                   </span>
                   {item.scene}
