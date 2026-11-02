@@ -470,11 +470,11 @@
 .tt-v1 .v1-twin-wave {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   height: 28px;
 }
 .tt-v1 .v1-twin-wave i {
-  width: 4px;
+  width: 1.5px;
   height: 100%;
   border-radius: 99px;
   background: var(--tt-primary);
