@@ -326,7 +326,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--tt-space-5, 20px);
-  width: min(720px, 82vw);
+  width: min(360px, 82vw);
   scroll-snap-align: start;
 }
 .tt-v1 .v1-card {
@@ -334,16 +334,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 440px;
-  padding: var(--tt-space-8, 32px);
-  border-radius: 28px;
+  height: 380px;
+  padding: var(--tt-space-4);
+  border-radius: 24px;
   background: var(--tt-surface-sunken);
   overflow: hidden;
 }
 .tt-v1 .v1-card-num {
   position: absolute;
-  top: var(--tt-space-6);
-  left: var(--tt-space-6);
+  top: var(--tt-space-4);
+  left: var(--tt-space-5, 20px);
   font-size: 13px;
   line-height: 18px;
   font-weight: var(--tt-weight-label);
@@ -354,8 +354,8 @@
   margin: 0;
   max-width: 520px;
   padding-inline: var(--tt-space-2);
-  font-size: 17px;
-  line-height: 26px;
+  font-size: 15px;
+  line-height: 23px;
   color: var(--tt-text-tertiary);
 }
 .tt-v1 .v1-caption b {
@@ -367,17 +367,17 @@
 .tt-v1 .v1-panel {
   display: flex;
   flex-direction: column;
-  gap: var(--tt-space-4);
-  width: min(100%, 440px);
-  padding: var(--tt-space-5, 20px);
-  border-radius: 20px;
+  gap: var(--tt-space-3);
+  width: 100%;
+  padding: var(--tt-space-4);
+  border-radius: 18px;
   background: #fff;
   box-shadow:
     0 2px 6px rgb(30 28 25 / 0.04),
     0 18px 44px rgb(30 28 25 / 0.07);
   color: var(--tt-text-primary);
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 20px;
 }
 .tt-v1 .v1-panel ul {
   display: flex;
@@ -403,8 +403,8 @@
 .tt-v1 .v1-panel--files li {
   display: flex;
   align-items: center;
-  gap: var(--tt-space-3);
-  padding: 10px 12px;
+  gap: var(--tt-space-2);
+  padding: 8px 10px;
   border-radius: var(--tt-radius-md);
   background: var(--tt-fill-soft);
 }
@@ -421,7 +421,7 @@
   font-weight: var(--tt-weight-label);
 }
 .tt-v1 .v1-file-meta {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--tt-text-muted);
 }
 .tt-v1 .v1-file-ok {
@@ -429,7 +429,7 @@
   color: var(--tt-success);
 }
 .tt-v1 .v1-file-bar {
-  width: 44px;
+  width: 32px;
   height: 5px;
   border-radius: 99px;
   background: var(--tt-border);
@@ -451,21 +451,21 @@
 .tt-v1 .v1-panel--twin {
   align-items: center;
   gap: var(--tt-space-5, 20px);
-  padding: var(--tt-space-8, 32px) var(--tt-space-5, 20px);
+  padding: var(--tt-space-6) var(--tt-space-4);
 }
 .tt-v1 .v1-twin-face {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 84px;
-  height: 84px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   background: var(--tt-primary-subtle);
   color: var(--tt-primary);
 }
 .tt-v1 .v1-twin-face svg {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
 }
 .tt-v1 .v1-twin-wave {
   display: flex;
@@ -501,11 +501,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 14px;
+  padding: 6px 12px;
   border-radius: var(--tt-radius-pill);
   border: var(--tt-border-thin) solid var(--tt-border);
   background: var(--tt-fill-soft);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 20px;
   color: var(--tt-text-secondary);
 }
@@ -615,8 +615,7 @@
 }
 @media (max-width: 640px) {
   .tt-v1 .v1-card {
-    height: 380px;
-    padding: var(--tt-space-5, 20px);
+    height: 360px;
   }
   .tt-v1 .v1-how-head h2 {
     font-size: 30px;
