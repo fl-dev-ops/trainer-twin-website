@@ -1280,3 +1280,52 @@
     font-size: 29px;
   }
 }
+
+/* Ask and Practise: two white cards side by side on a soft shadow, copy only. */
+.tt-home--v3 .v1-modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tt-space-6);
+}
+.tt-home--v3 .v1-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--tt-space-4);
+  padding: var(--tt-space-10, 40px);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow:
+    0 2px 6px rgb(30 28 25 / 0.04),
+    0 16px 40px rgb(30 28 25 / 0.06);
+}
+.tt-home--v3 .v1-mode .kicker {
+  color: var(--tt-primary);
+}
+.tt-home--v3 .v1-mode h3 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.tt-home--v3 .v1-mode p {
+  margin: 0;
+  color: var(--tt-text-secondary);
+  font-size: 16px;
+  line-height: 26px;
+}
+.tt-home--v3 .v1-mode .can {
+  margin-top: var(--tt-space-1);
+}
+.tt-home--v3 .v1-mode-cta {
+  margin-top: auto;
+  padding-top: var(--tt-space-4);
+}
+@media (max-width: 860px) {
+  .tt-home--v3 .v1-modes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tt-home--v3 .v1-mode {
+    padding: var(--tt-space-6);
+  }
+}

@@ -1,8 +1,6 @@
 import { Aurora } from "@/components/Aurora";
 import { Icon } from "../icons";
-import { InteractiveTwinArt } from "../InteractiveTwinArt";
-import { Way } from "../ThreeWays";
-import { PractiseArt } from "./PractiseArt";
+import { CtaLink } from "../CtaLink";
 
 /** Drawn on the same 16 grid and stroke as the shared glyph set. Communication
     borrows that set's chat bubble; the other two are not in it. */
@@ -34,10 +32,30 @@ const DOMAINS: Array<{ label: string; icon: React.ReactNode }> = [
   },
 ];
 
+const MODES = [
+  {
+    id: "ask",
+    kicker: "Ask",
+    title: "Your twin answers as you.",
+    body: "Learners ask about your topics, books and courses. Your twin answers, explains and coaches the way you would.",
+    points: ["Topic Q&A", "Book Q&A", "Course Q&A"],
+  },
+  {
+    id: "practise",
+    kicker: "Practise",
+    title: "Personas play the other side. Your twin debriefs.",
+    body: "AI personas play the part of a tough buyer, a hesitant client or a difficult team member. Use pre-built scenarios or create your own.",
+    points: [
+      "Persona plays the other side",
+      "Learner practises",
+      "Your twin debriefs and scores",
+    ],
+  },
+];
+
 /**
- * /V1's "One twin. Two modes. Three domains." — the two modes laid out the way
- * ThreeWays lays out its two ways (same `Way` rows, same section ground), under
- * a heading that names the three domains they run in.
+ * /V1's "One twin. Two modes. Three domains." — the two modes as two white
+ * cards side by side, under a heading that names the three domains they run in.
  */
 export function ModesV1() {
   return (
@@ -69,36 +87,27 @@ export function ModesV1() {
           <p>For coaches, trainers and influencers who teach these skills.</p>
         </div>
 
-        <div className="ways">
-          <Way
-            id="ask"
-            tone="orchid"
-            v3
-            kicker="Ask"
-            title="Your twin answers as you."
-            body="Learners ask about your topics, books and courses. Your twin answers, explains and coaches the way you would."
-            points={["Topic Q&A", "Book Q&A", "Course Q&A"]}
-            art={
-              <div className="ask-box">
-                <InteractiveTwinArt pillsAbove />
+        <div className="v1-modes" data-reveal data-reveal-delay="100">
+          {MODES.map((mode) => (
+            <article key={mode.id} id={mode.id} className="v1-mode">
+              <span className="kicker">{mode.kicker}</span>
+              <h3>{mode.title}</h3>
+              <p>{mode.body}</p>
+              <ul className="can">
+                {mode.points.map((point) => (
+                  <li key={point}>
+                    <Icon name="check" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              <div className="v1-mode-cta">
+                <CtaLink size="md" href="#early-access" className="hdr-cta">
+                  Request a demo
+                </CtaLink>
               </div>
-            }
-          />
-          <Way
-            id="practise"
-            reversed
-            tone="orchid"
-            v3
-            kicker="Practise"
-            title="Personas play the other side. Your twin debriefs."
-            body="AI personas play the part of a tough buyer, a hesitant client or a difficult team member. Use pre-built scenarios or create your own."
-            points={[
-              "Persona plays the other side",
-              "Learner practises",
-              "Your twin debriefs and scores",
-            ]}
-            art={<PractiseArt />}
-          />
+            </article>
+          ))}
         </div>
       </div>
     </section>
