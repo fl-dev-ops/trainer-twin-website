@@ -107,23 +107,7 @@ export default function V1() {
             />
           }
           lede="Your twin brings the one-way parts of your course to life. Learners ask questions and practise real conversations, coached in your voice, with your frameworks."
-          pills={[
-            {
-              title: "Your presence",
-              body: "Your face and your voice, with your pace, tone and pauses.",
-              art: "presence",
-            },
-            {
-              title: "Your intelligence",
-              body: "Your courses, books, notes and sessions, so it answers from what you actually teach.",
-              art: "intelligence",
-            },
-            {
-              title: "Your training DNA",
-              body: "How you explain, question, coach and debrief.",
-              art: "dna",
-            },
-          ]}
+          centered
         />
         <CompareTwin
           id="twin"

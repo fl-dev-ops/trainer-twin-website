@@ -13,14 +13,17 @@ export function HeroV3({
   headline = <WantToTwin />,
   lede = "TrainerTwin turns your knowledge and persona into a version of you that your people can reach whenever they need. It talks like you, teaches like you and thinks like you.",
   pills,
+  centered = false,
 }: {
   eyebrow?: string;
   headline?: ReactNode;
   lede?: ReactNode;
   pills?: HeroPill[];
+  /** /V1: copy centred on its own, no pills column beside it. */
+  centered?: boolean;
 } = {}) {
   return (
-    <section className="hero hero--v3">
+    <section className={centered ? "hero hero--v3 hero--centered" : "hero hero--v3"}>
       <div className="hero-v3-wash" aria-hidden="true" />
       <div className="hero-v3-corners" aria-hidden="true" />
       <div className="hero-v3-cursor" aria-hidden="true">
@@ -84,9 +87,11 @@ export function HeroV3({
           </div>
         </div>
 
-        <div className="hero-v3-col hero-v3-col--pills">
-          <HeroV3Pills pills={pills} />
-        </div>
+        {centered ? null : (
+          <div className="hero-v3-col hero-v3-col--pills">
+            <HeroV3Pills pills={pills} />
+          </div>
+        )}
       </div>
     </section>
   );

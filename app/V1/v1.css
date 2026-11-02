@@ -696,3 +696,29 @@
     transition: none;
   }
 }
+
+/* ------------------------------------------------- centred hero (no pills)
+
+   The shared hero is a two-column grid with the copy left-aligned. Here the
+   pills column is not rendered at all, so the grid collapses to one column and
+   every left-alignment the copy carries is turned round to the middle. */
+.tt-v1 .hero--centered .hero-v3-inner {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}
+.tt-v1 .hero--centered .hero-v3-col--copy,
+.tt-v1 .hero--centered .hero-v3-copy,
+.tt-v1 .hero--centered .hero-v3-titleblock,
+.tt-v1 .hero--centered .hero-v3-trust,
+.tt-v1 .hero--centered .hero-v3-backers {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.tt-v1 .hero--centered .hero-v3-want,
+.tt-v1 .hero--centered .hero-v3-trust > p {
+  text-align: center;
+}
+.tt-v1 .hero--centered .hero-v3-lede {
+  max-width: 600px;
+}
