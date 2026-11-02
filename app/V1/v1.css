@@ -1031,3 +1031,14 @@
 .tt-v1 .v1-how.is-pinned .v1-pin > .wrap {
   width: 100%;
 }
+
+/* The summary sentence sits on the bottom of each card, so the two line up
+   across the pair whatever the lists above them run to. */
+.tt-v1 .cmp--light .cmp-card > .flex-1 {
+  display: flex;
+  flex-direction: column;
+}
+.tt-v1 .cmp--light .cmp-foot {
+  margin-top: auto;
+  padding-top: var(--tt-space-5, 20px);
+}
