@@ -48,7 +48,7 @@ export function ModesV1() {
             points={["Topic Q&A", "Book Q&A", "Course Q&A"]}
             art={
               <div className="ask-box">
-                <InteractiveTwinArt />
+                <InteractiveTwinArt pillsAbove />
               </div>
             }
           />

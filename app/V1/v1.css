@@ -952,3 +952,19 @@
   min-height: 0;
   padding: 8px 0;
 }
+
+/* Ask scene: the trait pill rides above the portrait, centred on it and
+   aligned to the top of the stack. With the pill out of the first column the
+   grid is two columns — portrait, then the thread. */
+.tt-v1 .ask-box .itwin--above {
+  grid-template-columns: minmax(130px, 0.9fr) minmax(0, 1.25fr);
+  column-gap: 16px;
+  align-items: start;
+}
+.tt-v1 .ask-box .itwin--above .itwin-hero {
+  align-self: center;
+}
+.tt-v1 .ask-box .itwin--above .itwin-pills {
+  align-items: center;
+  margin-bottom: 12px;
+}
