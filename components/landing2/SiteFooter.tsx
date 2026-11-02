@@ -359,10 +359,14 @@ export function SiteFooter({
         {ctaRow ? (
           <section
             id="build"
-            className="l-footer-v3-cta relative overflow-clip"
+            className="l-footer-v3-cta relative"
           >
-            <div className="pointer-events-none absolute -top-[280px] -left-[280px] h-[700px] w-[700px] rounded-full bg-[radial-gradient(circle,rgba(255,102,0,0.22)_0%,rgba(255,150,80,0.08)_35%,rgba(255,197,178,0)_70%)] blur-[120px]" />
-            <div className="pointer-events-none absolute -right-[280px] -bottom-[200px] h-[700px] w-[700px] rounded-full bg-[radial-gradient(circle,rgba(255,102,0,0.22)_0%,rgba(255,150,80,0.08)_35%,rgba(255,197,178,0)_70%)] blur-[120px]" />
+            {/* Only the glows are clipped, not the band: the form's open
+                dropdowns have to be able to hang past its bottom edge. */}
+            <div className="pointer-events-none absolute inset-0 overflow-clip" aria-hidden="true">
+              <div className="absolute -top-[280px] -left-[280px] h-[700px] w-[700px] rounded-full bg-[radial-gradient(circle,rgba(255,102,0,0.22)_0%,rgba(255,150,80,0.08)_35%,rgba(255,197,178,0)_70%)] blur-[120px]" />
+              <div className="absolute -right-[280px] -bottom-[200px] h-[700px] w-[700px] rounded-full bg-[radial-gradient(circle,rgba(255,102,0,0.22)_0%,rgba(255,150,80,0.08)_35%,rgba(255,197,178,0)_70%)] blur-[120px]" />
+            </div>
             <div className="relative mx-auto w-full max-w-[1280px] px-6">
               {ctaRow}
             </div>

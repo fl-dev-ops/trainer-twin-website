@@ -21,6 +21,9 @@
 }
 .l-footer-v3-cta {
   position: relative;
+  /* Above the dark chrome that follows, whose content also sits at z-index 1:
+     the form's open dropdowns hang past this band's bottom edge. */
+  z-index: 2;
   display: flex;
   align-items: center;
   min-height: 100vh;
