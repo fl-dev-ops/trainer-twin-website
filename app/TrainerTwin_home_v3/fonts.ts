@@ -1,4 +1,4 @@
-import { IBM_Plex_Sans, Hanken_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 
 /**
  * The two marketing-only faces (§3), scoped to this route.
@@ -15,17 +15,20 @@ import { IBM_Plex_Sans, Hanken_Grotesk } from "next/font/google";
  * next/font at build time, not by it.
  */
 
-export const fontWordmark = IBM_Plex_Sans({
+export const fontWordmark = localFont({
   variable: "--h-font-wordmark",
-  subsets: ["latin"],
-  weight: ["600"],
+  src: "../fonts/ibm-plex-sans-600-latin.woff2",
+  weight: "600",
   display: "swap",
 });
 
-export const fontFooter = Hanken_Grotesk({
+export const fontFooter = localFont({
   variable: "--h-font-footer",
-  subsets: ["latin"],
-  weight: ["400", "600"],
+  // One variable file declared at the two weights the Google config used.
+  src: [
+    { path: "../fonts/hanken-grotesk-latin.woff2", weight: "400" },
+    { path: "../fonts/hanken-grotesk-latin.woff2", weight: "600" },
+  ],
   display: "swap",
 });
 

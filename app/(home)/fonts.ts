@@ -1,4 +1,4 @@
-import { Figtree } from "next/font/google";
+import localFont from "next/font/local";
 
 /**
  * The homepage is set in Figtree alone. The shared stylesheets reach for Noto Serif
@@ -8,9 +8,11 @@ import { Figtree } from "next/font/google";
  * Loaded with its italic too: the hero's lead-in lines are italic, and without
  * the file the browser would slant the upright letters instead of drawing them.
  */
-export const fontHome = Figtree({
+export const fontHome = localFont({
   variable: "--home-font",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
+  src: [
+    { path: "../fonts/figtree-latin.woff2", weight: "300 900", style: "normal" },
+    { path: "../fonts/figtree-italic-latin.woff2", weight: "300 900", style: "italic" },
+  ],
   display: "swap",
 });

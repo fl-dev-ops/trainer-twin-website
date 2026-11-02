@@ -1,40 +1,58 @@
 import type { Metadata } from "next";
-import { Figtree, Noto_Serif, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { Suspense } from "react";
 import Analytics from "./components/analytics";
 import PostHogPageView from "./components/posthog-pageview";
 import "./globals.css";
 
-const figtree = Figtree({
+// Fonts are self-hosted (app/fonts, latin subset from Google Fonts): next/font/google
+// breaks the build whenever Google serves extensionless /l/font?kit= URLs
+// (vercel/next.js#99114).
+const figtree = localFont({
   variable: "--font-figtree",
-  subsets: ["latin"],
+  src: "./fonts/figtree-latin.woff2",
+  weight: "300 900",
 });
 
-const notoSerif = Noto_Serif({
+const notoSerif = localFont({
   variable: "--font-noto-serif",
-  subsets: ["latin"],
-  weight: ["300", "400", "600"],
+  // One variable file declared at the three weights the Google config used, so
+  // heavier weights still cap at 600 as before.
+  src: [
+    { path: "./fonts/noto-serif-latin.woff2", weight: "300" },
+    { path: "./fonts/noto-serif-latin.woff2", weight: "400" },
+    { path: "./fonts/noto-serif-latin.woff2", weight: "600" },
+  ],
+  adjustFontFallback: "Times New Roman",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = localFont({
   variable: "--tt-font-mono",
-  subsets: ["latin"],
+  src: "./fonts/jetbrains-mono-latin.woff2",
+  weight: "100 800",
   display: "swap",
 });
 
 // Also expose Figtree and Noto Serif under the tt-* token names
 // so the new design-system components resolve their font variables
-const figtreeForTokens = Figtree({
+const figtreeForTokens = localFont({
   variable: "--tt-font-ui",
-  subsets: ["latin"],
+  src: "./fonts/figtree-latin.woff2",
+  weight: "300 900",
   display: "swap",
 });
 
-const notoSerifForTokens = Noto_Serif({
+const notoSerifForTokens = localFont({
   variable: "--tt-font-display",
-  subsets: ["latin"],
-  weight: ["300", "400", "600"],
+  // One variable file declared at the three weights the Google config used, so
+  // heavier weights still cap at 600 as before.
+  src: [
+    { path: "./fonts/noto-serif-latin.woff2", weight: "300" },
+    { path: "./fonts/noto-serif-latin.woff2", weight: "400" },
+    { path: "./fonts/noto-serif-latin.woff2", weight: "600" },
+  ],
+  adjustFontFallback: "Times New Roman",
   display: "swap",
 });
 
