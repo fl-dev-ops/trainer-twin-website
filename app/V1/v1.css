@@ -1216,3 +1216,29 @@
     transparent 100%
   );
 }
+
+/* Meet people… gets the same treatment as Ask & Practise: the aurora is
+   taller (480px), at 0.4, and fades in from nothing at the top, and the hairline
+   the section draws across its top edge goes, so the colour rises out of the
+   white band above (How it works) instead of starting on a rule. */
+.tt-v1 #founders {
+  border-top: 0;
+}
+.tt-v1 #founders .sec-aurora {
+  height: 480px;
+  opacity: 0.4;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 30%,
+    rgba(0, 0, 0, 0.5) 66%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 30%,
+    rgba(0, 0, 0, 0.5) 66%,
+    transparent 100%
+  );
+}
