@@ -36,11 +36,13 @@ const ShareIcon = () => (
   </svg>
 );
 
+/* Names that fit any trainer — sales, communication, leadership, technical —
+   rather than one field's material. */
 const FILES = [
-  { name: "System design course", meta: "Course", done: true },
-  { name: "Sales playbook.epub", meta: "Book", done: true },
-  { name: "lesson-06.mp4", meta: "Session", done: true },
-  { name: "Objection framework", meta: "Framework", done: false },
+  { name: "Course modules", meta: "Course", done: true },
+  { name: "Book manuscript.pdf", meta: "Book", done: true },
+  { name: "Workshop recording.mp4", meta: "Session", done: true },
+  { name: "Signature framework", meta: "Framework", done: false },
 ];
 
 const STEPS: Step[] = [
