@@ -876,27 +876,6 @@
   border-color: var(--tt-primary-border);
   color: var(--tt-primary);
 }
-/* A still voice trace tucked under the avatar — it says "this one speaks". */
-.tt-v1 .sa-voice {
-  position: absolute;
-  left: 50%;
-  bottom: -9px;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  height: 12px;
-  padding: 0 5px;
-  border-radius: 99px;
-  background: #fff;
-  border: var(--tt-border-thin) solid var(--tt-border);
-  transform: translateX(-50%);
-}
-.tt-v1 .sa-voice i {
-  display: block;
-  width: 1.5px;
-  border-radius: 1px;
-  background: currentColor;
-}
 .tt-v1 .sa-bubble {
   display: flex;
   flex-direction: column;

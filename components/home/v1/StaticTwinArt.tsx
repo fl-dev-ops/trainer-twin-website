@@ -27,11 +27,6 @@ export function StaticTwinArt({ variant }: { variant: "presence" | "full" }) {
       <div className="sa-a">
         <span className="sa-avatar">
           <Icon name="face" />
-          <span className="sa-voice" aria-hidden="true">
-            {[0.4, 0.8, 0.55, 1, 0.5, 0.75, 0.35].map((h, i) => (
-              <i key={i} style={{ height: `${h * 100}%` }} />
-            ))}
-          </span>
         </span>
 
         <div className="sa-bubble">
