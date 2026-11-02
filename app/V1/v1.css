@@ -113,23 +113,6 @@
   width: 14px;
   height: 14px;
 }
-.tt-home--v3 .p1-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--tt-font-mono), ui-monospace, monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--tt-on-night-3);
-}
-.tt-home--v3 .p1-live::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--tt-success);
-}
 .tt-home--v3 .p1-scenarios {
   display: flex;
   flex-wrap: wrap;

@@ -32,7 +32,6 @@ export function PractiseArt() {
             <Icon name="phone" />
             Role-play
           </span>
-          <span className="p1-live">Live</span>
         </div>
 
         <ul className="p1-scenarios">
