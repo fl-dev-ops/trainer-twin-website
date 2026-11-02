@@ -33,7 +33,7 @@ const DOMAINS: Array<{ label: string; icon: React.ReactNode }> = [
 ];
 
 /** Larger glyphs for the two mode cards, on a 24 grid (the small set is 16). */
-const glyph = { ...stroke, viewBox: "0 0 24 24", width: 22, height: 22 };
+const glyph = { ...stroke, viewBox: "0 0 24 24", width: 18, height: 18 };
 
 const AskIcon = () => (
   <svg aria-hidden="true" {...glyph}>
@@ -109,8 +109,10 @@ export function ModesV1() {
         <div className="v1-modes" data-reveal data-reveal-delay="100">
           {MODES.map((mode) => (
             <article key={mode.id} id={mode.id} className="v1-mode">
-              <span className="v1-mode-icon">{mode.icon}</span>
-              <span className="kicker">{mode.kicker}</span>
+              <span className="kicker v1-mode-kicker">
+                {mode.icon}
+                {mode.kicker}
+              </span>
               <h3>{mode.title}</h3>
               <p>{mode.body}</p>
               <ul className="can">
