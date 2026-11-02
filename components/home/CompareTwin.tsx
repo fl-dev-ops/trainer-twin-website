@@ -4,6 +4,7 @@ import { LogoSymbol } from "@/components/Logo";
 import { MutedClip } from "@/components/landing2/MutedClip";
 import { CardStroke } from "./CardStroke";
 import { TwinArt } from "./CompareTwinArt";
+import { StaticTwinArt } from "./v1/StaticTwinArt";
 import { Icon, type IconName } from "./icons";
 
 const TWIN_VIDEO_SRC = "/home-v3/interactive-twin/3d_video.mp4";
@@ -66,7 +67,7 @@ const COLUMNS = [
     and `foot` are /V1's: a row can carry a second line, and a card can close
     on one summing sentence. */
 export type CompareColumn = {
-  key: "chatbot" | "avatar" | "twin";
+  key: "chatbot" | "avatar" | "twin" | "presence" | "full";
   title: string;
   tag: string;
   icon: IconName;
@@ -147,7 +148,7 @@ export function CompareTwin({
                   <div className="cmp-card-head">
                     <div className="cmp-card-name">
                       <span className="cmp-card-icon">
-                        {col.key === "twin" ? (
+                        {col.key === "twin" || col.key === "full" ? (
                           <LogoSymbol size={16} />
                         ) : (
                           <Icon name={col.icon} />
@@ -203,6 +204,10 @@ const ASK = "Why is my API slow?";
  * it reads as a window behind without inventing fake document content (D23).
  */
 function CompareArt({ columnKey }: { columnKey: CompareColumn["key"] }) {
+  if (columnKey === "presence" || columnKey === "full") {
+    return <StaticTwinArt variant={columnKey} />;
+  }
+
   if (columnKey === "avatar") {
     return (
       <div className="cmp-planes">

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 const COMPARE: CompareColumn[] = [
   {
-    key: "avatar",
+    key: "presence",
     title: "Most AI twins",
     tag: "Presence only",
     icon: "video",
@@ -34,7 +34,7 @@ const COMPARE: CompareColumn[] = [
     foot: "Looks and sounds like you.",
   },
   {
-    key: "twin",
+    key: "full",
     title: "Your TrainerTwin",
     tag: "Our difference",
     icon: "face",
