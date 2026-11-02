@@ -1404,3 +1404,22 @@
     min-height: 78px;
   }
 }
+
+/* Narrow screens: the three chips wrap onto as many rows as they need instead
+   of running off the panel, centred, and drop the 16px nudge that only made
+   sense with one row. The orb sits a little higher in the panel to make room. */
+@media (max-width: 640px) {
+  .tt-v1 .v1-panel--twin {
+    padding-inline: var(--tt-space-4);
+    gap: var(--tt-space-2);
+  }
+  .tt-v1 .v1-panel--twin .v1-chips {
+    flex-wrap: wrap;
+    justify-content: center;
+    top: 0;
+    gap: 6px !important;
+  }
+  .tt-v1 .v1-twin-orb {
+    margin-top: -12px;
+  }
+}
