@@ -1194,7 +1194,9 @@
   box-shadow: none;
   color: var(--tt-text-primary);
 }
-.tt-v1 .p1-msg p {
+/* Grey for the buyer only. The learner's bubble keeps its orange fill and
+   white text, which this rule had been flattening to grey. */
+.tt-v1 .p1-msg--persona p {
   background: var(--tt-fill-soft);
 }
 .tt-v1 .p1-debrief {
