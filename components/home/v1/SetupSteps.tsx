@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { SiriOrb } from "@/components/SiriOrb";
 import { Icon } from "../icons";
 
 type Step = {
@@ -79,8 +80,19 @@ const STEPS: Step[] = [
     copy: "Your voice, your avatar, your coaching style.",
     scene: (
       <div className="v1-panel v1-panel--twin">
-        <span className="v1-twin-face">
-          <Icon name="face" />
+        {/* The twin as a glowing orb, in the brand's oranges, rather than a
+            person glyph. The glow is the wrapper's: the orb clips itself. */}
+        <span className="v1-twin-orb">
+          <SiriOrb
+            size="84px"
+            animationDuration={10}
+            colors={{
+              bg: "transparent",
+              c1: "oklch(76% 0.17 50)",
+              c2: "oklch(84% 0.11 75)",
+              c3: "oklch(68% 0.2 35)",
+            }}
+          />
         </span>
         <span className="v1-twin-wave" aria-hidden="true">
           {Array.from({ length: 9 }, (_, i) => (
