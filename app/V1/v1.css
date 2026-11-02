@@ -1396,3 +1396,11 @@
 .tt-home--v3 .v1-mode h3 {
   white-space: pre-line;
 }
+
+/* The two descriptions reserve three lines, so the tick lists start level even
+   when one card's copy runs to two. */
+@media (min-width: 861px) {
+  .tt-home--v3 .v1-mode > p {
+    min-height: 78px;
+  }
+}
