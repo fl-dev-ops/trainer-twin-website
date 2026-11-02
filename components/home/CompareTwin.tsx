@@ -69,7 +69,8 @@ const COLUMNS = [
 export type CompareColumn = {
   key: "chatbot" | "avatar" | "twin" | "presence" | "full";
   title: string;
-  tag: string;
+  /** Small pill under the title. Optional: /V1 shows none. */
+  tag?: string;
   icon: IconName;
   featured: boolean;
   rows: ReadonlyArray<{ ok: boolean; label: string; note?: string }>;
@@ -156,7 +157,7 @@ export function CompareTwin({
                       </span>
                       <CardTitle>{col.title}</CardTitle>
                     </div>
-                    <span className="cmp-tag">{col.tag}</span>
+                    {col.tag ? <span className="cmp-tag">{col.tag}</span> : null}
                   </div>
                 </CardHeader>
                 <CardBody>

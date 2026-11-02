@@ -23,7 +23,6 @@ const COMPARE: CompareColumn[] = [
   {
     key: "full",
     title: "Your TrainerTwin",
-    tag: "Our difference",
     icon: "face",
     featured: true,
     rows: [
@@ -48,7 +47,6 @@ const COMPARE: CompareColumn[] = [
   {
     key: "presence",
     title: "Most AI twins",
-    tag: "Presence only",
     icon: "video",
     featured: false,
     rows: [
