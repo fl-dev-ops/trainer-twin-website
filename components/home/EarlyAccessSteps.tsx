@@ -21,22 +21,13 @@ const ROLES = [
 ] as const;
 
 const GOALS = [
-  {
-    value: "teach",
-    label: "Teach my courses / lessons without recording every time",
-  },
-  {
-    value: "videos",
-    label: "Create short videos / explainers in my teaching style",
-  },
-  { value: "answer", label: "Answer learner questions using my knowledge" },
-  { value: "coach", label: "Coach / mentor people 1:1 when I’m unavailable" },
-  { value: "practice", label: "Let learners practice / roleplay with me" },
-  { value: "feedback", label: "Give personalised feedback to learners" },
-  { value: "community", label: "Talk with my followers / community" },
-  { value: "sell", label: "Help prospects understand my offering / sell" },
-  { value: "team", label: "Train my team / employees" },
-  { value: "other", label: "Other" },
+  { value: "course-questions", label: "Answer questions on my course" },
+  { value: "book-questions", label: "Answer questions on my book" },
+  { value: "topic-questions", label: "Answer questions on a topic I teach" },
+  { value: "role-plays", label: "Run role-plays for my learners" },
+  { value: "debrief", label: "Debrief and score practice sessions" },
+  { value: "between-sessions", label: "Support learners between live sessions" },
+  { value: "income", label: "Earn me income from extra minutes" },
 ] as const;
 
 const EARNINGS = [
