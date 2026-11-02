@@ -1,105 +1,144 @@
 import type { Metadata } from "next";
+import { CompareTwin, type CompareColumn } from "@/components/home/CompareTwin";
 import { EarlyAccessSteps } from "@/components/home/EarlyAccessSteps";
-import { BuildYourTwinV3 } from "@/components/home/BuildYourTwinV3";
 import { FoundingTrainers } from "@/components/home/FoundingTrainers";
 import { HeroV3 } from "@/components/home/HeroV3";
 import { PageFooter } from "@/components/home/PageFooter";
 import { SiteHeader } from "@/components/home/SiteHeader";
-import { ThreeWays } from "@/components/home/ThreeWays";
-import { CompareTwin } from "@/components/home/CompareTwin";
-import { WhoItsFor } from "@/components/home/WhoItsFor";
-import { NAV_V3 } from "@/components/home/nav";
+import { WantToTwin } from "@/components/home/WantToTwin";
+import { NAV_HOME } from "@/components/home/nav";
+import { Faq } from "@/components/home/Faq";
+import { BulbIcon, ConfusedIcon } from "@/components/home/FootIcons";
+import { Modes } from "@/components/home/Modes";
+import { SetupSteps } from "@/components/home/SetupSteps";
 import { ScrollEffects } from "@/components/landing2/ScrollEffects";
+import type { FooterColumn } from "@/components/landing2/SiteFooter";
 
 export const metadata: Metadata = {
-  title:
-    "TrainerTwin: build a twin of you your learners & followers can reach anytime",
+  title: "TrainerTwin: turn your course into a conversation",
   description:
-    "TrainerTwin turns your knowledge and persona into a version of you your learners & followers can reach whenever they need: an interactive twin, explainer videos and promo clips.",
+    "An AI twin for coaches and trainers. Learners ask questions and practise real conversations, coached in your voice, with your frameworks.",
 };
+
+const COMPARE: CompareColumn[] = [
+  {
+    key: "presence",
+    title: "Most AI twins",
+    icon: "video",
+    featured: false,
+    rows: [
+      { ok: true, label: "Your presence", note: "Face and voice" },
+      { ok: false, label: "Your intelligence" },
+      { ok: false, label: "Your training DNA" },
+    ],
+    foot: "Looks and sounds like you.",
+    footIcon: <ConfusedIcon />,
+  },
+  {
+    key: "full",
+    title: "Your TrainerTwin",
+    tag: "Our difference",
+    icon: "face",
+    featured: true,
+    rows: [
+      {
+        ok: true,
+        label: "Your presence",
+        note: "Your face and your voice, with your pace, tone and pauses.",
+      },
+      {
+        ok: true,
+        label: "Your intelligence",
+        note: "Your courses, books, notes and sessions, so it answers from what you actually teach.",
+      },
+      {
+        ok: true,
+        label: "Your training DNA",
+        note: "How you explain, question, coach and debrief.",
+      },
+    ],
+    foot: "Thinks, coaches and debriefs like you.",
+    footIcon: <BulbIcon />,
+  },
+];
+
+const FOOTER_COLUMNS: FooterColumn[] = [
+  {
+    heading: "Product",
+    links: NAV_HOME.map((item) => ({ label: item.label, href: item.href })),
+  },
+  {
+    heading: "Domains",
+    links: [
+      { label: "Sales", href: "#modes" },
+      { label: "Communication", href: "#modes" },
+      { label: "Leadership", href: "#modes" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "Careers", href: "/careers" },
+      { label: "Equity program", href: "/invite" },
+      { label: "Privacy policy", href: "/privacy" },
+      {
+        label: "LinkedIn",
+        href: "https://linkedin.com/company/trainertwin",
+      },
+    ],
+  },
+];
 
 export default function Home() {
   return (
     <>
-      <SiteHeader nav={NAV_V3} mobileMenu ctaLabel="Request a demo" />
+      <SiteHeader
+        nav={NAV_HOME}
+        mobileMenu
+        ctaLabel="Request a demo"
+        logoSize={16.5}
+      />
       <main id="top">
-        <HeroV3 />
-        <ThreeWays
-          explainerFirst
-          art="v3"
-          interactive={{
-            title: "Learn with you. Practise with you. Talk to you.",
-            body: "Even when you're not there. Your Twin thinks, responds and interacts the way you do, so your audience can learn, practise, explore and act on what you teach.",
-            points: [
-              "Role-play - Real world conversation",
-              "1:1 conversation - Clear doubts",
-              "Teach & Explain",
-            ],
-          }}
-          explainer={{
-            title: "Create videos without being on camera.",
-            body: "Your Twin turns what you know into video: from promos and social clips to explainers and full lessons. Your face, your voice, your way of putting things.",
-            points: [
-              "Animated explainers video",
-              "Personalised demo video",
-              "Short form video",
-            ],
+        <HeroV3
+          eyebrow="AN AI TWIN FOR COACHES AND TRAINERS"
+          headline={
+            <WantToTwin
+              inline
+              lead="Turn your"
+              asks={["course", "book", "videos", "workshop"]}
+              tail="into a two-way conversation."
+            />
+          }
+          lede="Your twin brings the one-way parts of your course to life. Learners ask questions and practise real conversations, using your frameworks."
+          centered
+        />
+        <CompareTwin
+          id="twin"
+          light
+          vs={false}
+          art={false}
+          columns={COMPARE}
+          head={{
+            eyebrow: "Our difference",
+            title: "What’s a twin?",
+            body: "A version of you that your learners, audience and coachees can reach anytime.",
           }}
         />
-        <WhoItsFor
-          carousel={false}
-          night={false}
-          layout="scroll"
-          profiles={[
-            {
-              key: "experts",
-              kicker: "Experts & Influencers",
-              title: "Be there, even when you're not.",
-              body: "Turn your expertise into more conversations, leads, and revenue, 24/7.",
-              href: "#early-access",
-              art: "experts",
-              cta: "Get early access",
-            },
-            {
-              key: "tech",
-              kicker: "Tech Trainers",
-              title: "Teach beyond the classroom.",
-              body: "Turn your knowledge into interactive learning, demos, and practice, anytime.",
-              href: "#early-access",
-              art: "tech",
-              cta: "Get early access",
-            },
-            {
-              key: "sales",
-              kicker: "Sales Trainer",
-              title: "Practice every sales conversation.",
-              body: "Let learners practise pitches, objections, negotiations, and real-world conversations.",
-              href: "#early-access",
-              art: "sales",
-              cta: "Get early access",
-            },
-            {
-              key: "other",
-              kicker: "Something else?",
-              title: "Something else?",
-              body: "Language, finance, design, exam prep, leadership training. Tell us what you need and we'll work it out with you.",
-              href: "#early-access",
-              art: "other",
-              cta: "Get in touch",
-            },
-          ]}
-        />
-        <BuildYourTwinV3 />
-        <CompareTwin />
-        <FoundingTrainers />
+        <Modes />
+        <SetupSteps />
+        <FoundingTrainers eyebrow="Early interest" headClassName="home-how-head" />
+        <Faq />
       </main>
       <PageFooter
         cta={<EarlyAccessSteps />}
-        nav={NAV_V3}
+        nav={NAV_HOME}
+        columns={FOOTER_COLUMNS}
+        logoSize={16.5}
         layout="v3"
+        title="Turn your course into a conversation"
         points={[
-          "A twin that explains, hints and assesses the way you do",
-          "Learners can practise even when you are not on a call",
+          "Learners ask questions and practise real conversations, in your voice",
+          "Our team supports you end to end, with a dedicated platform admin",
           "Founding trainers get a special equity program",
         ]}
         pointsNote="Takes less than 5 mins. We'll follow up with a demo within 24hrs."

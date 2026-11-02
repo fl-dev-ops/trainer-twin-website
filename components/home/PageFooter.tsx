@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import {
   DEFAULT_COLUMNS,
   SiteFooter,
+  type FooterColumn,
   type FooterLink,
 } from "@/components/landing2/SiteFooter";
 import { FIELDS } from "./fields";
@@ -63,6 +64,8 @@ export function PageFooter({
   points,
   pointsNote,
   layout = "default",
+  columns: columnsOverride,
+  logoSize,
 }: {
   cta?: ReactNode;
   /** See `SiteFooter` — drops the intro-copy-plus-form row entirely. */
@@ -75,8 +78,13 @@ export function PageFooter({
   points?: string[];
   pointsNote?: string;
   layout?: "default" | "v3";
+  /** Replaces the link grid wholesale — for a page (the homepage) whose sections and
+      fields differ from the ones the shared columns point at. */
+  columns?: FooterColumn[];
+  /** Lockup size in px, passed to the footer. */
+  logoSize?: number;
 } = {}) {
-  const columns = [
+  const columns = columnsOverride ?? [
     {
       heading: "Product",
       links: nav.map((item) => ({ label: item.label, href: item.href })),
@@ -100,6 +108,7 @@ export function PageFooter({
         points={points}
         pointsNote={pointsNote}
         layout={layout}
+        logoSize={logoSize}
       />
     </div>
   );
