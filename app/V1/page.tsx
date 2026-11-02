@@ -21,19 +21,6 @@ export const metadata: Metadata = {
 
 const COMPARE: CompareColumn[] = [
   {
-    key: "presence",
-    title: "Most AI twins",
-    tag: "Presence only",
-    icon: "video",
-    featured: false,
-    rows: [
-      { ok: true, label: "Your presence", note: "Face and voice" },
-      { ok: false, label: "Your intelligence" },
-      { ok: false, label: "Your training DNA" },
-    ],
-    foot: "Looks and sounds like you.",
-  },
-  {
     key: "full",
     title: "Your TrainerTwin",
     tag: "Our difference",
@@ -57,6 +44,19 @@ const COMPARE: CompareColumn[] = [
       },
     ],
     foot: "Thinks, coaches and debriefs like you.",
+  },
+  {
+    key: "presence",
+    title: "Most AI twins",
+    tag: "Presence only",
+    icon: "video",
+    featured: false,
+    rows: [
+      { ok: true, label: "Your presence", note: "Face and voice" },
+      { ok: false, label: "Your intelligence" },
+      { ok: false, label: "Your training DNA" },
+    ],
+    foot: "Looks and sounds like you.",
   },
 ];
 
