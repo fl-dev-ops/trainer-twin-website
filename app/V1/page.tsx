@@ -130,7 +130,7 @@ export default function V1() {
         <FaqV1 />
       </main>
       <PageFooter
-        cta={<EarlyAccessSteps submitLabel="Submit request" />}
+        cta={<EarlyAccessSteps />}
         nav={NAV_V1}
         columns={FOOTER_COLUMNS}
         logoSize={16.5}
