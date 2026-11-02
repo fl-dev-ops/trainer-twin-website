@@ -46,7 +46,11 @@ export function ModesV1() {
             title="Your twin answers as you."
             body="Learners ask about your topics, books and courses. Your twin answers, explains and coaches the way you would."
             points={["Topic Q&A", "Book Q&A", "Course Q&A"]}
-            art={<InteractiveTwinArt />}
+            art={
+              <div className="ask-box">
+                <InteractiveTwinArt />
+              </div>
+            }
           />
           <Way
             id="practise"

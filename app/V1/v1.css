@@ -936,3 +936,19 @@
 .tt-v1 .cmp--light .cmp-art {
   height: 172px;
 }
+
+/* Ask scene — the interactive twin held in a white box with a light grey
+   border, the same footprint as the Practise card beside it. */
+.tt-v1 .ask-box {
+  width: 100%;
+  max-width: 480px;
+  padding: var(--tt-space-4);
+  border-radius: 20px;
+  background: #fff;
+  border: var(--tt-border-thin) solid var(--tt-border);
+  overflow: hidden;
+}
+.tt-v1 .ask-box .itwin {
+  min-height: 0;
+  padding: 8px 0;
+}
