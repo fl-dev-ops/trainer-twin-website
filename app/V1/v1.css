@@ -813,7 +813,7 @@
    full width there. */
 @media (min-width: 1100px) {
   .tt-v1 .cmp--light .cmp-grid {
-    width: 75%;
+    width: 80.5%;
     margin-inline: auto;
   }
 }
@@ -1075,7 +1075,10 @@
 @media (min-width: 861px) {
   .tt-v1 .cmp--light .cmp-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+    /* No Vs badge between them now. The left card is 30% wider and the right
+       20% narrower than the equal split they had, hence 1.3 : 0.8; from 1100px
+       the pair also takes the extra width that needs (see the 80.5% rule). */
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
     grid-template-rows: auto auto auto auto auto auto;
     column-gap: var(--tt-space-6);
     row-gap: 0;
@@ -1092,7 +1095,7 @@
     grid-column: 1;
   }
   .tt-v1 .cmp--light .cmp-grid > .cmp-card:last-of-type {
-    grid-column: 3;
+    grid-column: 2;
   }
   .tt-v1 .cmp--light .cmp-grid > .cmp-vs {
     grid-column: 2;

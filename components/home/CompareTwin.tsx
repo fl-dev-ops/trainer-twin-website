@@ -88,12 +88,15 @@ export function CompareTwin({
   columns = COLUMNS,
   head,
   light = false,
+  vs = true,
 }: {
   id?: string;
   columns?: ReadonlyArray<CompareColumn>;
   head?: { eyebrow: string; title: string; body: ReactNode };
   /** /V1: the band sits on a light grey ground instead of night. */
   light?: boolean;
+  /** The "Vs" badge between the last two columns. /V1 turns it off. */
+  vs?: boolean;
 } = {}) {
   return (
     <section
@@ -127,7 +130,7 @@ export function CompareTwin({
             <Fragment key={col.key}>
               {/* Sits between AI Avatar and Trainer Twin — the actual
                   comparison the section is making, not a fourth column. */}
-              {index === columns.length - 1 ? (
+              {vs && index === columns.length - 1 ? (
                 <span className="cmp-vs" aria-hidden="true">
                   Vs
                 </span>
