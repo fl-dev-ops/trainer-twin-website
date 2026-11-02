@@ -133,6 +133,7 @@ export default function V1() {
         cta={<EarlyAccessSteps />}
         nav={NAV_V1}
         columns={FOOTER_COLUMNS}
+        logoSize={16.5}
         layout="v3"
         title="Turn your course into a conversation"
         points={[

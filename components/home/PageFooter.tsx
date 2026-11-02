@@ -65,6 +65,7 @@ export function PageFooter({
   pointsNote,
   layout = "default",
   columns: columnsOverride,
+  logoSize,
 }: {
   cta?: ReactNode;
   /** See `SiteFooter` — drops the intro-copy-plus-form row entirely. */
@@ -80,6 +81,8 @@ export function PageFooter({
   /** Replaces the link grid wholesale — for a page (/V1) whose sections and
       fields differ from the ones the shared columns point at. */
   columns?: FooterColumn[];
+  /** Lockup size in px, passed to the footer. */
+  logoSize?: number;
 } = {}) {
   const columns = columnsOverride ?? [
     {
@@ -105,6 +108,7 @@ export function PageFooter({
         points={points}
         pointsNote={pointsNote}
         layout={layout}
+        logoSize={logoSize}
       />
     </div>
   );
