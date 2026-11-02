@@ -47,6 +47,6 @@ export const NAV_V1 = [
   { href: "#twin", label: "What’s a twin?" },
   { href: "#modes", label: "Ask & Practise" },
   { href: "#how", label: "How it works" },
-  { href: "#faq", label: "FAQ" },
   { href: "#founders", label: "Early interest" },
+  { href: "#faq", label: "FAQ" },
 ];

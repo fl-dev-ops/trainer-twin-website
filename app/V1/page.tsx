@@ -123,8 +123,8 @@ export default function V1() {
         />
         <ModesV1 />
         <SetupSteps />
-        <FaqV1 />
         <FoundingTrainers />
+        <FaqV1 />
       </main>
       <PageFooter
         cta={<EarlyAccessSteps />}
