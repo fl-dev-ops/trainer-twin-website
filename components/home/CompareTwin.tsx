@@ -91,6 +91,7 @@ export function CompareTwin({
   head,
   light = false,
   vs = true,
+  art = true,
 }: {
   id?: string;
   columns?: ReadonlyArray<CompareColumn>;
@@ -99,6 +100,8 @@ export function CompareTwin({
   light?: boolean;
   /** The "Vs" badge between the last two columns. /V1 turns it off. */
   vs?: boolean;
+  /** The drawing across the top of each card. /V1 turns it off. */
+  art?: boolean;
 } = {}) {
   return (
     <section
@@ -127,7 +130,11 @@ export function CompareTwin({
           )}
         </div>
 
-        <div className="cmp-grid" data-reveal data-reveal-delay="100">
+        <div
+          className={art ? "cmp-grid" : "cmp-grid cmp-grid--flat"}
+          data-reveal
+          data-reveal-delay="100"
+        >
           {columns.map((col, index) => (
             <Fragment key={col.key}>
               {/* Sits between AI Avatar and Trainer Twin — the actual
@@ -146,9 +153,11 @@ export function CompareTwin({
                 {/* Not on the featured column — that one already wears its own
                     animated ring, and two edges on one card is one too many. */}
                 {col.featured ? null : <CardStroke radius={20} />}
-                <div className="cmp-art" aria-hidden="true">
-                  <CompareArt columnKey={col.key} />
-                </div>
+                {art ? (
+                  <div className="cmp-art" aria-hidden="true">
+                    <CompareArt columnKey={col.key} />
+                  </div>
+                ) : null}
 
                 <CardHeader>
                   <div className="cmp-card-head">

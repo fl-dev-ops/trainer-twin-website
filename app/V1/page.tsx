@@ -22,6 +22,19 @@ export const metadata: Metadata = {
 
 const COMPARE: CompareColumn[] = [
   {
+    key: "presence",
+    title: "Most AI twins",
+    icon: "video",
+    featured: false,
+    rows: [
+      { ok: true, label: "Your presence", note: "Face and voice" },
+      { ok: false, label: "Your intelligence" },
+      { ok: false, label: "Your training DNA" },
+    ],
+    foot: "Looks and sounds like you.",
+    footIcon: <ConfusedIcon />,
+  },
+  {
     key: "full",
     title: "Your TrainerTwin",
     tag: "Our difference",
@@ -46,19 +59,6 @@ const COMPARE: CompareColumn[] = [
     ],
     foot: "Thinks, coaches and debriefs like you.",
     footIcon: <BulbIcon />,
-  },
-  {
-    key: "presence",
-    title: "Most AI twins",
-    icon: "video",
-    featured: false,
-    rows: [
-      { ok: true, label: "Your presence", note: "Face and voice" },
-      { ok: false, label: "Your intelligence" },
-      { ok: false, label: "Your training DNA" },
-    ],
-    foot: "Looks and sounds like you.",
-    footIcon: <ConfusedIcon />,
   },
 ];
 
@@ -103,18 +103,20 @@ export default function V1() {
           eyebrow="AN AI TWIN FOR COACHES AND TRAINERS"
           headline={
             <WantToTwin
+              inline
               lead="Turn your"
               asks={["course", "book", "videos", "workshop"]}
               tail="into a two-way conversation."
             />
           }
-          lede="Your twin brings the one-way parts of your course to life. Learners ask questions and practise real conversations, coached in your voice, with your frameworks."
+          lede="Your twin brings the one-way parts of your course to life. Learners ask questions and practise real conversations, using your frameworks."
           centered
         />
         <CompareTwin
           id="twin"
           light
           vs={false}
+          art={false}
           columns={COMPARE}
           head={{
             eyebrow: "Our difference",

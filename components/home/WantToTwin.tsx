@@ -43,10 +43,14 @@ export function WantToTwin({
   lead = "Want to",
   asks = ASKS,
   tail = "Your AI Twin can do it",
+  inline = false,
 }: {
   lead?: string;
   asks?: readonly string[];
   tail?: string;
+  /** The lead-in and the changing word share one line, the tail below:
+      "Turn your [course]" / "into a two-way conversation." */
+  inline?: boolean;
 } = {}) {
   const [index, setIndex] = useState(0);
 
@@ -69,12 +73,23 @@ export function WantToTwin({
         {lead} {ask} {tail}
       </span>
       <span aria-hidden="true">
-        <span className="rot-line">{lead}</span>
-        <span className="rot-line">
-          <span className="rot-slot">
-            <FoldWord key={ask} text={ask} />
+        {inline ? (
+          <span className="rot-line">
+            <span className="rot-lead">{lead}</span>{" "}
+            <span className="rot-slot">
+              <FoldWord key={ask} text={ask} />
+            </span>
           </span>
-        </span>
+        ) : (
+          <>
+            <span className="rot-line">{lead}</span>
+            <span className="rot-line">
+              <span className="rot-slot">
+                <FoldWord key={ask} text={ask} />
+              </span>
+            </span>
+          </>
+        )}
         <span className="rot-line">{tail}</span>
       </span>
     </p>
