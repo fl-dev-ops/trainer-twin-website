@@ -94,11 +94,6 @@ const STEPS: Step[] = [
             }}
           />
         </span>
-        <span className="v1-twin-wave" aria-hidden="true">
-          {Array.from({ length: 9 }, (_, i) => (
-            <i key={i} style={{ ["--i" as string]: i }} />
-          ))}
-        </span>
         <ul className="v1-chips">
           <li>
             <Icon name="mic" />
