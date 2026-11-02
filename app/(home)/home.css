@@ -1075,3 +1075,9 @@
     margin-top: -12px;
   }
 }
+
+/* The invite form card sits flat: no shadow. Its grey hairline and the orange
+   edge shine stay. */
+.tt-homepage footer#early-access .ea {
+  box-shadow: none;
+}
