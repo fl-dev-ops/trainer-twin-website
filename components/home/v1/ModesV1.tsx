@@ -55,7 +55,7 @@ const MODES = [
     icon: <AskIcon />,
     kicker: "Ask",
     title: "Your twin answers\nas you.",
-    body: "Learners ask about your topics, books and courses. Your twin answers, explains and coaches the way you would.",
+    body: "Learners ask about your topics, books and courses. Your twin answers, explains the way you would.",
     points: ["Topic Q&A", "Book Q&A", "Course Q&A"],
   },
   {
