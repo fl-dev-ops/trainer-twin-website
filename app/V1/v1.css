@@ -1048,3 +1048,18 @@
 .tt-v1 .cmp--light .can .is-miss {
   color: var(--tt-text-muted);
 }
+
+/* Title and tag on one row, the tag pushed to the right edge. The tag is the
+   brand orange, on the TrainerTwin card only (the other card has none). */
+.tt-v1 .cmp--light .cmp-card-head {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.tt-v1 .cmp--light .cmp-card--twin .cmp-tag {
+  background: var(--tt-primary-subtle);
+  border-color: var(--tt-primary-border);
+  color: var(--tt-primary);
+  font-weight: var(--tt-weight-label);
+}

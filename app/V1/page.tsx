@@ -23,6 +23,7 @@ const COMPARE: CompareColumn[] = [
   {
     key: "full",
     title: "Your TrainerTwin",
+    tag: "Our difference",
     icon: "face",
     featured: true,
     rows: [
