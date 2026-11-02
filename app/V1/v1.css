@@ -742,3 +742,58 @@
 .tt-v1 .v1-panel--twin .v1-chips svg {
   display: none;
 }
+
+/* ------------------------------------------------ what's a twin, light
+
+   The comparison band is built on night tokens end to end — the drawings, the
+   pane bars, the tags and the lists all read `--tt-night*` / `--tt-on-night*`
+   directly. Rather than re-skin each of them, this scope re-points the same
+   tokens at light values, so the whole band flips at once and the shared
+   stylesheet stays untouched. The band itself takes the grey ground and the
+   cards stay white on it; that step is the difference. */
+.tt-v1 .cmp--light {
+  --tt-night: #ffffff;
+  --tt-night-panel: #f4f4f4;
+  --tt-on-night: #1c1b1b;
+  --tt-on-night-2: #4a4a4a;
+  --tt-on-night-3: #656565;
+  --tt-line-night: #e3e3e3;
+  --tt-v3-card-fill: none;
+
+  background: var(--tt-surface-sunken);
+  color: var(--tt-text-primary);
+}
+.tt-v1 .cmp--light .head p {
+  color: var(--tt-text-secondary);
+}
+.tt-v1 .cmp--light .cmp-card {
+  background-color: #fff;
+  background-image: none;
+  box-shadow:
+    0 2px 6px rgb(30 28 25 / 0.04),
+    0 16px 40px rgb(30 28 25 / 0.06);
+}
+/* The featured card keeps its travelling edge, in the brand orange — white on
+   white would draw nothing. */
+.tt-v1 .cmp--light .cmp-card--twin {
+  box-shadow:
+    0 4px 10px rgb(30 28 25 / 0.05),
+    0 24px 56px rgb(254 89 0 / 0.12),
+    0 0 0 1px rgb(254 89 0 / 0.14);
+}
+.tt-v1 .cmp--light .cmp-card--twin::before {
+  background: conic-gradient(
+    from var(--tt-cmp-shine),
+    transparent 0 86%,
+    rgb(254 89 0 / 0.25) 90%,
+    rgb(254 89 0 / 0.95) 93%,
+    rgb(254 89 0 / 0.25) 96%,
+    transparent 100%
+  );
+}
+.tt-v1 .cmp--light .cmp-pane--front {
+  box-shadow: 0 6px 18px rgb(30 28 25 / 0.08);
+}
+.tt-v1 .cmp--light .cmp-vid {
+  background: #1c1b1b;
+}

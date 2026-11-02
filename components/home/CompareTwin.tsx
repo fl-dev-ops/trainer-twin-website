@@ -85,14 +85,17 @@ export function CompareTwin({
   id = "compare",
   columns = COLUMNS,
   head,
+  light = false,
 }: {
   id?: string;
   columns?: ReadonlyArray<CompareColumn>;
   head?: { eyebrow: string; title: string; body: ReactNode };
+  /** /V1: the band sits on a light grey ground instead of night. */
+  light?: boolean;
 } = {}) {
   return (
     <section
-      className="sec sec--line tt-night cmp"
+      className={light ? "sec sec--line cmp cmp--light" : "sec sec--line tt-night cmp"}
       id={id}
       aria-labelledby="compare-h"
     >

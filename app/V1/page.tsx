@@ -111,6 +111,7 @@ export default function V1() {
         />
         <CompareTwin
           id="twin"
+          light
           columns={COMPARE}
           head={{
             eyebrow: "Our difference",
