@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, type ReactNode } from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "@/components/Card";
 import { LogoSymbol } from "@/components/Logo";
 import { MutedClip } from "@/components/landing2/MutedClip";
@@ -62,33 +62,67 @@ const COLUMNS = [
   rows: ReadonlyArray<{ ok: boolean; label: string }>;
 }>;
 
+/** The shape `COLUMNS` has, loosened so a page can pass its own set. `note`
+    and `foot` are /V1's: a row can carry a second line, and a card can close
+    on one summing sentence. */
+export type CompareColumn = {
+  key: "chatbot" | "avatar" | "twin";
+  title: string;
+  tag: string;
+  icon: IconName;
+  featured: boolean;
+  rows: ReadonlyArray<{ ok: boolean; label: string; note?: string }>;
+  foot?: string;
+};
+
 /**
  * v3-only: Chatbot vs AI Avatar vs Trainer Twin, above Who uses it.
+ *
+ * `/V1` passes two columns and its own heading; the "Vs" badge always sits
+ * before the last column, which is the featured one.
  */
-export function CompareTwin() {
+export function CompareTwin({
+  id = "compare",
+  columns = COLUMNS,
+  head,
+}: {
+  id?: string;
+  columns?: ReadonlyArray<CompareColumn>;
+  head?: { eyebrow: string; title: string; body: ReactNode };
+} = {}) {
   return (
     <section
       className="sec sec--line tt-night cmp"
-      id="compare"
+      id={id}
       aria-labelledby="compare-h"
     >
       <div className="wrap">
         <div className="head" data-reveal>
-          <span className="eyebrow">More than content or an avatar</span>
-          <h2 id="compare-h">Same content. Different experience.</h2>
-          <p>
-            Anyone can replicate your content. An avatar can look and sound like
-            you. A chatbot can answer questions from your material. But neither
-            can <strong>teach like YOU.</strong>
-          </p>
+          {head ? (
+            <>
+              <span className="eyebrow">{head.eyebrow}</span>
+              <h2 id="compare-h">{head.title}</h2>
+              <p>{head.body}</p>
+            </>
+          ) : (
+            <>
+              <span className="eyebrow">More than content or an avatar</span>
+              <h2 id="compare-h">Same content. Different experience.</h2>
+              <p>
+                Anyone can replicate your content. An avatar can look and sound
+                like you. A chatbot can answer questions from your material. But
+                neither can <strong>teach like YOU.</strong>
+              </p>
+            </>
+          )}
         </div>
 
         <div className="cmp-grid" data-reveal data-reveal-delay="100">
-          {COLUMNS.map((col, index) => (
+          {columns.map((col, index) => (
             <Fragment key={col.key}>
               {/* Sits between AI Avatar and Trainer Twin — the actual
                   comparison the section is making, not a fourth column. */}
-              {index === 2 ? (
+              {index === columns.length - 1 ? (
                 <span className="cmp-vs" aria-hidden="true">
                   Vs
                 </span>
@@ -129,10 +163,18 @@ export function CompareTwin() {
                         className={row.ok ? undefined : "is-miss"}
                       >
                         <Icon name={row.ok ? "check" : "x"} />
-                        {row.label}
+                        {row.note ? (
+                          <span className="can-text">
+                            {row.label}
+                            <span className="can-note">{row.note}</span>
+                          </span>
+                        ) : (
+                          row.label
+                        )}
                       </li>
                     ))}
                   </ul>
+                  {col.foot ? <p className="cmp-foot">{col.foot}</p> : null}
                 </CardBody>
               </Card>
             </Fragment>
@@ -157,7 +199,7 @@ const ASK = "Why is my API slow?";
  * cropped by the card's edge. The back panel is chrome only (title bar), so
  * it reads as a window behind without inventing fake document content (D23).
  */
-function CompareArt({ columnKey }: { columnKey: (typeof COLUMNS)[number]["key"] }) {
+function CompareArt({ columnKey }: { columnKey: CompareColumn["key"] }) {
   if (columnKey === "avatar") {
     return (
       <div className="cmp-planes">

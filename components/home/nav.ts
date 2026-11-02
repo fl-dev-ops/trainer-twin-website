@@ -36,3 +36,17 @@ export const NAV_V3 = [
   { href: "#training-dna", label: "Why TrainerTwin" },
   { href: "#founders", label: "Early Interest" },
 ];
+
+/**
+ * The /V1 page's own list — the new "Turn your course into a conversation"
+ * structure. Written out rather than derived, for the same reason NAV_V3 is:
+ * its sections share no ids with the other two pages. Header and footer both
+ * read it.
+ */
+export const NAV_V1 = [
+  { href: "#twin", label: "What’s a twin?" },
+  { href: "#modes", label: "Ask & Practise" },
+  { href: "#how", label: "How it works" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#founders", label: "Early interest" },
+];

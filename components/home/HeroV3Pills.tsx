@@ -61,50 +61,60 @@ function KnowledgeArtV3() {
   );
 }
 
-const PILLS: Array<{
+/** The three drawings, by name — a Server Component cannot hand a component
+    across the client boundary, so a page picks one by key. */
+const ARTS: Record<"intelligence" | "presence" | "dna", ComponentType> = {
+  intelligence: KnowledgeArtV3,
+  presence: PersonaArt,
+  dna: DnaArt,
+};
+
+export type HeroPill = {
   title: string;
   body: string;
-  Art: ComponentType;
-}> = [
+  art: keyof typeof ARTS;
+};
+
+const PILLS: HeroPill[] = [
   {
     title: "Your Intelligence",
     body: "Notes, recorded sessions, voice recording, docs from any channels.",
-    Art: KnowledgeArtV3,
+    art: "intelligence",
   },
   {
     title: "Your Presence",
     body: "A few minutes of your voice: pace, tone and pauses.",
-    Art: PersonaArt,
+    art: "presence",
   },
   {
     title: "Your training DNA",
     body: "We extract your patterns and how you explain, hints and assess.",
-    Art: DnaArt,
+    art: "dna",
   },
 ];
 
 /** Dwell while expanded — matches the knowledge / persona illustration cycle. */
 const HOLD_MS = 5200;
 
-export function HeroV3Pills() {
+export function HeroV3Pills({ pills = PILLS }: { pills?: HeroPill[] } = {}) {
   const [open, setOpen] = useState(0);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = window.setInterval(() => {
-      setOpen((i) => (i + 1) % PILLS.length);
+      setOpen((i) => (i + 1) % pills.length);
     }, HOLD_MS);
 
     return () => window.clearInterval(id);
-  }, []);
+  }, [pills.length]);
 
   return (
     <div className="hero-v3-pills-block">
       <div className="hero-v3-pills">
-        {PILLS.map((pill, i) => {
+        {pills.map((pill, i) => {
           const expanded = i === open;
-          const Art = pill.Art;
+          const Art = ARTS[pill.art];
           return (
             <div key={pill.title} className="hero-v3-pill-wrap">
               <article

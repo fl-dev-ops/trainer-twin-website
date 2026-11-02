@@ -1,13 +1,24 @@
+import type { ReactNode } from "react";
 import { CursorGrid } from "@/components/CursorGrid";
 import { CtaLink } from "./CtaLink";
-import { HeroV3Pills } from "./HeroV3Pills";
+import { HeroV3Pills, type HeroPill } from "./HeroV3Pills";
 import { ShinyText } from "./ShinyText";
 import { WantToTwin } from "./WantToTwin";
 
 /**
  * Figma node 717:9911 — the v3 hero only. Original home routes keep `Hero`.
  */
-export function HeroV3() {
+export function HeroV3({
+  eyebrow = "AI TWIN FOR EVERY EXPERT",
+  headline = <WantToTwin />,
+  lede = "TrainerTwin turns your knowledge and persona into a version of you that your people can reach whenever they need. It talks like you, teaches like you and thinks like you.",
+  pills,
+}: {
+  eyebrow?: string;
+  headline?: ReactNode;
+  lede?: ReactNode;
+  pills?: HeroPill[];
+} = {}) {
   return (
     <section className="hero hero--v3">
       <div className="hero-v3-wash" aria-hidden="true" />
@@ -34,19 +45,15 @@ export function HeroV3() {
           <div className="hero-v3-copy">
             <p className="hero-v3-eyebrow">
               <ShinyText
-                text="AI TWIN FOR EVERY EXPERT"
+                text={eyebrow}
                 color="#d4c08a"
                 shineColor="#ffffff"
                 direction="right"
               />
             </p>
             <div className="hero-v3-titleblock">
-              <WantToTwin />
-              <p className="hero-v3-lede">
-                TrainerTwin turns your knowledge and persona into a version of you
-                that your people can reach whenever they need. It talks like you,
-                teaches like you and thinks like you.
-              </p>
+              {headline}
+              <p className="hero-v3-lede">{lede}</p>
             </div>
           </div>
 
@@ -78,7 +85,7 @@ export function HeroV3() {
         </div>
 
         <div className="hero-v3-col hero-v3-col--pills">
-          <HeroV3Pills />
+          <HeroV3Pills pills={pills} />
         </div>
       </div>
     </section>

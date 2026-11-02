@@ -22,6 +22,10 @@ const WHO_MENU_ENABLED = false;
 const WATCHED = [
   ".hero",
   "#can-do",
+  "#twin",
+  "#modes",
+  "#how",
+  "#faq",
   "#compare",
   "#who",
   "#build",

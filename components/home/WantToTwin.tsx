@@ -35,35 +35,47 @@ function FoldWord({ text }: { text: string }) {
   );
 }
 
-export function WantToTwin() {
+/**
+ * `lead` / `asks` / `tail` default to the home page's sentence; /V1 passes its
+ * own. The fold, the timing and the markup are the same either way.
+ */
+export function WantToTwin({
+  lead = "Want to",
+  asks = ASKS,
+  tail = "Your AI Twin can do it",
+}: {
+  lead?: string;
+  asks?: readonly string[];
+  tail?: string;
+} = {}) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const id = window.setInterval(
-      () => setIndex((current) => (current + 1) % ASKS.length),
+      () => setIndex((current) => (current + 1) % asks.length),
       HOLD_MS,
     );
 
     return () => window.clearInterval(id);
-  }, []);
+  }, [asks.length]);
 
-  const ask = ASKS[index];
+  const ask = asks[index];
 
   return (
     <p className="hero-v3-want">
       <span className="sr-only">
-        Want to {ask} Your AI Twin can do it
+        {lead} {ask} {tail}
       </span>
       <span aria-hidden="true">
-        <span className="rot-line">Want to</span>
+        <span className="rot-line">{lead}</span>
         <span className="rot-line">
           <span className="rot-slot">
             <FoldWord key={ask} text={ask} />
           </span>
         </span>
-        <span className="rot-line">Your AI Twin can do it</span>
+        <span className="rot-line">{tail}</span>
       </span>
     </p>
   );
