@@ -18,8 +18,8 @@ const FOUNDERS: Founder[] = [
   {
     name: "Vasanth Bhat",
     href: "https://www.linkedin.com/in/careerwithvasanth/",
-    domain: "Career / education",
-    notes: ["Onboarded design partner."],
+    domain: "Frontend mentor · Interview prep",
+    notes: ["Mentors frontend developers on interview preparation."],
     photo: "/home-v3/founders/vasanth-bhat.png",
   },
   {
