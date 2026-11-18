@@ -114,7 +114,7 @@ export function FoundingTrainers({
           }
           durationSeconds={48}
           repeatCount={2}
-          pauseOnHover
+          direction="right"
           className="found-rail"
           trackClassName="found-track"
           label="TrainerTwin community stories. Drag or use the left and right arrow keys."
