@@ -22,6 +22,8 @@ type DraggableMarqueeProps<T> = {
   trackClassName?: string;
   itemClassName?: string;
   pauseOnHover?: boolean;
+  /** Which way the cards drift on their own. Dragging works either way. */
+  direction?: "left" | "right";
   label?: string;
   throwMultiplier?: number;
   throwFriction?: number;
@@ -38,6 +40,7 @@ export function DraggableMarquee<T>({
   trackClassName = "",
   itemClassName = "",
   pauseOnHover = false,
+  direction = "left",
   label = "Scrolling content. Drag or use the left and right arrow keys.",
   throwMultiplier = 2.8,
   throwFriction = 0.975,
@@ -105,7 +108,7 @@ export function DraggableMarquee<T>({
 
         const frameRatio = deltaTime / (1000 / 60);
         if (!(pauseOnHover && (isPointerOver || hasFocus))) {
-          x -= (singleSetWidth / durationSeconds / 60) * frameRatio;
+          x += (direction === "right" ? 1 : -1) * (singleSetWidth / durationSeconds / 60) * frameRatio;
         }
         x += throwVelocity * frameRatio;
         throwVelocity *= Math.pow(throwFriction, frameRatio);
@@ -201,6 +204,7 @@ export function DraggableMarquee<T>({
 
     return () => media.revert();
   }, [
+    direction,
     durationSeconds,
     items,
     maxThrowVelocity,
