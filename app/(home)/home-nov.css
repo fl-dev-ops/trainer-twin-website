@@ -279,7 +279,7 @@
 .tt26 .done{gap:22px}
 .tt26 .done-head{display:flex;flex-direction:column;gap:8px}
 .tt26 .done-head p b{color:var(--paper)}
-.tt26 .strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+.tt26 .strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--cols,8),minmax(0,1fr));gap:6px}
 .tt26 .day{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 2px;border-radius:14px;border:1.5px solid var(--line-2);text-align:center;animation:tt26-rise .45s ease-out both}
 .tt26 .day-w{font-size:12px;font-weight:600;color:var(--text-dim)}
 .tt26 .day-d{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.1}
@@ -856,3 +856,8 @@
 .tt26 .form-error[hidden]{display:none}
 .tt26 #tt-contact.need{border-color:var(--accent)}
 .tt26 .cta:disabled{opacity:.6;cursor:progress}
+
+/* Eighteen-plus demo times, so the buttons are a little tighter and the Calendly embed fits the panel */
+.tt26 .slot{min-height:42px;padding:0 14px;font-size:15px}
+.tt26 .calendly-embed{min-height:640px;border-radius:16px;overflow:hidden}
+.tt26 .calendly-embed[hidden]{display:none}

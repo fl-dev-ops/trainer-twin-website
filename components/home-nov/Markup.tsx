@@ -152,6 +152,7 @@ export function Markup() {
             <p>It will be ready on <ReadyDate />. Pick a time that day, and we'll show it to you.</p>
           </div>
           <ol className="strip" id="strip" aria-label="The next 7 days"></ol>
+          <div className="calendly-embed" id="calendly-embed" hidden></div>
           <div className="slots-wrap" id="slots-wrap">
             <div className="slots-head">
               <p className="slots-label">Times on <ReadyDate /></p>

@@ -8,6 +8,7 @@
  * so React can mount, unmount and (in dev) double-run this safely.
  */
 export function initNovemberHome(root: HTMLElement): () => void {
+  var CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL || '';
   var _timers = [];
   var _restore = null;
   var _setTimeout = function (fn, ms) { var id = window.setTimeout(fn, ms); _timers.push(['t', id]); return id; };
@@ -169,6 +170,8 @@ export function initNovemberHome(root: HTMLElement): () => void {
   function setDays() {
     today = new Date(); today.setHours(0, 0, 0, 0);
     ready = new Date(today); ready.setDate(ready.getDate() + 7);
+    /* The team works Monday to Friday: a weekend ready day moves to Monday */
+    while (ready.getDay() === 0 || ready.getDay() === 6) ready.setDate(ready.getDate() + 1);
   }
   setDays();
   function fmt(d, o) { try { return d.toLocaleDateString('en-GB', o); } catch (e) { return d.toDateString(); } }
@@ -176,12 +179,14 @@ export function initNovemberHome(root: HTMLElement): () => void {
   /* The strip: today (sent), six building days, then the ready day */
   function drawStrip() {
     $('strip').textContent = '';
-    for (var i = 0; i <= 7; i++) {
+    var span = Math.round((ready.getTime() - today.getTime()) / 86400000);
+    $('strip').style.setProperty('--cols', String(span + 1));
+    for (var i = 0; i <= span; i++) {
       var d = new Date(today); d.setDate(d.getDate() + i);
-      var li = el('li', 'day ' + (i === 0 ? 'sent' : i === 7 ? 'ready' : 'building'));
+      var li = el('li', 'day ' + (i === 0 ? 'sent' : i === span ? 'ready' : 'building'));
       li.appendChild(el('span', 'day-w', fmt(d, { weekday: 'short' })));
       li.appendChild(el('span', 'day-d', String(d.getDate())));
-      li.appendChild(el('span', 'day-s', i === 0 ? 'Sent' : i === 7 ? 'Ready' : 'Building'));
+      li.appendChild(el('span', 'day-s', i === 0 ? 'Sent' : i === span ? 'Ready' : 'Building'));
       li.style.animationDelay = (0.06 * i) + 's';
       $('strip').appendChild(li);
     }
@@ -206,7 +211,9 @@ export function initNovemberHome(root: HTMLElement): () => void {
   });
   if (!mine) sel.value = 'Asia/Kolkata';
   function inZone(d, o) { o = Object.assign({}, o); try { o.timeZone = sel.value; return d.toLocaleString('en-GB', o); } catch (e) { delete o.timeZone; return d.toLocaleString('en-GB', o); } }
-  var istSlots = [[13, 30], [15, 30], [18, 0], [20, 0]];
+  /* Demo times: 11:00 am to 8:30 pm India time, one every 30 minutes. A 30-minute demo, so the last one starts at 8:00 pm. */
+  var istSlots = [];
+  for (var h = 11; h <= 20; h++) { istSlots.push([h, 0]); if (h < 20) istSlots.push([h, 30]); }
   var slotTimes = [];
   var picked = null;
   function drawSlots() {
@@ -243,6 +250,38 @@ export function initNovemberHome(root: HTMLElement): () => void {
   }
   function showError(id, msg) { var n = $(id); n.textContent = msg; n.hidden = false; }
   function hideError(id) { var n = $(id); n.hidden = true; n.textContent = ''; }
+
+  /* When a Calendly link is set (NEXT_PUBLIC_CALENDLY_URL), Calendly replaces our own time picker. */
+  var calendlyReady = null;
+  function loadCalendly() {
+    if (window.Calendly) return Promise.resolve();
+    if (calendlyReady) return calendlyReady;
+    calendlyReady = new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'https://assets.calendly.com/assets/external/widget.js';
+      s.async = true; s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    return calendlyReady;
+  }
+  function openCalendly(contact) {
+    var box = $('calendly-embed');
+    $('slots-wrap').hidden = true;
+    box.textContent = ''; box.hidden = false;
+    var url = CALENDLY_URL + (CALENDLY_URL.indexOf('?') > -1 ? '&' : '?') + 'hide_gdpr_banner=1&background_color=15181e&text_color=ffffff&primary_color=ff5a3c';
+    var prefill = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) ? { email: contact } : {};
+    loadCalendly().then(function () {
+      window.Calendly.initInlineWidget({ url: url, parentElement: box, prefill: prefill });
+    }).catch(function () {
+      box.hidden = true; $('slots-wrap').hidden = false;
+    });
+  }
+  /* Calendly tells the page when a time is booked: record it with the lead */
+  window.addEventListener('message', function (e) {
+    if (!e.data || e.data.event !== 'calendly.event_scheduled' || !CALENDLY_URL) return;
+    var ev = e.data.payload && e.data.payload.event;
+    send({ contact: lead.contact, link: lead.link, goals: 'Demo booked on Calendly', slot_text: (ev && ev.uri) || '', source: 'home-nov-calendly' }).catch(function () {});
+  });
 
   $('book').addEventListener('click', function () {
     if (!picked) return;
@@ -313,6 +352,7 @@ export function initNovemberHome(root: HTMLElement): () => void {
     send({ contact: contact, link: link, audience: chosen('who').join(', '), goals: chosen('jobs').join(', '), source: 'home-nov' }).then(function () {
       lead.contact = contact; lead.link = link;
       setDays(); drawStrip(); drawSlots();
+      if (CALENDLY_URL) openCalendly(contact);
       $('form').hidden = true;
       $('done').hidden = false;
       submit.disabled = false;
