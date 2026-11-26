@@ -214,7 +214,7 @@ export function Markup() {
 
 <footer className="end">
   <div className="wrap foot">
-    <span>© 2026 TrainerTwin.ai</span>
+    <span>© 2026 TrainerTwin.com</span>
     <a href="/privacy">Privacy policy</a>
   </div>
 </footer>
