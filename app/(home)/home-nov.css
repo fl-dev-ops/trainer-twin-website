@@ -904,3 +904,19 @@
   /* the "Example" label sat on top of the call buttons in the phone mock-up */
   .tt26 .uc-note{position:static;display:block;margin:10px auto 0;text-align:center}
 }
+/* Phones, matched to the live site's mobile layout (measured 27 Nov 2026 at 390px): 18px side margins,
+   centred hero and section headings with their intro lines, 32px/30px headings at line height ~1.14 with
+   -0.045em tracking, 16px text, 16px/600 buttons, 12px/600 eyebrow. */
+@media (max-width:640px){
+  .tt26 .wrap{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+  .tt26 .lead,.tt26 .lead .pitch{text-align:center;align-items:center}
+  .tt26 .lead h1{font-size:32px;line-height:1.14;letter-spacing:-.045em;margin-inline:auto}
+  .tt26 .lead .pitch p{margin-inline:auto}
+  .tt26 .lead .assure{justify-content:center;justify-items:center;text-align:left}
+  .tt26 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-align:center}
+  .tt26 .coaches h2,.tt26 .uses h2,.tt26 .team h2,.tt26 .build h2{font-size:30px;line-height:1.15;letter-spacing:-.04em;text-align:center;margin-inline:auto}
+  .tt26 .uses-sub,.tt26 .team-sub{font-size:16px;line-height:1.6;text-align:center;margin-inline:auto}
+  .tt26 .told h3{text-align:center}
+  .tt26 .vision-line{font-size:26px;letter-spacing:-.03em}
+  .tt26 .cta{min-height:52px;padding:0 26px;font-size:16px;font-weight:600}
+}
