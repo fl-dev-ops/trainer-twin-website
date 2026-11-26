@@ -20,6 +20,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment variables
+
+| Variable | What it does |
+|---|---|
+| `GOOGLE_SHEETS_WEBHOOK_URL` | Where `/api/invite` sends form and demo-booking rows (a Google Apps Script web app). The sheet needs the columns `audience`, `slot`, `slot_text`, `timezone` and `source` for the November homepage fields. Without it the API still answers but saves nothing. |
+| `NEXT_PUBLIC_CALENDLY_URL` | Optional. When set, the homepage's demo-time step opens this Calendly page instead of the built-in 11:00 to 20:30 IST slot picker, so **setting it replaces the built-in picker**. Leave it unset to keep the picker. |
+| `NEXT_PUBLIC_POSTHOG_KEY`, `NEXT_PUBLIC_POSTHOG_HOST` | PostHog analytics. |
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
