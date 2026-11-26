@@ -861,3 +861,46 @@
 .tt26 .slot{min-height:42px;padding:0 14px;font-size:15px}
 .tt26 .calendly-embed{min-height:640px;border-radius:16px;overflow:hidden}
 .tt26 .calendly-embed[hidden]{display:none}
+
+/* ===== Polish after review (27 Nov 2026): the live site's type scale and spacing =====
+   Figtree for everything (fonts-nov.ts); headings at the live site's sizes, weight 700, line height ~1.15 and a
+   light negative tracking; body text 16-17px at 1.6; a little more room around blocks; phones get no
+   sideways-scrolling section menu (it was cut off). */
+.tt26 { --display: var(--tt26-display), 'Figtree', system-ui, sans-serif; --body: var(--tt26-body), 'Figtree', system-ui, sans-serif; }
+.tt26{font-size:16px;line-height:1.6}
+.tt26 h1,.tt26 h2,.tt26 h3{letter-spacing:-.02em}
+.tt26 .lead h1{font-size:clamp(38px,5.4vw,68px);line-height:1.08;letter-spacing:-.03em}
+.tt26 .coaches h2,.tt26 .uses h2,.tt26 .team h2{font-size:clamp(30px,3.8vw,52px);line-height:1.12;letter-spacing:-.025em}
+.tt26 .build h2{font-size:clamp(32px,4.4vw,60px);line-height:1.1;letter-spacing:-.025em}
+.tt26 .vision-line{font-size:clamp(28px,3.8vw,52px);line-height:1.18;letter-spacing:-.02em}
+.tt26 .told h3{font-size:clamp(20px,2vw,24px);line-height:1.2}
+.tt26 .pitch p,.tt26 .done p{font-size:17px;line-height:1.6}
+.tt26 .bubble{font-size:17px;line-height:1.45}
+.tt26 .q>label,.tt26 .q>.label,.tt26 .lab-row,.tt26 .lab-row .label,.tt26 .lab-row label{font-size:17px;line-height:1.4}
+.tt26 .who b,.tt26 .duo .who b,.tt26 .solo .who b{font-size:18px}
+.tt26 .use h3{font-size:18px;line-height:1.3}
+.tt26 .idea-line{font-size:clamp(17px,1.5vw,20px);line-height:1.55}
+.tt26 .team-sub{font-size:clamp(16px,1.4vw,18px);line-height:1.6}
+.tt26 .cover-title,.tt26 .cover.quiet .cover-title,.tt26 .cover.warm .cover-title{line-height:1.2;letter-spacing:-.015em}
+@media (max-width:640px){
+  .tt26 .top nav{display:none}
+  .tt26 .lead h1{font-size:36px;line-height:1.1}
+  .tt26 .coaches h2,.tt26 .uses h2,.tt26 .team h2,.tt26 .build h2{font-size:30px;line-height:1.15}
+  .tt26 .vision-line{font-size:26px;line-height:1.25}
+  .tt26 .pitch p,.tt26 .done p{font-size:16px}
+  .tt26 .bubble{font-size:16px}
+  .tt26 .q>label,.tt26 .q>.label,.tt26 .lab-row,.tt26 .lab-row .label,.tt26 .lab-row label{font-size:16px}
+  .tt26 .eyebrow{font-size:12px;letter-spacing:.1em}
+}
+@media (max-width:640px){
+  /* coach spotlight card: smaller photo and tighter gaps so name and role don't wrap into short lines */
+  .tt26 .spot-card{gap:14px;padding:16px 18px;align-items:center}
+  .tt26 .spot-card img{width:56px;height:56px}
+  .tt26 .spot-text b{font-size:18px}
+  .tt26 .spot-text span{font-size:14px;line-height:1.45}
+  .tt26 .use-tag{font-size:12px;white-space:nowrap}
+  /* use-case tabs scroll sideways: fade the right edge so it reads as "more" rather than cut off */
+  .tt26 .uc-list{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+  /* the "Example" label sat on top of the call buttons in the phone mock-up */
+  .tt26 .uc-note{position:static;display:block;margin:10px auto 0;text-align:center}
+}
