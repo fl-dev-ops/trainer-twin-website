@@ -1,13 +1,149 @@
 import type { Metadata } from "next";
-import { NovemberHome } from "@/components/home-nov/NovemberHome";
-import { fontNovBody, fontNovDisplay } from "./fonts-nov";
+import { CompareTwin, type CompareColumn } from "@/components/home/CompareTwin";
+import { EarlyAccessSteps } from "@/components/home/EarlyAccessSteps";
+import { FoundingTrainers } from "@/components/home/FoundingTrainers";
+import { HeroV3 } from "@/components/home/HeroV3";
+import { PageFooter } from "@/components/home/PageFooter";
+import { SiteHeader } from "@/components/home/SiteHeader";
+import { WantToTwin } from "@/components/home/WantToTwin";
+import { NAV_HOME } from "@/components/home/nav";
+import { Faq } from "@/components/home/Faq";
+import { BulbIcon, ConfusedIcon } from "@/components/home/FootIcons";
+import { Modes } from "@/components/home/Modes";
+import { SetupSteps } from "@/components/home/SetupSteps";
+import { ScrollEffects } from "@/components/landing2/ScrollEffects";
+import type { FooterColumn } from "@/components/landing2/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "TrainerTwin: meet your AI twin in 7 days",
+  title: "TrainerTwin: turn your course into a conversation",
   description:
-    "For coaches, trainers and professors. We build a demo of your AI twin from your public courses, videos, books or posts, ready in 7 days.",
+    "An AI twin for coaches and trainers. Learners ask questions and practise real conversations, coached in your voice, with your frameworks.",
 };
 
+const COMPARE: CompareColumn[] = [
+  {
+    key: "presence",
+    title: "Most AI twins",
+    icon: "video",
+    featured: false,
+    rows: [
+      { ok: true, label: "Your presence", note: "Face and voice" },
+      { ok: false, label: "Your intelligence" },
+      { ok: false, label: "Your training DNA" },
+    ],
+    foot: "Looks and sounds like you.",
+    footIcon: <ConfusedIcon />,
+  },
+  {
+    key: "full",
+    title: "Your TrainerTwin",
+    tag: "Our difference",
+    icon: "face",
+    featured: true,
+    rows: [
+      {
+        ok: true,
+        label: "Your presence",
+        note: "Your face and your voice, with your pace, tone and pauses.",
+      },
+      {
+        ok: true,
+        label: "Your intelligence",
+        note: "Your courses, books, notes and sessions, so it answers from what you actually teach.",
+      },
+      {
+        ok: true,
+        label: "Your training DNA",
+        note: "How you explain, question, coach and debrief.",
+      },
+    ],
+    foot: "Thinks, coaches and debriefs like you.",
+    footIcon: <BulbIcon />,
+  },
+];
+
+const FOOTER_COLUMNS: FooterColumn[] = [
+  {
+    heading: "Product",
+    links: NAV_HOME.map((item) => ({ label: item.label, href: item.href })),
+  },
+  {
+    heading: "Domains",
+    links: [
+      { label: "Sales", href: "#modes" },
+      { label: "Communication", href: "#modes" },
+      { label: "Leadership", href: "#modes" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "Careers", href: "/careers" },
+      { label: "Equity program", href: "/invite" },
+      { label: "Privacy policy", href: "/privacy" },
+      {
+        label: "LinkedIn",
+        href: "https://linkedin.com/company/trainertwin",
+      },
+    ],
+  },
+];
+
 export default function Home() {
-  return <NovemberHome className={`${fontNovDisplay.variable} ${fontNovBody.variable}`} />;
+  return (
+    <>
+      <SiteHeader
+        nav={NAV_HOME}
+        mobileMenu
+        ctaLabel="Request a demo"
+        logoSize={16.5}
+      />
+      <main id="top">
+        <HeroV3
+          eyebrow="AN AI TWIN FOR COACHES AND TRAINERS"
+          headline={
+            <WantToTwin
+              inline
+              lead="Turn your"
+              asks={["course", "book", "videos", "workshop"]}
+              tail="into a two-way conversation."
+            />
+          }
+          lede="Your twin brings the one-way parts of your course to life. Learners ask questions and practise real conversations, using your frameworks."
+          centered
+        />
+        <CompareTwin
+          id="twin"
+          light
+          vs={false}
+          art={false}
+          columns={COMPARE}
+          head={{
+            eyebrow: "Our difference",
+            title: "What’s a twin?",
+            body: "A version of you that your learners, audience and coachees can reach anytime.",
+          }}
+        />
+        <Modes />
+        <SetupSteps />
+        <FoundingTrainers eyebrow="Early interest" headClassName="home-how-head" />
+        <Faq />
+      </main>
+      <PageFooter
+        cta={<EarlyAccessSteps />}
+        nav={NAV_HOME}
+        columns={FOOTER_COLUMNS}
+        logoSize={16.5}
+        layout="v3"
+        title="Turn your course into a conversation"
+        points={[
+          "Learners ask questions and practise real conversations, in your voice",
+          "Our team supports you end to end, with a dedicated platform admin",
+          "Founding trainers get a special equity program",
+        ]}
+        pointsNote="Takes less than 5 mins. We'll follow up with a demo within 24hrs."
+      />
+      <ScrollEffects />
+    </>
+  );
 }
