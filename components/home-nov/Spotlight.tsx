@@ -27,8 +27,9 @@ export function Spotlight() {
     return () => window.clearInterval(id);
   }, []);
 
-  const pick = (i: number) => {
-    holdUntil.current = Date.now() + CLICK_HOLD_MS;
+  // Called from onClick, which passes in the click time, so nothing impure runs during render.
+  const pick = (i: number, now: number) => {
+    holdUntil.current = now + CLICK_HOLD_MS;
     setManual(true);
     setCur(i);
   };
@@ -72,7 +73,7 @@ export function Spotlight() {
             style={{ animationDelay: `${(-(i * 0.37)).toFixed(2)}s` }}
             aria-label={`${c.name}, ${c.meta}`}
             aria-pressed={i === cur}
-            onClick={() => pick(i)}
+            onClick={() => pick(i, Date.now())}
           >
             <img src={c.photo} alt="" width={112} height={112} />
           </button>

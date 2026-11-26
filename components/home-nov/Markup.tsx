@@ -12,7 +12,7 @@ export function Markup() {
     <header className="top">
       <div className="brand"><img src="/home-nov/tt-mark.png" alt="" width="18" height="18" />TrainerTwin</div>
       <nav aria-label="Sections">
-        <a href="#partners" data-go="partners">Who's exploring</a>
+        <a href="#partners" data-go="partners">Who&apos;s exploring</a>
         <a href="#uses" data-go="uses">Use cases</a>
         <a href="#build" data-go="build">Build your twin</a>
         <a href="#team" data-go="team">Team</a>
@@ -77,7 +77,7 @@ export function Markup() {
   </div>
 
   <div className="wrap told">
-    <h3>What they've told us</h3>
+    <h3>What they&apos;ve told us</h3>
     <div className="notes">
       <figure className="note">
         <div className="shot pic-shot"><img src="/home-nov/notes/olga-whatsapp.jpg" alt="WhatsApp message from Olga: I finished 2 sessions. Feels good enough to be honest." width="876" height="260" /></div>
@@ -93,7 +93,7 @@ export function Markup() {
       </figure>
       <figure className="note">
         <blockquote className="shot said">“So I usually work with a twin… just send a screenshot of the chat with the buyer, and then the twin is replying what should be next.”</blockquote>
-        <figcaption><div className="av" aria-hidden="true">E</div><div><b>E.</b><small>Learner using Olga's twin</small></div></figcaption>
+        <figcaption><div className="av" aria-hidden="true">E</div><div><b>E.</b><small>Learner using Olga&apos;s twin</small></div></figcaption>
       </figure>
     </div>
   </div>
@@ -140,7 +140,7 @@ export function Markup() {
           </div>
           <div className="send">
             <button className="cta" type="submit">Build my free demo</button>
-            <p>We'll build it and get it to you by <ReadyDate />.</p>
+            <p>We&apos;ll build it and get it to you by <ReadyDate />.</p>
           </div>
           <p className="form-error" id="form-error" role="alert" hidden></p>
           <p className="consent">By sending this, you agree to our <a href="/privacy">privacy policy</a>.</p>
@@ -149,7 +149,7 @@ export function Markup() {
           <button type="button" className="back" id="back-form"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>Back to my answers</button>
           <div className="done-head">
             <h3>Your twin is on its way.</h3>
-            <p>It will be ready on <ReadyDate />. Pick a time that day, and we'll show it to you.</p>
+            <p>It will be ready on <ReadyDate />. Pick a time that day, and we&apos;ll show it to you.</p>
           </div>
           <ol className="strip" id="strip" aria-label="The next 7 days"></ol>
           <div className="calendly-embed" id="calendly-embed" hidden></div>
@@ -163,7 +163,7 @@ export function Markup() {
             <p className="form-error" id="book-error" role="alert" hidden></p>
           </div>
           <div className="booked" id="booked" hidden>
-            <p className="booked-line">Booked: <b id="booked-when"></b>. We'll show you your twin then.</p>
+            <p className="booked-line">Booked: <b id="booked-when"></b>. We&apos;ll show you your twin then.</p>
             <button type="button" className="back" id="back-time"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>Change the time</button>
             <a className="cal-add" id="cal-add" href="https://calendar.google.com/calendar/render?action=TEMPLATE" target="_blank" rel="noopener"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="16" rx="3" /><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5" /></svg>Add it to Google Calendar</a>
           </div>
@@ -171,12 +171,12 @@ export function Markup() {
       </div>
     </div>
     <form className="doubts" id="doubts" noValidate>
-      <p className="doubts-q"><b>Still having doubts?</b> Share your email or WhatsApp. We'll get back within 24&nbsp;hrs.</p>
+      <p className="doubts-q"><b>Still having doubts?</b> Share your email or WhatsApp. We&apos;ll get back within 24&nbsp;hrs.</p>
       <div className="doubts-row" id="doubts-row">
         <input id="tt-doubt" type="text" placeholder="Email or WhatsApp" aria-label="Your email or WhatsApp" />
         <button type="submit" className="doubts-send">Send</button>
       </div>
-      <p className="doubts-thanks" id="doubts-thanks" hidden>Thanks. We'll get back within 24&nbsp;hrs.</p>
+      <p className="doubts-thanks" id="doubts-thanks" hidden>Thanks. We&apos;ll get back within 24&nbsp;hrs.</p>
     </form>
     </div>
 </section>

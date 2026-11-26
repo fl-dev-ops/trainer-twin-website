@@ -1,5 +1,5 @@
-// @ts-nocheck
 /* eslint-disable */
+// @ts-nocheck
 /**
  * Behaviour for the November homepage, ported from the mock's own script so the page works the way the mock did:
  * use-case demos, form chips, the video pop-out and corner pin, the demo-time picker, the team cover flow,
@@ -278,6 +278,7 @@ export function initNovemberHome(root: HTMLElement): () => void {
   }
   /* Calendly tells the page when a time is booked: record it with the lead */
   window.addEventListener('message', function (e) {
+    if (!/^https:\/\/([\w-]+\.)?calendly\.com$/.test(e.origin)) return; // only Calendly's own widget, never a fake event from another page or frame
     if (!e.data || e.data.event !== 'calendly.event_scheduled' || !CALENDLY_URL) return;
     var ev = e.data.payload && e.data.payload.event;
     send({ contact: lead.contact, link: lead.link, goals: 'Demo booked on Calendly', slot_text: (ev && ev.uri) || '', source: 'home-nov-calendly' }).catch(function () {});
