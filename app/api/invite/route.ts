@@ -11,6 +11,12 @@ export async function POST(request: Request) {
     let goals: string[] = [];
     let contact = "";
     let link = "";
+    // Optional extras sent by the November homepage form and its demo-time picker
+    let audience = "";
+    let slot = "";
+    let slotText = "";
+    let timezone = "";
+    let source = "";
 
     const contentType = request.headers.get("content-type") || "";
 
@@ -22,6 +28,11 @@ export async function POST(request: Request) {
       links = String(data.links || "");
       contact = String(data.contact || "");
       link = String(data.link || "");
+      audience = String(data.audience || "");
+      slot = String(data.slot || "");
+      slotText = String(data.slot_text || "");
+      timezone = String(data.timezone || "");
+      source = String(data.source || "");
       role = Array.isArray(data.role) ? data.role : data.role ? [String(data.role)] : [];
       earnings = Array.isArray(data.earnings) ? data.earnings : data.earnings ? [String(data.earnings)] : [];
       goals = Array.isArray(data.goals) ? data.goals : data.goals ? [String(data.goals)] : [];
@@ -63,6 +74,11 @@ export async function POST(request: Request) {
     if (role.length > 0) params.append("role", role.join(", "));
     if (earnings.length > 0) params.append("earnings", earnings.join(", "));
     if (goals.length > 0) params.append("goals", goals.join(", "));
+    if (audience.trim()) params.append("audience", audience.trim());
+    if (slot.trim()) params.append("slot", slot.trim());
+    if (slotText.trim()) params.append("slot_text", slotText.trim());
+    if (timezone.trim()) params.append("timezone", timezone.trim());
+    if (source.trim()) params.append("source", source.trim());
     params.append("timestamp", new Date().toISOString());
 
     const response = await fetch(webhookUrl, {
