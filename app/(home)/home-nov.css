@@ -920,3 +920,32 @@
   .tt26 .vision-line{font-size:26px;letter-spacing:-.03em}
   .tt26 .cta{min-height:52px;padding:0 26px;font-size:16px;font-weight:600}
 }
+
+/* ===== All screen sizes: the live site's layout principles (27 Nov 2026, Lalith) =====
+   Measured on trainertwin.com at 1440px: section headings centred, 44px, weight 700, line height 1.14,
+   tracking -0.048em, with a centred 16px intro under them; hero centred at 60px; content narrower than the
+   full container. Here: centred hero and section heads at those sizes, the build form centred under its
+   heading instead of beside it, the hero video centred under the pitch. */
+@media (min-width:641px){
+  .tt26 .hero-main{flex-direction:column;align-items:center;gap:40px}
+  .tt26 .lead{flex:none;width:100%;max-width:760px;align-items:center;text-align:center}
+  .tt26 .lead h1{font-size:clamp(44px,4.6vw,60px);line-height:1.14;letter-spacing:-.048em}
+  .tt26 .lead .pitch{display:flex;flex-direction:column;align-items:center}
+  .tt26 .lead .pitch p{margin-inline:auto;font-size:16px}
+  .tt26 .lead .assure{justify-content:center}
+  .tt26 .hero-main>:not(.lead){width:100%;max-width:760px}
+  .tt26 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em}
+  .tt26 .coaches h2,.tt26 .uses h2,.tt26 .team h2,.tt26 .build h2{max-width:20em;margin-inline:auto;text-align:center;font-size:44px;line-height:1.14;letter-spacing:-.048em}
+  .tt26 .uses-sub,.tt26 .team-sub{margin-inline:auto;text-align:center;font-size:16px;line-height:1.6;max-width:42em}
+  .tt26 .told h3{text-align:center;font-size:28px}
+  .tt26 .build-row{flex-direction:column;align-items:center;gap:40px}
+  .tt26 .build-row>h2{flex:none}
+  .tt26 .build-row>.panel{flex:none;width:100%;max-width:760px}
+  .tt26 .vision .wrap{align-items:center;text-align:center}
+  .tt26 .vision-line{font-size:clamp(30px,3.2vw,44px);line-height:1.2;letter-spacing:-.03em;max-width:22em}
+  .tt26 .cta{min-height:52px;padding:0 28px;font-size:16px;font-weight:600}
+}
+@media (min-width:641px){
+  .tt26 .build .doubts{width:100%;max-width:760px;margin-inline:auto;text-align:center}
+  .tt26 .build .doubts-row{justify-content:center}
+}
