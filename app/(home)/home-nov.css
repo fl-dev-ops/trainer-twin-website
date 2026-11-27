@@ -984,3 +984,17 @@
   .tt26 .vision .wrap{align-items:center;text-align:center}
   .tt26 input::placeholder{font-size:15px}
 }
+
+/* Day chips above the times: the ready day plus the next working days */
+.tt26 .daypick{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:4px 0 18px}
+.tt26 .daychip{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border-radius:14px;border:1.5px solid var(--field);background:transparent;color:var(--paper);font:inherit;cursor:pointer}
+.tt26 .daychip-w{font-size:12px;color:var(--text-soft)}
+.tt26 .daychip-d{font-size:15px;font-weight:700}
+.tt26 .daychip-s{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.tt26 .daychip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.tt26 .daychip[aria-pressed="true"] .daychip-w,.tt26 .daychip[aria-pressed="true"] .daychip-s{color:var(--ink)}
+@media (max-width:380px){.tt26 .daychip-d{font-size:13px}.tt26 .daychip{padding:8px 2px}}
+.tt26 .daychip-d{font-size:20px;line-height:1.1}
+.tt26 .daychip-m{font-size:12px;color:var(--text-soft)}
+.tt26 .daychip[aria-pressed="true"] .daychip-m{color:var(--ink)}
+@media (max-width:380px){.tt26 .daychip-d{font-size:18px}}

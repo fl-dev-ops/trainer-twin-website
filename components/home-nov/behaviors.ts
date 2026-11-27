@@ -166,12 +166,21 @@ export function initNovemberHome(root: HTMLElement): () => void {
   }
   /* Ready day: 7 days from the day the visitor is on right now, in their own time zone.
      Worked out again each time the confirmation opens, so a page left open overnight stays right. */
-  var today, ready;
+  var BOOK_DAYS = 5; // the ready day plus the four working days after it
+  var today, ready, bookDays = [], dayIdx = 0;
   function setDays() {
     today = new Date(); today.setHours(0, 0, 0, 0);
     ready = new Date(today); ready.setDate(ready.getDate() + 7);
     /* The team works Monday to Friday: a weekend ready day moves to Monday */
     while (ready.getDay() === 0 || ready.getDay() === 6) ready.setDate(ready.getDate() + 1);
+    /* Coaches can book the ready day or any of the next working days after it (Shyam, 27 Nov 2026) */
+    bookDays = [new Date(ready)];
+    var d = new Date(ready);
+    while (bookDays.length < BOOK_DAYS) {
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() !== 0 && d.getDay() !== 6) bookDays.push(new Date(d));
+    }
+    dayIdx = 0;
   }
   setDays();
   function fmt(d, o) { try { return d.toLocaleDateString('en-GB', o); } catch (e) { return d.toDateString(); } }
@@ -216,8 +225,29 @@ export function initNovemberHome(root: HTMLElement): () => void {
   for (var h = 11; h <= 20; h++) { istSlots.push([h, 0]); if (h < 20) istSlots.push([h, 30]); }
   var slotTimes = [];
   var picked = null;
+  /* Day chips: the ready day first, then the next working days */
+  function drawDays() {
+    var box = $('daypick'); if (!box) return;
+    box.textContent = '';
+    bookDays.forEach(function (d, i) {
+      var b = el('button', 'daychip');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', i === dayIdx ? 'true' : 'false');
+      b.appendChild(el('span', 'daychip-w', fmt(d, { weekday: 'short' })));
+      b.appendChild(el('span', 'daychip-d', fmt(d, { day: 'numeric' })));
+      b.appendChild(el('span', 'daychip-m', fmt(d, { month: 'short' })));
+      if (i === 0) b.appendChild(el('span', 'daychip-s', 'Ready'));
+      b.addEventListener('click', function () {
+        dayIdx = i; picked = null; $('book').disabled = true;
+        drawDays(); drawSlots();
+      });
+      box.appendChild(b);
+    });
+    var lab = $('slots-day'); if (lab) lab.textContent = fmt(bookDays[dayIdx], { weekday: 'long', day: 'numeric', month: 'long' });
+  }
   function drawSlots() {
-    slotTimes = istSlots.map(function (hm) { return new Date(Date.UTC(ready.getFullYear(), ready.getMonth(), ready.getDate(), hm[0], hm[1]) - 330 * 60000); });
+    var day = bookDays[dayIdx] || ready;
+    slotTimes = istSlots.map(function (hm) { return new Date(Date.UTC(day.getFullYear(), day.getMonth(), day.getDate(), hm[0], hm[1]) - 330 * 60000); });
     $('slots').textContent = '';
     var readyDay = inZone(slotTimes[0], { weekday: 'short' });
     slotTimes.forEach(function (at) {
@@ -236,7 +266,7 @@ export function initNovemberHome(root: HTMLElement): () => void {
     });
   }
   sel.addEventListener('change', drawSlots);
-  drawSlots();
+  drawDays(); drawSlots();
   function stamp(d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
 
   /* Sends one submission to our own /api/invite route, which forwards it to the team's sheet */
@@ -352,7 +382,7 @@ export function initNovemberHome(root: HTMLElement): () => void {
     submit.disabled = true;
     send({ contact: contact, link: link, audience: chosen('who').join(', '), goals: chosen('jobs').join(', '), source: 'home-nov' }).then(function () {
       lead.contact = contact; lead.link = link;
-      setDays(); drawStrip(); drawSlots();
+      setDays(); drawStrip(); drawDays(); drawSlots();
       if (CALENDLY_URL) openCalendly(contact);
       $('form').hidden = true;
       $('done').hidden = false;

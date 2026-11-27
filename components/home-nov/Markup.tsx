@@ -149,13 +149,14 @@ export function Markup() {
           <button type="button" className="back" id="back-form"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>Back to my answers</button>
           <div className="done-head">
             <h3>Your twin is on its way.</h3>
-            <p>It will be ready on <ReadyDate />. Pick a time that day, and we&apos;ll show it to you.</p>
+            <p>It will be ready on <ReadyDate />. Pick a time that day or a few days after, and we&apos;ll show it to you.</p>
           </div>
           <ol className="strip" id="strip" aria-label="The next 7 days"></ol>
           <div className="calendly-embed" id="calendly-embed" hidden></div>
           <div className="slots-wrap" id="slots-wrap">
+            <div className="daypick" id="daypick" role="group" aria-label="Pick a day"></div>
             <div className="slots-head">
-              <p className="slots-label">Times on <ReadyDate /></p>
+              <p className="slots-label">Times on <b id="slots-day"><ReadyDate /></b></p>
               <label className="tz-pick"><span>Time zone</span><select id="tz-select"></select></label>
             </div>
             <div className="slots" id="slots"></div>
