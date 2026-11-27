@@ -998,3 +998,12 @@
 .tt26 .daychip-m{font-size:12px;color:var(--text-soft)}
 .tt26 .daychip[aria-pressed="true"] .daychip-m{color:var(--ink)}
 @media (max-width:380px){.tt26 .daychip-d{font-size:18px}}
+
+/* Header button: phones only (laptops have the section menu), like the live site's "Request a demo" */
+.tt26 .top-cta{display:none}
+@media (max-width:640px){
+  .tt26 .top{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap}
+  .tt26 .top-cta{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;background:var(--paper);color:var(--ink);font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
+  /* Calendly's booking page needs more height on a phone */
+  .tt26 .calendly-embed{min-height:760px}
+}

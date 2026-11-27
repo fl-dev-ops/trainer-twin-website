@@ -169,7 +169,7 @@ const STEPS: Step[] = [
           </li>
         </ul>
         <span className="home-link-box">
-          <span className="home-link-url">trainertwin.ai/s/your-twin</span>
+          <span className="home-link-url">trainertwin.com/s/your-twin</span>
           <svg
             aria-hidden="true"
             viewBox="0 0 16 16"

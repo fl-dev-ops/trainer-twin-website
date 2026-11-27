@@ -17,6 +17,7 @@ export function Markup() {
         <a href="#build" data-go="build">Build your twin</a>
         <a href="#team" data-go="team">Team</a>
       </nav>
+      <a className="top-cta" href="#build" data-go="build">Build my demo</a>
     </header>
 
     <div className="hero-main">
