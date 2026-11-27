@@ -932,7 +932,7 @@
 @media (min-width:641px){
   .tt26 .hero-main{flex-direction:column;align-items:center;gap:40px}
   .tt26 .lead{flex:none;width:100%;max-width:760px;align-items:center;text-align:center}
-  .tt26 .lead h1{font-size:clamp(44px,4.6vw,60px);line-height:1.14;letter-spacing:-.048em}
+  .tt26 .lead h1{font-size:52px;line-height:1.14;letter-spacing:-.048em}
   .tt26 .lead .pitch{display:flex;flex-direction:column;align-items:center}
   .tt26 .lead .pitch p{margin-inline:auto;font-size:16px}
   .tt26 .lead .assure{justify-content:center}
@@ -1017,7 +1017,7 @@
 .tt26 .lead .assure{color:#8E94A0}
 .tt26 .lead .pitch .cta{color:#fff;font-size:16px}
 .tt26 .top nav a{font-size:14px}
-.tt26 .hero-main > .stage{width:80%;max-width:608px}
+.tt26 .hero-main > .stage{width:64%;max-width:486px}
 @media (min-width:641px){
   .tt26 .lead .pitch > p{max-width:none;white-space:nowrap}
 }

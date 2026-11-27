@@ -24,13 +24,30 @@ export function initNovemberHome(root: HTMLElement): () => void {
   };
 
   /* Scale the page up a little on large screens so it fills the screen like it does on a laptop */
+  /* The first screen is at least one viewport tall, and the video card grows to fill it.
+     That leftover under the card is the "bottom padding". Keep half of it. */
+  function halfHeroBottom() {
+    var wrap = root.querySelector('#twin .wrap');
+    var heroStage = root.querySelector('.hero-main > .stage');
+    if (!wrap || !heroStage) return;
+    heroStage.style.flex = 'none';
+    heroStage.style.paddingBottom = '0px';
+    wrap.style.minHeight = '0px';
+    var content = wrap.getBoundingClientRect().height;
+    var slack = Math.max(0, window.innerHeight - content);
+    var zoom = parseFloat(root.style.zoom) || 1;
+    heroStage.style.paddingBottom = (slack / 2 / zoom) + 'px';
+    wrap.style.minHeight = ((content + slack / 2) / zoom) + 'px';
+  }
   function fit() {
     var z = Math.min(1.7, Math.max(1, window.innerWidth / 1440));
     root.style.zoom = String(z);
     root.style.setProperty('--z', String(z));
+    halfHeroBottom();
   }
   fit();
   window.addEventListener('resize', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(halfHeroBottom);
 
   try {
   var who = ['Learners', 'Prospects', 'Clients', 'Cohort members', 'Internal teams'];
@@ -581,5 +598,9 @@ export function initNovemberHome(root: HTMLElement): () => void {
     _timers.forEach(function (t) { if (t[0] === 't') window.clearTimeout(t[1]); else window.clearInterval(t[1]); });
     document.body.style.overflow = '';
     root.classList.remove('popping');
+    var wrap = root.querySelector('#twin .wrap');
+    var heroStage = root.querySelector('.hero-main > .stage');
+    if (wrap) wrap.style.minHeight = '';
+    if (heroStage) { heroStage.style.flex = ''; heroStage.style.paddingBottom = ''; }
   };
 }
