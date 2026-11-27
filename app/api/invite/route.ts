@@ -11,6 +11,13 @@ export async function POST(request: Request) {
     let goals: string[] = [];
     let contact = "";
     let link = "";
+    // Optional extras sent by the November homepage form and its demo-time picker.
+    // Capped (500 characters, 2000 for the link) because they go straight into the Google Sheet.
+    let audience = "";
+    let slot = "";
+    let slotText = "";
+    let timezone = "";
+    let source = "";
 
     const contentType = request.headers.get("content-type") || "";
 
@@ -21,7 +28,12 @@ export async function POST(request: Request) {
       mobile = String(data.mobile || "");
       links = String(data.links || "");
       contact = String(data.contact || "");
-      link = String(data.link || "");
+      link = String(data.link || "").slice(0, 2000);
+      audience = String(data.audience || "").slice(0, 500);
+      slot = String(data.slot || "").slice(0, 500);
+      slotText = String(data.slot_text || "").slice(0, 500);
+      timezone = String(data.timezone || "").slice(0, 500);
+      source = String(data.source || "").slice(0, 500);
       role = Array.isArray(data.role) ? data.role : data.role ? [String(data.role)] : [];
       earnings = Array.isArray(data.earnings) ? data.earnings : data.earnings ? [String(data.earnings)] : [];
       goals = Array.isArray(data.goals) ? data.goals : data.goals ? [String(data.goals)] : [];
@@ -32,7 +44,7 @@ export async function POST(request: Request) {
       mobile = String(formData.get("mobile") || "");
       links = String(formData.get("links") || "");
       contact = String(formData.get("contact") || "");
-      link = String(formData.get("link") || "");
+      link = String(formData.get("link") || "").slice(0, 2000);
       role = formData.getAll("role").map(String).filter(Boolean);
       earnings = formData.getAll("earnings").map(String).filter(Boolean);
       goals = formData.getAll("goals").map(String).filter(Boolean);
@@ -63,6 +75,11 @@ export async function POST(request: Request) {
     if (role.length > 0) params.append("role", role.join(", "));
     if (earnings.length > 0) params.append("earnings", earnings.join(", "));
     if (goals.length > 0) params.append("goals", goals.join(", "));
+    if (audience.trim()) params.append("audience", audience.trim());
+    if (slot.trim()) params.append("slot", slot.trim());
+    if (slotText.trim()) params.append("slot_text", slotText.trim());
+    if (timezone.trim()) params.append("timezone", timezone.trim());
+    if (source.trim()) params.append("source", source.trim());
     params.append("timestamp", new Date().toISOString());
 
     const response = await fetch(webhookUrl, {

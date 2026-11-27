@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://trainertwin.ai/sitemap.xml",
+    sitemap: "https://trainertwin.com/sitemap.xml",
   };
 }
