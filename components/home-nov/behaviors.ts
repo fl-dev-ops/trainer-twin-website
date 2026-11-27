@@ -59,9 +59,12 @@ export function initNovemberHome(root: HTMLElement): () => void {
     play: '<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
   };
   var face = '<span class="orb" aria-hidden="true"><i></i><i></i><i></i><span class="orb-core"><img src="/home-nov/tt-mark.png" alt="" width="40" height="40"></span></span>';
-  var persona = function (label, cls) { return '<span class="pa ' + cls + '" aria-hidden="true">' + label.charAt(0) + '</span>'; };
+  function bar(url) {
+    return '<div class="emb-bar"><i></i><i></i><i></i><span>' + url + '</span></div>';
+  }
   function call(o) {
     return '<div class="tw-call">'
+      + bar(o.url)
       + '<div class="tw-top"><span class="tw-brand"><img src="/home-nov/tt-mark.png" alt="" width="16" height="16">TrainerTwin</span><span class="tw-pill">' + (o.left || '20 min left') + '</span></div>'
       + (o.title ? '<div class="tw-title">' + o.title + '</div>' : '')
       + '<div class="tw-tile">' + face + '<span class="tw-tag">Your twin</span></div>'
@@ -70,23 +73,23 @@ export function initNovemberHome(root: HTMLElement): () => void {
       + '</div>';
   }
   var cases = [
-    { t: 'Course Q&A', d: 'Learners ask about your course and get answers in your words, any time.',
-      html: call({ on: 'mic' }),
+    { t: 'Course Q&A', d: 'Learners ask about your course and get answers in your words, any time.', url: 'yourcourse.com/ask',
+      html: call({ on: 'mic', url: 'yourcourse.com/ask' }),
       lines: [['me', 'Why do you open with a question instead of the pitch?'], ['sys', 'Thinking…'], ['tw', 'Because people listen better once they’ve said their problem out loud. That’s step one of the method in module 3.']] },
-    { t: 'After a live class or masterclass', d: 'Learners clear their doubts that evening, with your recordings and material behind every answer.',
-      html: call({ on: 'mic', left: '18 min left' }),
+    { t: 'After a live class or masterclass', d: 'Learners clear their doubts that evening, with your recordings and material behind every answer.', url: 'yourcourse.com/masterclass',
+      html: call({ on: 'mic', left: '18 min left', url: 'yourcourse.com/masterclass' }),
       lines: [['me', 'From Saturday’s masterclass: what do I do if there’s silence after the price?'], ['tw', 'Let the silence sit, then ask one open question.'], ['clipref', I.play + ' Masterclass recording · from 42:10']] },
-    { t: 'Role-play practice', d: 'Learners choose a role-play, practise the conversation, then the twin debriefs them using your methodology.',
-      html: '<div class="rp"><div class="rp-head">Choose a role-play</div><div class="rp-grid">'
-        + [['Price objection', 'The buyer says your quote is too high.', 'g1'], ['Hesitant client', 'They like it but keep delaying the decision.', 'g2'], ['Difficult team member', 'Give feedback without losing them.', 'g3']].map(function (c, k) {
-            return '<div class="rp-card ' + c[2] + (k === 0 ? ' sel' : '') + '"><div class="rp-art"><span class="rp-persona">' + persona(k === 2 ? 'Team member' : 'Buyer', 'p' + k) + '<span><b>Persona</b><small>' + (k === 2 ? 'Team member' : 'Buyer') + '</small></span></span></div><b>' + c[0] + '</b><small>' + c[1] + '</small></div>';
+    { t: 'Role-play practice', d: 'Learners choose a role-play, practise the conversation, then the twin debriefs them using your methodology.', url: 'yourcourse.com/role-play',
+      html: '<div class="rp">' + bar('yourcourse.com/role-play') + '<div class="rp-head">Choose a role-play</div><div class="rp-grid">'
+        + [['Price objection', 'The buyer says your quote is too high.', 'Buyer'], ['Hesitant client', 'They like it but keep delaying the decision.', 'Buyer'], ['Difficult team member', 'Give feedback without losing them.', 'Team member']].map(function (c, k) {
+            return '<div class="rp-card' + (k === 0 ? ' sel' : '') + '"><span class="rp-who">' + c[2] + '</span><b>' + c[0] + '</b><small>' + c[1] + '</small></div>';
           }).join('') + '</div><div class="tw-lines rp-lines" data-lines></div></div>',
       lines: [['tw', 'As your buyer: “Honestly, your price is higher than the other quote.”'], ['me', 'I understand. Can I ask what’s included in theirs?'], ['db', 'Debrief: good question. Next time, acknowledge the concern first, then ask.']] },
-    { t: 'Deal support', d: 'Learners share a screenshot of a real conversation with a client or buyer and get their next move.',
-      html: call({ on: 'clip', left: '16 min left' }),
+    { t: 'Deal support', d: 'Learners share a screenshot of a real conversation with a client or buyer and get their next move.', url: 'yourcourse.com/deals',
+      html: call({ on: 'clip', left: '16 min left', url: 'yourcourse.com/deals' }),
       lines: [['shotln', '<span class="shot-img"><i></i><i></i><i></i></span>chat-with-client.png'], ['me', 'They went quiet after my proposal. What should I send?'], ['tw', 'Check in on their timeline, not the decision: “When are you hoping to have this in place?”']] },
-    { t: 'A new income stream', d: 'Embed your twin on your own website. Learners pay as they go, topping up minutes when they need them, and payments come straight to your account.',
-      html: '<div class="emb"><div class="emb-bar"><i></i><i></i><i></i><span>yourwebsite.com/practice</span></div><div class="emb-page"><div class="emb-copy"><b>Practise with my twin</b><small>Ask questions and role-play any time, in my voice and style.</small><div class="emb-price">Pay as you go <span>· top up any time</span></div><span class="emb-btn">Top up 30 minutes</span></div><div class="emb-widget">' + face + '<span class="tw-tag">Your twin</span></div></div><div class="tw-lines emb-lines" data-lines></div></div>',
+    { t: 'A new income stream', d: 'Embed your twin on your own website. Learners pay as they go, topping up minutes when they need them, and payments come straight to your account.', url: 'yourwebsite.com/practice',
+      html: '<div class="emb">' + bar('yourwebsite.com/practice') + '<div class="emb-page"><div class="emb-copy"><b>Practise with my twin</b><small>Ask questions and role-play any time, in my voice and style.</small><div class="emb-price">Pay as you go <span>· top up any time</span></div><span class="emb-btn">Top up 30 minutes</span></div><div class="emb-widget">' + face + '<span class="tw-tag">Your twin</span></div></div><div class="tw-lines emb-lines" data-lines></div></div>',
       lines: [['pay', '30-minute top-up received · paid straight to your account'], ['me', 'Hi! I\u2019ve topped up 30 minutes. Can we practise my pricing conversation?'], ['tw', 'Great, let\u2019s start. I\u2019ll play your buyer.']] }
   ];
   var ucSvg = function (p) { return '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>'; };
@@ -112,7 +115,8 @@ export function initNovemberHome(root: HTMLElement): () => void {
     ucBtns.forEach(function (b, k) { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
     ucCur = i;
     var stage = $('uc-stage');
-    stage.innerHTML = '<p class="uc-desc">' + cases[i].d + '</p>' + cases[i].html + '<span class="uc-note">Example</span>';
+    var lead = $('uc-lead'); if (lead) lead.textContent = cases[i].d;
+    stage.innerHTML = cases[i].html + '<span class="uc-note">Example</span>';
     var box = stage.querySelector('[data-lines]');
     cases[i].lines.forEach(function (m, k) {
       ucTimers.push(_setTimeout(function () {
@@ -121,7 +125,12 @@ export function initNovemberHome(root: HTMLElement): () => void {
       }, still ? 0 : 500 + k * 1200));
     });
     var list = $('uc-list');
-    if (list.scrollWidth > list.clientWidth) { try { list.scrollTo({ left: ucBtns[i].offsetLeft - list.offsetLeft - 8, behavior: still ? 'auto' : 'smooth' }); } catch (e) { list.scrollLeft = ucBtns[i].offsetLeft - list.offsetLeft - 8; } }
+    if (list.scrollWidth > list.clientWidth) {
+      var btn = ucBtns[i];
+      var delta = (btn.getBoundingClientRect().left + btn.offsetWidth / 2) - (list.getBoundingClientRect().left + list.clientWidth / 2);
+      var left = list.scrollLeft + delta;
+      try { list.scrollTo({ left: left, behavior: still ? 'auto' : 'smooth' }); } catch (e) { list.scrollLeft = left; }
+    }
   }
   ucShow(0);
   _setInterval(function () { if (Date.now() < ucPause) return; ucShow((ucCur + 1) % cases.length); }, 7500);
@@ -471,7 +480,7 @@ export function initNovemberHome(root: HTMLElement): () => void {
 
 
   /* Team: cover flow. The centre person is large; neighbours shrink and fade. */
-  var TEAM = [{"n": "Shanmuga Anandaraman", "tag": "Co-founder & CEO", "role": "Co-founder & CEO", "cred": "Ex-Director of Product, Freshworks", "li": "https://www.linkedin.com/in/shyamanandaraman/"}, {"n": "Harini Shekar", "tag": "Co-founder & CTO", "role": "Co-founder & CTO", "cred": "Ex-AI Director, PayPal", "li": "https://www.linkedin.com/in/harini-shekar/"}, {"n": "Dharshini Jenefer", "tag": "Head of Partnerships", "role": "Head of Partnerships", "cred": "MA Education, Azim Premji University", "li": "https://www.linkedin.com/in/dharshini-jenefer-b8445398/"}, {"n": "Catherine Nivedha", "tag": "Growth & Product", "role": "Growth & Product", "cred": "British Council coach, 9 years", "li": "https://www.linkedin.com/in/catherine-nivedha-7a27811b0/"}, {"n": "Lalith Kumar", "tag": "GTM Engineer", "role": "GTM Engineer", "cred": "Ex-co-founder, Cliency", "li": "https://www.linkedin.com/in/lalithlogs/"}, {"n": "Surya Umapathy", "tag": "AI Engineer", "role": "Founding AI Engineer", "cred": "Ex-Freshworks", "li": "https://www.linkedin.com/in/suryaumapathy2812/"}, {"n": "Bhuvan T", "tag": "Designer", "role": "Founding Designer", "cred": "Ex-Freshworks", "li": "https://www.linkedin.com/in/bhuvanui/"}, {"n": "Sandhya Shanmuga Sundaram", "tag": "Admin & HR", "role": "Admin & HR", "cred": "Ex-Siemens (US) · Ex-Amazon (India)", "li": ""}];
+  var TEAM = [{"n": "Shanmuga Anandaraman", "tag": "Co-founder & CEO", "role": "Co-founder & CEO", "cred": "Ex-Director of Product, Freshworks", "li": "https://www.linkedin.com/in/shyamanandaraman/"}, {"n": "Harini Shekar", "tag": "Co-founder & CTO", "role": "Co-founder & CTO", "cred": "Ex-AI Director, PayPal", "li": "https://www.linkedin.com/in/harini-shekar/"}, {"n": "Dharshini Jenefer", "tag": "Head of Partnerships", "role": "Head of Partnerships", "cred": "MA Education, Azim Premji University", "li": "https://www.linkedin.com/in/dharshini-jenefer-b8445398/"}, {"n": "Catherine Nivedha", "tag": "Growth & Product", "role": "Growth & Product", "cred": "British Council coach, 9 years", "li": "https://www.linkedin.com/in/catherine-nivedha-7a27811b0/"}, {"n": "Lalith Kumar", "tag": "GTM Engineer", "role": "GTM Engineer", "cred": "Ex-co-founder, Cliency", "li": "https://www.linkedin.com/in/lalithlogs/"}, {"n": "Surya Umapathy", "tag": "AI Engineer", "role": "Founding AI Engineer", "cred": "Ex-Freshworks", "li": "https://www.linkedin.com/in/suryaumapathy2812/"}, {"n": "Bhuvan T", "tag": "Designer", "role": "Founding Designer", "cred": "Ex-Freshworks", "li": "https://www.linkedin.com/in/bhuvanui/"}, {"n": "Sandhya Shanmuga Sundaram", "tag": "Admin & HR", "role": "Admin & HR", "cred": "Ex-Siemens (US) · Ex-Amazon (India)", "li": "https://www.linkedin.com/company/trainertwin-by-forever-learning/"}];
   var cfCards = Array.prototype.slice.call(root.querySelectorAll('.cf-card')), cfCur = 4, cfHold = false, cfPause = 0;
   var SC = [1, .78, .6, .46], OP = [1, 1, .55, .3], GAP = [0, 10, 46, 64];
   function cfLayout() {
@@ -493,7 +502,14 @@ export function initNovemberHome(root: HTMLElement): () => void {
     var p = TEAM[cfCur];
     $('cf-name').textContent = p.n;
     $('cf-role').textContent = p.role + ' \u00b7 ' + p.cred;
-    var li = $('cf-li'); li.hidden = !p.li; if (p.li) { li.href = p.li; li.setAttribute('aria-label', p.n + ' on LinkedIn'); }
+    var li = $('cf-li');
+    var has = !!p.li;
+    li.hidden = false;
+    li.classList.toggle('is-off', !has);
+    li.tabIndex = has ? 0 : -1;
+    li.setAttribute('aria-hidden', has ? 'false' : 'true');
+    if (has) { li.href = p.li; li.setAttribute('aria-label', p.n + ' on LinkedIn'); }
+    else li.removeAttribute('href');
   }
   function cfGo(i) { cfCur = (i + cfCards.length) % cfCards.length; cfLayout(); }
   cfCards.forEach(function (c, i) {

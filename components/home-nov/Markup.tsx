@@ -23,7 +23,7 @@ export function Markup() {
     <div className="hero-main">
     <div className="lead">
       <p className="eyebrow">For coaches, trainers and professors</p>
-      <h1>Meet your AI twin in 7&nbsp;days.</h1>
+      <h1>Meet your <span className="hl">AI twin</span> in 7&nbsp;days.</h1>
       <div className="pitch">
         <p>We build your demo from your public courses, videos, books or posts.</p>
         <a className="cta" href="#build" data-go="build">Build my free demo</a>
@@ -43,18 +43,17 @@ export function Markup() {
 
     <div className="stage">
       <figure className="solo">
-        <div className="screen-slot" id="screen-slot"><div className="screen has-video" id="screen"><button type="button" className="pin-x" id="pin-x" aria-label="Put the video back" hidden><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>
+        <div className="screen-slot" id="screen-slot"><div className="screen has-video" id="screen"><button type="button" className="pin-x" id="pin-x" aria-label="Put the video back" hidden><svg viewBox="0 0 12 12" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>
           <video id="tt-video" src="/home-nov/trainertwin-video.mp4" poster="/home-nov/trainertwin-video-poster.jpg" controls playsInline preload="metadata" width="1280" height="720"></video>
           <button type="button" className="cover warm" id="tt-cover" aria-label="Play: see how TrainerTwin works, 2 minutes">
             <span className="cover-brand"><img src="/home-nov/tt-mark.png" alt="" width="240" height="238" />TrainerTwin</span>
-            <span className="cover-big-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M8 5v14l11-7z" fill="currentColor" /></svg></span>
+            <span className="cover-big-play" aria-hidden="true"><svg className="play-caret" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m-5.293 4.953a1 1 0 0 0 -1.707 .707v6c0 .217 .07 .433 .21 .613l.083 .094a1 1 0 0 0 1.414 0l3 -3a1 1 0 0 0 0 -1.414z" /></svg><svg className="play-tri" viewBox="0 0 24 24" width="34" height="34"><path d="M8 5v14l11-7z" fill="currentColor"></path></svg></span>
             <span className="cover-title">See how TrainerTwin works</span>
             <span className="cover-chapters"><span>Build</span><i></i><span>Calibrate</span><i></i><span>Deploy</span><i></i><span>Real coaches</span></span>
             <span className="cover-len">2 min</span>
             <span className="cover-mini"><b>How TrainerTwin works</b><small><span className="live-dot" aria-hidden="true"></span>2 min · Tap to watch</small></span>
           </button>
         </div></div>
-        <figcaption className="yt-row"><a className="yt" href="https://www.youtube.com/@TrainerTwin" target="_blank" rel="noopener noreferrer" aria-label="Watch TrainerTwin on YouTube"><svg aria-hidden="true" width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" rx="4" fill="currentColor" /><path d="M8 4v6l5-3z" fill="#0E1014" /></svg>Watch on YouTube</a><span>More videos on our channel</span></figcaption>
       </figure>
     </div>
     </div>
@@ -106,9 +105,11 @@ export function Markup() {
     <p className="uses-sub">These are the ways coaches, trainers and professors are exploring their twins with us.</p>
     <div className="usecase">
       <div className="uc-list" id="uc-list" role="tablist" aria-label="Ways coaches use their twins"></div>
+      <p className="uc-lead" id="uc-lead"></p>
       <div className="uc-stage" id="uc-stage" aria-live="polite"></div>
     </div>
     <div className="idea">
+      <span className="idea-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 13a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M15 13a2 2 0 0 1 2 -2h1a2 2 0 0 1 2 2v3a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2z" /><path d="M4 15v-3a8 8 0 0 1 16 0v3" /></svg></span>
       <div className="idea-text"><b>Have a different idea for your twin?</b><span>We’d be happy to explore it with you.</span></div>
       <a className="cta idea-go" href="#build" data-go="build">Tell us your idea</a>
     </div>
@@ -118,25 +119,28 @@ export function Markup() {
 <section className="build" id="build">
   <div className="wrap">
     <div className="build-row">
-      <h2>What would you want your twin to handle?</h2>
+      <div className="build-lead">
+        <h2>What would you want your twin to handle?</h2>
+        <p>We&apos;ll build it and get it to you by <ReadyDate />.</p>
+      </div>
       <div className="panel">
         <form id="form" noValidate>
           <div className="hp" aria-hidden="true"><label htmlFor="tt-company">Leave this empty</label><input id="tt-company" name="company_website" type="text" tabIndex={-1} autoComplete="off" /></div>
           <div className="q">
-            <span className="lab-row"><span className="label">Who is your twin for?</span><button type="button" className="ib" aria-expanded="false" aria-controls="info-1" aria-label="Why we ask">i</button></span><p className="ib-tip" id="info-1" hidden>We shape your twin’s tone and examples around the people it will talk to.</p>
+            <span className="lab-row"><span className="label">Who is your twin for?</span><span className="ib-wrap"><button type="button" className="ib" aria-expanded="false" aria-controls="info-1" aria-label="Why we ask">i</button><p className="ib-tip" id="info-1" hidden>We shape your twin’s tone and examples around the people it will talk to.</p></span></span>
             <div className="jobs" id="who"></div>
           </div>
           <div className="q">
-            <span className="lab-row"><span className="label">What should they be able to do with it?</span><button type="button" className="ib" aria-expanded="false" aria-controls="info-2" aria-label="Why we ask">i</button></span><p className="ib-tip" id="info-2" hidden>This tells us what to set up in your demo: answering questions, role-play, feedback or support between sessions.</p>
+            <span className="lab-row"><span className="label">What should they be able to do with it?</span><span className="ib-wrap"><button type="button" className="ib" aria-expanded="false" aria-controls="info-2" aria-label="Why we ask">i</button><p className="ib-tip" id="info-2" hidden>This tells us what to set up in your demo: answering questions, role-play, feedback or support between sessions.</p></span></span>
             <div className="jobs" id="jobs"></div>
           </div>
           <div className="q">
-            <span className="lab-row"><label htmlFor="tt-link">To build your twin, where can we find your work?</label><button type="button" className="ib" aria-expanded="false" aria-controls="info-4" aria-label="Why we ask">i</button></span><p className="ib-tip" id="info-4" hidden>Your twin learns from what you’ve already shared in public, such as your website, LinkedIn, YouTube, podcast or course. For the demo we only use public material, and your IP stays yours.</p>
+            <span className="lab-row"><label htmlFor="tt-link">To build your twin, where can we find your work?</label><span className="ib-wrap"><button type="button" className="ib" aria-expanded="false" aria-controls="info-4" aria-label="Why we ask">i</button><p className="ib-tip" id="info-4" hidden>Your twin learns from what you’ve already shared in public, such as your website, LinkedIn, YouTube, podcast or course. For the demo we only use public material, and your IP stays yours.</p></span></span>
             <input id="tt-link" type="url" placeholder="Website, LinkedIn, YouTube, podcast or course" />
             <div className="hint">One link is enough to begin.</div>
           </div>
           <div className="q">
-            <span className="lab-row"><label htmlFor="tt-contact">Where should we send your demo?</label><button type="button" className="ib" aria-expanded="false" aria-controls="info-5" aria-label="Why we ask">i</button></span><p className="ib-tip" id="info-5" hidden>We only use these to send you your demo and book your walkthrough. No newsletters, no sharing.</p>
+            <span className="lab-row"><label htmlFor="tt-contact">Where should we send your demo?</label><span className="ib-wrap"><button type="button" className="ib" aria-expanded="false" aria-controls="info-5" aria-label="Why we ask">i</button><p className="ib-tip" id="info-5" hidden>We only use these to send you your demo and book your walkthrough. No newsletters, no sharing.</p></span></span>
             <input id="tt-contact" type="text" autoComplete="email" placeholder="Email or WhatsApp" aria-label="Email or WhatsApp" />
           </div>
           <div className="send">
@@ -173,7 +177,8 @@ export function Markup() {
       </div>
     </div>
     <form className="doubts" id="doubts" noValidate>
-      <p className="doubts-q"><b>Still having doubts?</b> Share your email or WhatsApp. We&apos;ll get back within 24&nbsp;hrs.</p>
+      <div className="doubts-head"><span className="doubts-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4" /><path d="M12 19l0 .01" /></svg></span><p className="doubts-title">Still having doubts?</p></div>
+      <p className="doubts-sub">Share your email or WhatsApp. We&apos;ll get back within 24&nbsp;hrs.</p>
       <div className="doubts-row" id="doubts-row">
         <input id="tt-doubt" type="text" placeholder="Email or WhatsApp" aria-label="Your email or WhatsApp" />
         <button type="submit" className="doubts-send">Send</button>
@@ -196,7 +201,7 @@ export function Markup() {
       <a className="cf-card" href="https://www.linkedin.com/in/lalithlogs/" target="_blank" rel="noopener" data-i="4" aria-label="Lalith Kumar"><img src="/home-nov/team/lalith-kumar.jpg" alt="" draggable={false} /><span className="cf-tag">GTM Engineer</span><span className="cf-in" aria-hidden="true"><span>in</span>LinkedIn</span></a>
       <a className="cf-card" href="https://www.linkedin.com/in/suryaumapathy2812/" target="_blank" rel="noopener" data-i="5" aria-label="Surya Umapathy"><img src="/home-nov/team/surya-umapathy.jpg" alt="" draggable={false} /><span className="cf-tag">Founding AI Engineer</span><span className="cf-in" aria-hidden="true"><span>in</span>LinkedIn</span></a>
       <a className="cf-card" href="https://www.linkedin.com/in/bhuvanui/" target="_blank" rel="noopener" data-i="6" aria-label="Bhuvan T"><img src="/home-nov/team/bhuvan-t.jpg" alt="" draggable={false} /><span className="cf-tag">Founding Designer</span><span className="cf-in" aria-hidden="true"><span>in</span>LinkedIn</span></a>
-      <a className="cf-card" data-i="7" aria-label="Sandhya Shanmuga Sundaram"><img src="/home-nov/team/sandhya.jpg" alt="" draggable={false} /><span className="cf-tag">Admin &amp; HR</span><span className="cf-in" aria-hidden="true"><span>in</span>LinkedIn</span></a>
+      <a className="cf-card" href="https://www.linkedin.com/company/trainertwin-by-forever-learning/" target="_blank" rel="noopener" data-i="7" aria-label="Sandhya Shanmuga Sundaram"><img src="/home-nov/team/sandhya.jpg" alt="" draggable={false} /><span className="cf-tag">Admin &amp; HR</span><span className="cf-in" aria-hidden="true"><span>in</span>LinkedIn</span></a>
     </div>
     <button type="button" className="cf-arrow" id="cf-prev" aria-label="Previous person"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" className="cf-arrow" id="cf-next" aria-label="Next person"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
     <div className="cf-cap" aria-live="polite">
