@@ -75,7 +75,7 @@ export default function Footer() {
             Talk to us
           </p>
           <a
-            href="https://wa.me/919500181597"
+            href="https://wa.me/919840717917"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[15px] !text-white font-semibold hover:!text-brand transition-colors"

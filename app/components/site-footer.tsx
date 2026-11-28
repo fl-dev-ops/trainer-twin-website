@@ -69,7 +69,7 @@ export default function SiteFooter({ className = "" }: { className?: string }) {
             Twitter
           </a>
           <a
-            href="https://wa.me/919500181597"
+            href="https://wa.me/919840717917"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-brand transition-colors no-underline!"

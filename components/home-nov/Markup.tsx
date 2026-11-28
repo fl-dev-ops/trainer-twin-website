@@ -222,7 +222,7 @@ export function Markup() {
 <footer className="end">
   <div className="wrap foot">
     <span>© 2026 TrainerTwin.com</span>
-    <span className="foot-links"><a href="https://wa.me/919500181597" target="_blank" rel="noopener">WhatsApp us</a><a href="/privacy">Privacy policy</a></span>
+    <span className="foot-links"><a href="https://wa.me/919840717917" target="_blank" rel="noopener">WhatsApp us</a><a href="/privacy">Privacy policy</a></span>
   </div>
 </footer>
 
