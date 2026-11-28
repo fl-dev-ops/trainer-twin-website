@@ -696,3 +696,9 @@
 .tte-page .video-modal-close{position:absolute;top:14px;right:14px;z-index:2;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center}
 .tte-page .video-modal-close:hover{background:rgba(255,255,255,.22)}
 @media (prefers-reduced-motion:reduce){.tte-page .video-modal-panel{animation:none}}
+
+/* Form feedback, added when the form was wired to /api/invite (same treatment
+   as the earlier November homepage): a missing contact gets the accent border,
+   and a failed send shows a short line under the button. */
+.tte-page #form input.need, .tte-page .doubt-send input.need{border-color:var(--accent)}
+.tte-page .form-error{margin:12px 0 0;font-size:15px;line-height:1.4;color:#FFB4A6}

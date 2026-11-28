@@ -17,6 +17,16 @@ import {
 const WHO_OPTIONS = ["Learners", "Prospects", "Clients", "Cohort members", "Internal teams"];
 const JOB_OPTIONS = ["Ask questions", "Practise a conversation", "Role-play", "Get feedback", "Get support between sessions"];
 
+/** Sends one submission to /api/invite, which forwards it to the team's Google Sheet. */
+async function sendLead(payload: Record<string, string>) {
+  const res = await fetch("/api/invite", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error("send failed");
+}
+
 function useChipSet() {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   function toggle(label: string) {
@@ -39,6 +49,15 @@ export function BuildTwinForm() {
   const [pickedSlot, setPickedSlot] = useState<Date | null>(null);
   const [booked, setBooked] = useState<Date | null>(null);
   const [doubtSent, setDoubtSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [booking, setBooking] = useState(false);
+  const [sendingDoubt, setSendingDoubt] = useState(false);
+  const [formError, setFormError] = useState("");
+  const [bookError, setBookError] = useState("");
+  const [doubtError, setDoubtError] = useState("");
+  const [contactNeeded, setContactNeeded] = useState(false);
+  const [doubtNeeded, setDoubtNeeded] = useState(false);
+  const leadRef = useRef({ contact: "", link: "" });
   const openedAtRef = useRef(0);
   const doneRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -77,10 +96,39 @@ export function BuildTwinForm() {
     }
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const company = (e.currentTarget.elements.namedItem("company_website") as HTMLInputElement | null)?.value;
+    if (sending) return;
+    const form = e.currentTarget;
+    const company = (form.elements.namedItem("company_website") as HTMLInputElement | null)?.value;
     if (company || Date.now() - openedAtRef.current < 3000) return;
+    const contactInput = form.elements.namedItem("contact") as HTMLInputElement | null;
+    const contact = contactInput?.value.trim() ?? "";
+    const link = (form.elements.namedItem("link") as HTMLInputElement | null)?.value.trim() ?? "";
+    setFormError("");
+    if (!contact) {
+      setContactNeeded(true);
+      setFormError("Add an email or WhatsApp number so we know where to send your demo.");
+      contactInput?.focus();
+      return;
+    }
+    setContactNeeded(false);
+    setSending(true);
+    try {
+      await sendLead({
+        contact,
+        link,
+        audience: [...who.selected].join(", "),
+        goals: [...jobs.selected].join(", "),
+        source: "home-nov",
+      });
+    } catch {
+      setFormError("We could not send that. Please check your connection and try again.");
+      return;
+    } finally {
+      setSending(false);
+    }
+    leadRef.current = { contact, link };
     setSubmitted(true);
     requestAnimationFrame(() => {
       doneRef.current?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "center" });
@@ -96,16 +144,55 @@ export function BuildTwinForm() {
     });
   }
 
-  function book() {
-    if (!pickedSlot) return;
-    setBooked(pickedSlot);
+  async function book() {
+    if (!pickedSlot || booking) return;
+    const at = pickedSlot;
+    const when = `${formatInZone(at, timeZone, { weekday: "long", day: "numeric", month: "long" })}, ${formatInZone(at, timeZone, {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    }).toUpperCase()}, ${zoneLabel(timeZone)} (${timeZone.split("/").pop()?.replace(/_/g, " ")})`;
+    setBookError("");
+    setBooking(true);
+    try {
+      await sendLead({
+        contact: leadRef.current.contact,
+        link: leadRef.current.link,
+        goals: "Demo time chosen",
+        slot: at.toISOString(),
+        slot_text: when,
+        timezone: timeZone,
+        source: "home-nov-booking",
+      });
+      setBooked(at);
+    } catch {
+      setBookError("We could not save that time. Please try again, or use the box below the form and we will pick a time with you.");
+    } finally {
+      setBooking(false);
+    }
   }
 
-  function sendDoubt(e: React.FormEvent<HTMLFormElement>) {
+  async function sendDoubt(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const contact = (e.currentTarget.elements.namedItem("doubt_contact") as HTMLInputElement | null)?.value.trim();
-    if (!contact) return;
-    setDoubtSent(true);
+    if (sendingDoubt) return;
+    const input = e.currentTarget.elements.namedItem("doubt_contact") as HTMLInputElement | null;
+    const contact = input?.value.trim();
+    setDoubtError("");
+    if (!contact) {
+      setDoubtNeeded(true);
+      input?.focus();
+      return;
+    }
+    setDoubtNeeded(false);
+    setSendingDoubt(true);
+    try {
+      await sendLead({ contact, goals: "Still having doubts, reply within 24 hours", source: "home-nov-doubts" });
+      setDoubtSent(true);
+    } catch {
+      setDoubtError("We could not send that. Please try again.");
+    } finally {
+      setSendingDoubt(false);
+    }
   }
 
   const bookedWhen = booked
@@ -178,7 +265,7 @@ export function BuildTwinForm() {
                       course. For the demo we only use public material, and your IP stays yours.
                     </InfoButton>
                   </span>
-                  <input id="tt-link" type="url" placeholder="Website, LinkedIn, YouTube, podcast or course" />
+                  <input id="tt-link" name="link" type="url" placeholder="Website, LinkedIn, YouTube, podcast or course" />
                 </div>
 
                 <div className="q">
@@ -190,16 +277,31 @@ export function BuildTwinForm() {
                   </span>
                   <div className="two">
                     <div>
-                      <input id="tt-contact" type="text" aria-label="Email or WhatsApp" placeholder="Email or WhatsApp" />
+                      <input
+                        id="tt-contact"
+                        name="contact"
+                        type="text"
+                        className={contactNeeded ? "need" : undefined}
+                        aria-label="Email or WhatsApp"
+                        aria-invalid={contactNeeded || undefined}
+                        placeholder="Email or WhatsApp"
+                        autoComplete="email"
+                        onInput={() => contactNeeded && setContactNeeded(false)}
+                      />
                     </div>
                   </div>
                 </div>
 
                 <div className="send">
-                  <button className="cta" type="submit">
-                    Build my free demo
+                  <button className="cta" type="submit" disabled={sending}>
+                    {sending ? "Sending…" : "Build my free demo"}
                   </button>
                 </div>
+                {formError && (
+                  <p className="form-error" role="alert">
+                    {formError}
+                  </p>
+                )}
                 <p className="consent">
                   By sending this, you agree to our{" "}
                   <a href="https://www.trainertwin.com/privacy" target="_blank" rel="noopener noreferrer">
@@ -276,9 +378,14 @@ export function BuildTwinForm() {
                         );
                       })}
                     </div>
-                    <button type="button" className="cta book" disabled={!pickedSlot} onClick={book}>
-                      Book this time
+                    <button type="button" className="cta book" disabled={!pickedSlot || booking} onClick={book}>
+                      {booking ? "Booking…" : "Book this time"}
                     </button>
+                    {bookError && (
+                      <p className="form-error" role="alert">
+                        {bookError}
+                      </p>
+                    )}
                   </div>
                 )}
 
@@ -303,7 +410,6 @@ export function BuildTwinForm() {
                   </div>
                 )}
 
-                <small>This is a preview page, so nothing was booked, saved or sent. The times are examples.</small>
               </div>
             )}
           </div>
@@ -321,11 +427,25 @@ export function BuildTwinForm() {
             <p className="doubt-thanks">Thanks. We&rsquo;ll get back within 24 hrs.</p>
           ) : (
             <form className="doubt-send" onSubmit={sendDoubt}>
-              <input name="doubt_contact" type="text" aria-label="Email or WhatsApp" placeholder="Email or WhatsApp" autoComplete="email" />
-              <button className="cta" type="submit">
-                Send
+              <input
+                name="doubt_contact"
+                type="text"
+                className={doubtNeeded ? "need" : undefined}
+                aria-label="Email or WhatsApp"
+                aria-invalid={doubtNeeded || undefined}
+                placeholder="Email or WhatsApp"
+                autoComplete="email"
+                onInput={() => doubtNeeded && setDoubtNeeded(false)}
+              />
+              <button className="cta" type="submit" disabled={sendingDoubt}>
+                {sendingDoubt ? "Sending…" : "Send"}
               </button>
             </form>
+          )}
+          {doubtError && (
+            <p className="form-error" role="alert">
+              {doubtError}
+            </p>
           )}
         </div>
       </div>

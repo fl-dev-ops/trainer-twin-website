@@ -23,7 +23,7 @@ export function Hero() {
         <div className="hero-main">
           <div className="lead">
             <p className="eyebrow">For coaches, trainers and professors</p>
-            <h1>Meet your AI twin in 48 hrs.</h1>
+            <h1>Meet your AI twin in 7 days.</h1>
             <div className="pitch">
               <p>We build your twin ready from your public courses, videos, books or posts.</p>
               <a

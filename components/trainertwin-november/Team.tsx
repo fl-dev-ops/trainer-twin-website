@@ -27,21 +27,21 @@ const MEMBERS: Member[] = [
   },
   {
     name: "Dharshini Jenefer",
-    role: "Growth",
+    role: "Partnerships",
     cred: "MA Education, Azim Premji University",
     photo: "/trainertwin-november/images/team-dharshini.jpg",
     linkedin: "https://www.linkedin.com/in/dharshini-jenefer-b8445398/",
   },
   {
     name: "Catherine Nivedha",
-    role: "Growth",
+    role: "Growth and Product",
     cred: "British Council coach, 9 years",
     photo: "/trainertwin-november/images/team-catherine.jpg",
     linkedin: "https://www.linkedin.com/in/catherine-nivedha-7a27811b0/",
   },
   {
     name: "Lalith Kumar",
-    role: "Growth",
+    role: "GTM Engineer",
     cred: "Ex-co-founder, Cliency",
     photo: "/trainertwin-november/images/team-lalith.jpg",
     linkedin: "https://www.linkedin.com/in/lalithlogs/",
@@ -68,22 +68,12 @@ const MEMBERS: Member[] = [
   },
 ];
 
-/** A short tag per person — shorter than their full role, so it sits over the photo without wrapping. */
-const CARD_TAG: Record<string, string> = {
-  "Shanmuga Anandaraman": "CEO",
-  "Harini Shekar": "CTO",
-  "Surya Umapathy": "AI Engineer",
-  "Bhuvan T": "Designer",
-  "Sandhya Shanmuga Sundaram": "Admin",
-};
-
 const SLIDES: FlexCarouselItem[] = MEMBERS.map((m) => ({
   src: m.photo,
   alt: m.name,
   title: m.name,
   subtitle: m.cred ? `${m.role} · ${m.cred}` : m.role,
   href: m.linkedin,
-  cardLabel: CARD_TAG[m.name] ?? m.role,
 }));
 
 /**
