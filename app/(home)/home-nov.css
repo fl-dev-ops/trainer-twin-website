@@ -1126,3 +1126,6 @@
 .tt26 .team > .wrap:first-child{padding-top:160px}
 
 .tt26 .uc-item span{font-size:14px;font-weight:400}
+
+/* Footer links: WhatsApp and privacy policy side by side */
+.tt26 .foot-links{display:inline-flex;gap:20px;flex-wrap:wrap}
