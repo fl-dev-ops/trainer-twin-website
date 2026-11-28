@@ -1,0 +1,21 @@
+/* Base-style parity with the repo this page was designed in
+   (fl-dev-ops/trainertwin-website). page.css is copied over unchanged and
+   leans on that repo's global base styles, which differ from this repo's in
+   three places. Each is reset here for this route only, so the rest of the
+   site keeps its own globals. */
+
+/* That repo sets b/strong to --tt-weight-medium (500); this one uses
+   semibold (600). Zero-specificity-on-the-element so every explicit weight in
+   page.css (.tte-page … b{font-weight:700}) still wins, exactly as before. */
+.tte-page :where(b, strong) {
+  font-weight: 500;
+}
+
+/* This repo's root layout adds `scroll-smooth` to <html> and
+   `overflow-x-hidden` to <body>; that repo's has neither. */
+html:has(.tte-page) {
+  scroll-behavior: auto;
+}
+body:has(.tte-page) {
+  overflow-x: visible;
+}

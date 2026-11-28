@@ -1,15 +1,12 @@
-import { homeFontVariables } from "@/app/TrainerTwin_home_v3/fonts";
-import "@/app/TrainerTwin_home_v3/home.css";
-import { fontHome } from "./fonts";
-import "./home.css";
+import { explorationFontVariables } from "./fonts";
+import "./page.css";
+import "./parity.css";
 
-export default function HomeLayout({ children }: { children: React.ReactNode }) {
+export default function HomeLayout({
+  children,
+}: LayoutProps<"/">) {
   return (
-    <div
-      data-theme="light"
-      className={`${homeFontVariables} ${fontHome.variable} tt-home tt-home--v3 tt-homepage flex-1`}
-    >
-      {children}
-    </div>
+    // Everything on this route lives under `.tte-page`: see page.css for why.
+    <div className={`${explorationFontVariables} tte-page`}>{children}</div>
   );
 }
