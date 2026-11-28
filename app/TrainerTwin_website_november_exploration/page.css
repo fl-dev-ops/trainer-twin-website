@@ -373,7 +373,8 @@
 .tte-page .cover-brand{position:absolute;top:16px;left:18px;display:flex;gap:8px;align-items:center;font-family:var(--display);font-weight:700;font-size:15px;color:rgba(255,255,255,.9)}
 .tte-page .cover-brand img{width:20px;height:auto}
 .tte-page .cover-big-play{width:76px;height:76px;border-radius:50%;background:var(--paper);color:var(--accent);display:flex;align-items:center;justify-content:center;animation:bigRing 1.8s ease-out infinite;transition:transform .38s cubic-bezier(.2,1.5,.3,1)}
-.tte-page .cover-big-play svg{margin-left:4px}
+/* Optical centre: the triangle's centroid sits ~7% of the icon's width left of its box centre, so shift by that — scales with every size below. */
+.tte-page .cover-big-play svg{transform:translateX(7%)}
 @keyframes bigRing{0%{box-shadow:0 0 0 0 rgba(255,90,60,.6)}100%{box-shadow:0 0 0 22px rgba(255,90,60,0)}}
 .tte-page .cover.warm .cover-title{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.3vw,32px);line-height:1.1;letter-spacing:-.02em;color:var(--paper)}
 .tte-page .cover-chapters{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 10px;align-items:center;font-size:13px;font-weight:600;color:#F3D6CC}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import TiltedCard from "./TiltedCard";
 
@@ -14,9 +15,7 @@ function CoverArt() {
         TrainerTwin
       </span>
       <span className="cover-big-play" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width={34} height={34}>
-          <path d="M8 5v14l11-7z" fill="currentColor" />
-        </svg>
+        <Play size={34} fill="currentColor" strokeWidth={0} />
       </span>
       <span className="cover-title">See how TrainerTwin works</span>
       <span className="cover-chapters">
