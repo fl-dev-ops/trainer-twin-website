@@ -4,6 +4,11 @@ import { Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import TiltedCard from "./TiltedCard";
 
+/** "Introducing TrainerTwin — your AI twin for every learner" (1:47) on the
+ * TrainerTwin YouTube channel. Mounted only while the popup is open, so it
+ * loads on click and starts playing; closing the popup unmounts it and stops it. */
+const INTRO_VIDEO_SRC = "https://www.youtube-nocookie.com/embed/ArAxbHGoyyw?autoplay=1&rel=0&playsinline=1";
+
 const MINI_WIDTH = 170;
 const MINI_MARGIN = 20;
 
@@ -49,10 +54,7 @@ function CoverArt() {
  * "none"`) so `.stage` stops being a containing block and `position:fixed`
  * resolves against the real viewport, the way a pinned widget needs to.
  *
- * There is no real video file behind this yet (same limitation as the
- * prototype it was ported from): the popup shows the same cover art rather
- * than actual playback. The mechanism is ready for whenever a real `.mp4`
- * is added.
+ * The popup plays the TrainerTwin intro video from YouTube (INTRO_VIDEO_SRC).
  */
 export function VideoStage() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -258,10 +260,14 @@ export function VideoStage() {
               </svg>
             </button>
             <div className="screen has-video">
-              <video id="tt-video-modal" preload="metadata" width={1280} height={720} />
-              <span className="cover warm" aria-hidden="true" style={{ position: "absolute", cursor: "default" }}>
-                <CoverArt />
-              </span>
+              <iframe
+                className="video-modal-embed"
+                src={INTRO_VIDEO_SRC}
+                title="Introducing TrainerTwin — your AI twin for every learner"
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
             </div>
           </div>
         </div>
